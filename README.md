@@ -93,6 +93,5 @@ npm run clean
 ---
 
 ## 👨‍💻 Developed by
-*   Original Game by: **k4ng (Cahya)**
-*   Rebranded Version: **Magic Mind Reader**
+*   **Cahya** (k4ng)
 *   *Note: This project is a modernized rework of the original repository: [your-number](https://github.com/dyazincahya-archive/your-number)*
