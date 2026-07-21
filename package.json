@@ -1,0 +1,27 @@
+{
+  "name": "guest-number",
+  "main": "app/app.ts",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev:android": "ns run android",
+    "dev:ios": "ns run ios",
+    "clean": "ns clean"
+  },
+  "dependencies": {
+    "@nativescript/canvas": "^2.1.11",
+    "@nativescript/core": "~9.0.0",
+    "@nativescript/localize": "^5.2.0",
+    "@nativescript/tailwind": "^4.0.9",
+    "@nativescript/theme": "^3.1.0",
+    "@nativescript-community/audio": "^6.4.14",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@nativescript/types": "~9.0.0",
+    "@nativescript/vite": "^1.0.4",
+    "@valor/nativescript-websockets": "^1.0.3",
+    "concurrently": "^8.2.0",
+    "typescript": "^7.0.2"
+  }
+}

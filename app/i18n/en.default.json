@@ -1,0 +1,20 @@
+{
+  "app.name": "Magic Mind Reader",
+  "title": "Magic Mind Reader",
+  "subtitle": "Think of a number between 1 and 31. Let the magic guess it!",
+  "btn_play": "Start Magic",
+  "created_by": "Developed by Cahya",
+  "step_title": "Find Your Number",
+  "step_info": "Step %s of 5",
+  "question": "Is your number here?",
+  "btn_yes": "Yes",
+  "btn_no": "No",
+  "result_title": "THE MAGIC RESULT",
+  "result_message": "The number you have in mind is",
+  "btn_restart": "Play Again",
+  "loading_result": "Analyzing the magic vibrations...",
+  "loading_push": "Pushing magic...",
+  "lang_en": "English",
+  "lang_id": "Bahasa Indonesia",
+  "choose_lang": "Language"
+}

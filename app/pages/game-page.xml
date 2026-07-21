@@ -1,0 +1,73 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:canvas="@nativescript/canvas"
+    navigatingTo="onNavigatingTo" 
+    actionBarHidden="true"
+    class="bg-indigo-950 text-white">
+
+    <GridLayout rows="auto, *, auto">
+        <!-- Header -->
+        <StackLayout row="0" class="p-6 text-center">
+            <Label text="{{ L('step_title') }}" class="text-2xl font-black text-pink-500 uppercase tracking-widest" />
+            <Label text="{{ stepText }}" class="text-xs text-indigo-300 font-bold bg-indigo-900/60 border border-indigo-500/20 rounded-full px-4 py-1 self-center mt-2" />
+        </StackLayout>
+
+        <!-- Body with Card & Numbers Grid -->
+        <GridLayout row="1" class="px-6 py-2">
+            <!-- Canvas for Scan/Particle Effects -->
+            <canvas:Canvas id="effectsCanvas" width="100%" height="100%" ready="onCanvasReady" />
+
+            <!-- Numbers Panel -->
+            <StackLayout verticalAlignment="center" class="bg-indigo-900/50 border border-indigo-500/20 rounded-3xl p-6 shadow-2xl">
+                <Label text="{{ L('question') }}" class="text-lg text-center font-bold text-indigo-200 mb-6" />
+
+                <!-- 4x4 Grid for 16 numbers -->
+                <GridLayout rows="auto, auto, auto, auto" columns="*, *, *, *" class="gap-4">
+                    <!-- Row 0 -->
+                    <Label row="0" col="0" text="{{ num0 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="0" col="1" text="{{ num1 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="0" col="2" text="{{ num2 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="0" col="3" text="{{ num3 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+
+                    <!-- Row 1 -->
+                    <Label row="1" col="0" text="{{ num4 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="1" col="1" text="{{ num5 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="1" col="2" text="{{ num6 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="1" col="3" text="{{ num7 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+
+                    <!-- Row 2 -->
+                    <Label row="2" col="0" text="{{ num8 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="2" col="1" text="{{ num9 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="2" col="2" text="{{ num10 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="2" col="3" text="{{ num11 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+
+                    <!-- Row 3 -->
+                    <Label row="3" col="0" text="{{ num12 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="3" col="1" text="{{ num13 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="3" col="2" text="{{ num14 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                    <Label row="3" col="3" text="{{ num15 }}" class="text-center text-2xl font-black text-white bg-indigo-950/80 border border-indigo-700/40 rounded-2xl py-4" />
+                </GridLayout>
+            </StackLayout>
+        </GridLayout>
+
+        <!-- Actions Footer -->
+        <GridLayout row="2" columns="*, *" class="p-6 gap-4">
+            <!-- NO Button -->
+            <Button col="0" tap="onNo" class="bg-rose-600 active:bg-rose-700 text-white font-extrabold text-lg rounded-2xl py-4 shadow-lg shadow-rose-500/20">
+                <FormattedString>
+                    <Span text="&#xf00d;" class="fas" />
+                    <Span text="&nbsp;&nbsp; " />
+                    <Span text="{{ L('btn_no') }}" />
+                </FormattedString>
+            </Button>
+            <!-- YES Button -->
+            <Button col="1" tap="onYes" class="bg-emerald-600 active:bg-emerald-700 text-white font-extrabold text-lg rounded-2xl py-4 shadow-lg shadow-emerald-500/20">
+                <FormattedString>
+                    <Span text="&#xf00c;" class="fas" />
+                    <Span text="&nbsp;&nbsp; " />
+                    <Span text="{{ L('btn_yes') }}" />
+                </FormattedString>
+            </Button>
+        </GridLayout>
+    </GridLayout>
+</Page>

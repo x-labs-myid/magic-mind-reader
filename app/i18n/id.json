@@ -1,0 +1,20 @@
+{
+  "app.name": "Magic Mind Reader",
+  "title": "Magic Mind Reader",
+  "subtitle": "Pikirkan sebuah angka dari 1 sampai 31. Biarkan sihir menebaknya!",
+  "btn_play": "Mulai Sihir",
+  "created_by": "Dikembangkan oleh Cahya",
+  "step_title": "Cari Angka Anda",
+  "step_info": "Langkah %s dari 5",
+  "question": "Apakah angka Anda ada di sini?",
+  "btn_yes": "Ya",
+  "btn_no": "Tidak",
+  "result_title": "HASIL SIHIR",
+  "result_message": "Angka yang ada di pikiran Anda adalah",
+  "btn_restart": "Main Lagi",
+  "loading_result": "Menganalisis getaran sihir...",
+  "loading_push": "Mengirimkan sihir...",
+  "lang_en": "English",
+  "lang_id": "Bahasa Indonesia",
+  "choose_lang": "Bahasa"
+}

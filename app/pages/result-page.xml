@@ -1,0 +1,50 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:canvas="@nativescript/canvas"
+    navigatingTo="onNavigatingTo" 
+    actionBarHidden="true"
+    class="bg-indigo-950 text-white">
+
+    <GridLayout rows="*">
+        <!-- Confetti Canvas Background Layer -->
+        <canvas:Canvas id="confettiCanvas" row="0" width="100%" height="100%" ready="onCanvasReady" />
+
+        <!-- UI Content Layer -->
+        <GridLayout row="0" rows="*, auto">
+            <!-- Main Content Area -->
+            <StackLayout row="0" verticalAlignment="center" horizontalAlignment="center" class="px-6 text-center">
+                <!-- Loading State -->
+                <StackLayout visibility="{{ isLoading ? 'visible' : 'collapsed' }}" class="space-y-4">
+                    <ActivityIndicator busy="true" class="text-pink-500 w-16 h-16 self-center" />
+                    <Label text="{{ L('loading_result') }}" class="text-indigo-200 text-lg font-bold" textWrap="true" />
+                </StackLayout>
+
+                <!-- Result Revealed State -->
+                <StackLayout visibility="{{ !isLoading ? 'visible' : 'collapsed' }}" class="space-y-6">
+                    <Label text="✨ {{ L('result_title') }} ✨" class="text-xl font-black text-pink-500 uppercase tracking-widest" />
+                    <Label text="{{ L('result_message') }}" class="text-indigo-200 text-lg font-semibold" />
+                    
+                    <!-- Reveal Circle -->
+                    <AbsoluteLayout class="w-56 h-56 self-center my-4">
+                        <!-- Outer Glow Ring (via tailwind) -->
+                        <StackLayout class="w-56 h-56 bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-500 rounded-full opacity-30 animate-pulse" />
+                        <!-- Inner Container -->
+                        <GridLayout class="w-48 h-48 bg-indigo-900 border-4 border-indigo-400 rounded-full shadow-2xl m-4" verticalAlignment="center" horizontalAlignment="center">
+                            <Label text="{{ result }}" class="text-center text-7xl font-black text-white" />
+                        </GridLayout>
+                    </AbsoluteLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout row="1" class="p-6" visibility="{{ !isLoading ? 'visible' : 'collapsed' }}">
+                <Button tap="restartGame" class="bg-gradient-to-r from-pink-500 to-purple-600 active:from-pink-600 active:to-purple-700 text-white font-extrabold text-lg rounded-2xl py-4 shadow-lg shadow-pink-500/20">
+                    <FormattedString>
+                        <Span text="&#xf01e;" class="fas" />
+                        <Span text="&nbsp;&nbsp; " />
+                        <Span text="{{ L('btn_restart') }}" />
+                    </FormattedString>
+                </Button>
+            </StackLayout>
+        </GridLayout>
+    </GridLayout>
+</Page>

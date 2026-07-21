@@ -1,0 +1,13 @@
+import { NativeScriptConfig } from "@nativescript/core";
+
+export default {
+  id: "com.kang.cahya.apps.magicmindreader",
+  appPath: "app",
+  appResourcesPath: "App_Resources",
+  bundler: "vite",
+  bundlerConfigPath: "vite.config.ts",
+  android: {
+    v8Flags: "--expose_gc",
+    markingMode: "none",
+  },
+} as NativeScriptConfig;
