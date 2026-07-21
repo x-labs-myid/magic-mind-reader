@@ -101,22 +101,20 @@ export function onCanvasReady(args: any) {
 
     ctx.clearRect(0, 0, width, height);
 
-    // Dynamic background based on light/dark mode
-    const isDark = Application.systemAppearance() === 'dark';
-    
+    // Deep Indigo Night sky gradient
     const grad = ctx.createLinearGradient(0, 0, 0, height);
-    if (isDark) {
-      grad.addColorStop(0, '#09090b'); // zinc-950
-      grad.addColorStop(1, '#18181b'); // zinc-900
-    } else {
-      grad.addColorStop(0, '#ffffff'); // white
-      grad.addColorStop(1, '#f4f4f5'); // zinc-100
-    }
+    grad.addColorStop(0, '#0f172a'); // slate-900
+    grad.addColorStop(0.5, '#1e1b4b'); // indigo-950
+    grad.addColorStop(1, '#311042'); // purple-950
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
 
-    // Render floating numbers
-    for (const num of floatingNumbers) {
+    // Playful neon colors for magic floating items
+    const particleColors = ['#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4', '#10b981'];
+
+    // Render floating numbers and magical glowing bubbles
+    for (let i = 0; i < floatingNumbers.length; i++) {
+      const num = floatingNumbers[i];
       num.x += num.vx;
       num.y += num.vy;
 
@@ -126,13 +124,24 @@ export function onCanvasReady(args: any) {
       if (num.y < -30) num.y = height + 30;
       if (num.y > height + 30) num.y = -30;
 
-      // Color changes according to theme
-      const colorPrefix = isDark ? 'rgba(255, 255, 255, ' : 'rgba(9, 9, 11, ';
-      ctx.fillStyle = colorPrefix + num.alpha + ')';
-      ctx.font = `bold ${num.fontSize}px sans-serif`;
+      const color = particleColors[i % particleColors.length];
+
+      // Draw soft ambient glow circle
+      ctx.beginPath();
+      ctx.arc(num.x, num.y, num.fontSize * 0.9, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.12;
+      ctx.fill();
+
+      // Draw floating number
+      ctx.globalAlpha = num.alpha + 0.3;
+      ctx.fillStyle = color;
+      ctx.font = `900 ${num.fontSize}px sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(num.text, num.x, num.y);
+
+      ctx.globalAlpha = 1.0;
     }
 
     animationFrameId = requestAnimationFrame(render);

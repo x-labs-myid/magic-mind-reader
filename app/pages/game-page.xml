@@ -3,13 +3,13 @@
     xmlns:canvas="@nativescript/canvas"
     navigatingTo="onNavigatingTo" 
     actionBarHidden="true"
-    class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white">
+    class="bg-indigo-950 text-white">
 
     <GridLayout rows="auto, *, auto">
         <!-- Header -->
         <StackLayout row="0" class="p-6 text-center">
-            <Label text="{{ L('step_title') }}" class="text-2xl font-black text-zinc-950 dark:text-white uppercase tracking-widest" />
-            <Label text="{{ stepText }}" class="text-xs text-zinc-600 dark:text-zinc-400 font-bold bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200/50 dark:border-zinc-800/20 rounded-full px-4 py-1 self-center mt-2" />
+            <Label text="✨ {{ L('step_title') }} ✨" class="text-xl font-black text-amber-300 uppercase tracking-wider" />
+            <Label text="{{ stepText }}" class="text-xs text-indigo-950 font-black bg-amber-400 rounded-full px-5 py-1.5 self-center mt-2 shadow-md" />
         </StackLayout>
 
         <!-- Body with Card & Numbers Grid -->
@@ -17,53 +17,54 @@
             <!-- Canvas for Scan/Particle Effects -->
             <canvas:Canvas id="effectsCanvas" width="100%" height="100%" ready="onCanvasReady" />
 
-            <!-- Numbers Panel -->
-            <StackLayout verticalAlignment="center" class="bg-zinc-50/90 dark:bg-zinc-900/60 border border-zinc-200/50 dark:border-zinc-800/30 rounded-3xl p-6 shadow-2xl">
-                <!-- Branding Mini Icon (FontAwesome hand-sparkles) -->
-                <Label text="&#xe05d;" class="fas text-3xl text-zinc-900 dark:text-white text-center mb-2" />
-                <Label text="{{ L('question') }}" class="text-lg text-center font-bold text-zinc-700 dark:text-zinc-300 mb-6" />
+            <!-- Numbers Panel Container -->
+            <StackLayout verticalAlignment="center" class="card-panel border-2 rounded-3xl p-6 shadow-2xl">
+                <StackLayout class="badge-amber rounded-full w-14 h-14 self-center mb-2 p-2" verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="&#xe05d;" class="fas text-2xl text-amber-300 text-center" />
+                </StackLayout>
+                <Label text="{{ L('question') }}" class="text-lg text-center font-extrabold text-indigo-100 mb-5" textWrap="true" />
 
-                <!-- 4x4 Grid for 16 numbers -->
-                <GridLayout rows="auto, auto, auto, auto" columns="*, *, *, *" class="gap-4">
+                <!-- 4x4 Grid for 16 numbers with colorful badge styling -->
+                <GridLayout rows="auto, auto, auto, auto" columns="*, *, *, *" class="gap-3">
                     <!-- Row 0 -->
-                    <Label row="0" col="0" text="{{ num0 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="0" col="1" text="{{ num1 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="0" col="2" text="{{ num2 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="0" col="3" text="{{ num3 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
+                    <Label row="0" col="0" text="{{ num0 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="0" col="1" text="{{ num1 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="0" col="2" text="{{ num2 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="0" col="3" text="{{ num3 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
 
                     <!-- Row 1 -->
-                    <Label row="1" col="0" text="{{ num4 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="1" col="1" text="{{ num5 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="1" col="2" text="{{ num6 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="1" col="3" text="{{ num7 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
+                    <Label row="1" col="0" text="{{ num4 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="1" col="1" text="{{ num5 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="1" col="2" text="{{ num6 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="1" col="3" text="{{ num7 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
 
                     <!-- Row 2 -->
-                    <Label row="2" col="0" text="{{ num8 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="2" col="1" text="{{ num9 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="2" col="2" text="{{ num10 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="2" col="3" text="{{ num11 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
+                    <Label row="2" col="0" text="{{ num8 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="2" col="1" text="{{ num9 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="2" col="2" text="{{ num10 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="2" col="3" text="{{ num11 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
 
                     <!-- Row 3 -->
-                    <Label row="3" col="0" text="{{ num12 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="3" col="1" text="{{ num13 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="3" col="2" text="{{ num14 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
-                    <Label row="3" col="3" text="{{ num15 }}" class="text-center text-2xl font-black text-zinc-900 dark:text-white bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-700/40 rounded-2xl py-4" />
+                    <Label row="3" col="0" text="{{ num12 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="3" col="1" text="{{ num13 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="3" col="2" text="{{ num14 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <Label row="3" col="3" text="{{ num15 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
                 </GridLayout>
             </StackLayout>
         </GridLayout>
 
         <!-- Actions Footer -->
         <GridLayout row="2" columns="*, *" class="p-6 gap-4">
-            <!-- NO Button -->
-            <Button col="0" tap="onNo" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-850 font-extrabold text-lg rounded-2xl py-4">
+            <!-- NO Button (Vibrant Rose/Red) -->
+            <Button col="0" tap="onNo" class="bg-rose-600 active:bg-rose-500 text-white font-black text-xl rounded-2xl py-4 shadow-lg border-b-4 border-rose-800">
                 <FormattedString>
                     <Span text="&#xf00d;" class="fas" />
                     <Span text="&nbsp;&nbsp; " />
                     <Span text="{{ L('btn_no') }}" />
                 </FormattedString>
             </Button>
-            <!-- YES Button -->
-            <Button col="1" tap="onYes" class="bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 active:bg-zinc-900 dark:active:bg-zinc-100 font-extrabold text-lg rounded-2xl py-4">
+            <!-- YES Button (Vibrant Emerald/Green) -->
+            <Button col="1" tap="onYes" class="bg-emerald-500 active:bg-emerald-400 text-white font-black text-xl rounded-2xl py-4 shadow-lg border-b-4 border-emerald-700">
                 <FormattedString>
                     <Span text="&#xf00c;" class="fas" />
                     <Span text="&nbsp;&nbsp; " />

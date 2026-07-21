@@ -3,7 +3,7 @@
     xmlns:canvas="@nativescript/canvas"
     navigatingTo="onNavigatingTo" 
     actionBarHidden="true"
-    class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white">
+    class="bg-indigo-950 text-white">
 
     <GridLayout rows="*">
         <!-- Canvas Background Layer -->
@@ -14,7 +14,7 @@
             <!-- Header (Language & About) -->
             <GridLayout row="0" columns="auto, *" class="w-full">
                 <!-- About App Button (FontAwesome info-circle) -->
-                <Button col="0" tap="goAbout" class="text-lg bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 rounded-full w-10 h-10 text-zinc-800 dark:text-zinc-200">
+                <Button col="0" tap="goAbout" class="text-lg btn-header active:bg-indigo-800 rounded-full w-12 h-12 text-amber-300 border shadow-md">
                     <FormattedString>
                         <Span text="&#xf05a;" class="fas" />
                     </FormattedString>
@@ -22,27 +22,28 @@
 
                 <!-- Language Selector -->
                 <StackLayout col="1" orientation="horizontal" horizontalAlignment="right" class="space-x-2">
-                    <Label text="{{ L('choose_lang') + ':' }}" class="text-sm text-zinc-500 dark:text-zinc-400 font-semibold self-center" />
-                    <Button text="{{ L('lang_en') }}" tap="selectEnglish" class="text-xs bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 rounded-lg px-3 py-1 font-bold text-zinc-800 dark:text-zinc-200" />
-                    <Button text="{{ L('lang_id') }}" tap="selectIndonesian" class="text-xs bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 rounded-lg px-3 py-1 font-bold text-zinc-800 dark:text-zinc-200" />
+                    <Label text="{{ L('choose_lang') + ':' }}" class="text-xs text-indigo-300 font-bold self-center mr-1" />
+                    <Button text="{{ L('lang_en') }}" tap="selectEnglish" class="text-xs btn-lang active:bg-indigo-700 border rounded-xl px-3 py-1.5 font-extrabold text-amber-300 shadow-sm" />
+                    <Button text="{{ L('lang_id') }}" tap="selectIndonesian" class="text-xs btn-lang active:bg-indigo-700 border rounded-xl px-3 py-1.5 font-extrabold text-amber-300 shadow-sm" />
                 </StackLayout>
             </GridLayout>
 
-            <!-- Main Menu Panel -->
-            <StackLayout row="1" verticalAlignment="center" horizontalAlignment="center" class="bg-zinc-50/90 dark:bg-zinc-900/60 border border-zinc-200/50 dark:border-zinc-800/30 rounded-3xl p-8 max-w-sm text-center shadow-2xl">
-                <!-- Branding Icon (FontAwesome hand-sparkles) -->
-                <Label text="&#xe05d;" class="fas text-6xl text-zinc-900 dark:text-white mb-4" />
+            <!-- Main Menu Card Panel -->
+            <StackLayout row="1" verticalAlignment="center" horizontalAlignment="center" class="card-panel border-2 rounded-3xl p-7 max-w-sm text-center shadow-2xl">
+                <StackLayout class="bg-gradient-to-tr from-amber-400 to-pink-500 rounded-full w-20 h-20 self-center mb-4 p-4 badge-magic" verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="&#xe05d;" class="fas text-4xl text-white text-center" />
+                </StackLayout>
                 
                 <!-- Game Title -->
-                <Label text="{{ L('title') }}" class="text-3xl font-extrabold text-zinc-900 dark:text-white mb-2" textWrap="true" />
+                <Label text="{{ L('title') }}" class="text-3xl font-black text-amber-300 mb-2" textWrap="true" />
                 
                 <!-- Subtitle -->
-                <Label text="{{ L('subtitle') }}" class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-8" textWrap="true" />
+                <Label text="{{ L('subtitle') }}" class="text-indigo-100 text-sm leading-relaxed mb-6 font-semibold" textWrap="true" />
 
-                <!-- Let's Play Button -->
-                <Button tap="startPlay" class="bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 font-extrabold text-lg rounded-2xl py-4 shadow-lg shadow-zinc-950/10 dark:shadow-white/5">
+                <!-- Let's Play Button (Vibrant Pink/Amber Gradient Accent) -->
+                <Button tap="startPlay" class="bg-amber-400 active:bg-amber-300 text-indigo-950 font-black text-xl rounded-2xl py-4 btn-play border-2 border-amber-300">
                     <FormattedString>
-                        <Span text="&#xf04b;" class="fas" />
+                        <Span text="&#xf04b;" class="fas text-amber-950" />
                         <Span text="&nbsp;&nbsp; " />
                         <Span text="{{ L('btn_play') }}" />
                     </FormattedString>
@@ -50,8 +51,8 @@
             </StackLayout>
 
             <!-- Footer -->
-            <StackLayout row="2" class="text-center">
-                <Label text="{{ L('created_by') }}" class="text-xs text-zinc-400 dark:text-zinc-600" />
+            <StackLayout row="2" class="text-center pb-2">
+                <Label text="{{ L('created_by') }}" class="text-xs footer-text font-bold" />
             </StackLayout>
         </GridLayout>
     </GridLayout>

@@ -66,18 +66,18 @@ export function onCanvasReady(args: any) {
   canvasWidth = canvas.width;
   canvasHeight = canvas.height;
 
-  // Premium monochrome aligned palette (Gold, Silver, Black, White)
+  // Colorful festive party palette
   const colors = [
-    '#000000', // Black
-    '#ffffff', // White
-    '#d4af37', // Gold
-    '#c0c0c0', // Silver
-    '#18181b', // Zinc-900
-    '#e4e4e7'  // Zinc-200
+    '#f59e0b', // Amber / Gold
+    '#ec4899', // Pink
+    '#8b5cf6', // Violet
+    '#10b981', // Emerald green
+    '#06b6d4', // Cyan
+    '#ffffff'  // Bright White
   ];
 
   // Initialize confetti particles
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 90; i++) {
     confettis.push({
       x: Math.random() * canvasWidth,
       y: Math.random() * -canvasHeight - 20,
@@ -94,10 +94,10 @@ export function onCanvasReady(args: any) {
     if (canvasCtx && viewModel && !viewModel.isLoading) {
       canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      // Render canvas background to blend with page
-      const isDark = Application.systemAppearance() === 'dark';
-      canvasCtx.fillStyle = isDark ? '#09090b' : '#ffffff';
+      // Render dark indigo canvas background to match page
+      canvasCtx.fillStyle = '#0f172a';
       canvasCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+      const isDark = Application.systemAppearance ? Application.systemAppearance() === 'dark' : true;
 
       for (const p of confettis) {
         p.x += p.vx;

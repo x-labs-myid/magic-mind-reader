@@ -63,9 +63,8 @@ class GameViewModel extends Observable {
   public answer(yes: boolean) {
     AudioHelper.playTap();
 
-    // Trigger scanning animation matching light/dark theme
-    const isDark = Application.systemAppearance() === 'dark';
-    this.scanColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)';
+    // Trigger scanning animation matching vibrant theme
+    this.scanColor = 'rgba(6, 182, 212, 0.9)'; // Neon Cyan Laser
     
     this.scanY = 0;
     this.isScanning = true;

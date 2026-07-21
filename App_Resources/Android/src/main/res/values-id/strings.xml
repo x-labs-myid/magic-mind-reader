@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="btn_back">"Kembali"</string>
+  <string name="about_credits">"Kredit &amp; Atribusi"</string>
+  <string name="about_desc">"Magic Mind Reader adalah aplikasi gamifikasi yang menggunakan trik kartu matematika pencarian biner. Pengguna diminta memikirkan angka antara 1 dan 31. Dengan menjawab 5 pertanyaan Ya/Tidak sederhana saat kartu ditampilkan, mesin sulap akan mengidentifikasi dan mengungkapkan angka yang dipilih dengan benar."</string>
+  <string name="about_title">"Tentang Aplikasi"</string>
+  <string name="choose_lang">"Bahasa"</string>
+  <string name="lang_id">"Bahasa Indonesia"</string>
+  <string name="lang_en">"English"</string>
+  <string name="loading_push">"Mengirimkan sihir..."</string>
+  <string name="loading_result">"Menganalisis getaran sihir..."</string>
+  <string name="btn_restart">"Main Lagi"</string>
+  <string name="result_message">"Angka yang ada di pikiran Anda adalah"</string>
+  <string name="result_title">"HASIL SIHIR"</string>
+  <string name="btn_no">"Tidak"</string>
+  <string name="btn_yes">"Ya"</string>
+  <string name="question">"Apakah angka Anda ada di sini?"</string>
+  <string name="step_info">"Langkah %1$s dari 5"</string>
+  <string name="step_title">"Cari Angka Anda"</string>
+  <string name="created_by">"Dikembangkan oleh Cahya"</string>
+  <string name="btn_play">"Mulai Sihir"</string>
+  <string name="subtitle">"Pikirkan sebuah angka dari 1 sampai 31. Biarkan sihir menebaknya!"</string>
+  <string name="title">"Magic Mind Reader"</string>
+  <string name="_app_name_1k3Sbz">"Magic Mind Reader"</string>
+  <string name="app_name">"Magic Mind Reader"</string>
+  <string name="title_activity_kimera">"Magic Mind Reader"</string>
+</resources>

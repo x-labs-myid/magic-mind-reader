@@ -20,9 +20,9 @@
   "devDependencies": {
     "@nativescript/android": "9.0.5",
     "@nativescript/types": "~9.0.0",
-    "@nativescript/vite": "^1.0.4",
+    "@nativescript/webpack": "^5.0.36",
     "@valor/nativescript-websockets": "^1.0.3",
     "concurrently": "^8.2.0",
-    "typescript": "^7.0.2"
+    "typescript": "~5.4.0"
   }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="btn_back">"Back"</string>
+  <string name="about_credits">"Credits &amp; Attributions"</string>
+  <string name="about_desc">"Magic Mind Reader is a gamified application that employs a binary-search mathematical card trick. The user is asked to think of any integer between 1 and 31. By answering 5 simple Yes/No questions as cards are presented, the magic engine correctly identifies and reveals the chosen number."</string>
+  <string name="about_title">"About App"</string>
+  <string name="choose_lang">"Language"</string>
+  <string name="lang_id">"Bahasa Indonesia"</string>
+  <string name="lang_en">"English"</string>
+  <string name="loading_push">"Pushing magic..."</string>
+  <string name="loading_result">"Analyzing the magic vibrations..."</string>
+  <string name="btn_restart">"Play Again"</string>
+  <string name="result_message">"The number you have in mind is"</string>
+  <string name="result_title">"THE MAGIC RESULT"</string>
+  <string name="btn_no">"No"</string>
+  <string name="btn_yes">"Yes"</string>
+  <string name="question">"Is your number here?"</string>
+  <string name="step_info">"Step %1$s of 5"</string>
+  <string name="step_title">"Find Your Number"</string>
+  <string name="created_by">"Developed by Cahya"</string>
+  <string name="btn_play">"Start Magic"</string>
+  <string name="subtitle">"Think of a number between 1 and 31. Let the magic guess it!"</string>
+  <string name="title">"Magic Mind Reader"</string>
+  <string name="_app_name_1k3Sbz">"Magic Mind Reader"</string>
+  <string name="app_name">"Magic Mind Reader"</string>
+  <string name="title_activity_kimera">"Magic Mind Reader"</string>
+</resources>
