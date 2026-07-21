@@ -1,4 +1,4 @@
-import { EventData, Page, Frame, Observable } from '@nativescript/core';
+import { EventData, Page, Frame, Observable, Application } from '@nativescript/core';
 import { AudioHelper } from '../shared/audio-helper';
 
 interface Confetti {
@@ -66,13 +66,14 @@ export function onCanvasReady(args: any) {
   canvasWidth = canvas.width;
   canvasHeight = canvas.height;
 
+  // Premium monochrome aligned palette (Gold, Silver, Black, White)
   const colors = [
-    '#f43f5e', // rose-500
-    '#3b82f6', // blue-500
-    '#eab308', // yellow-500
-    '#a855f7', // purple-500
-    '#10b981', // emerald-500
-    '#f97316'  // orange-500
+    '#000000', // Black
+    '#ffffff', // White
+    '#d4af37', // Gold
+    '#c0c0c0', // Silver
+    '#18181b', // Zinc-900
+    '#e4e4e7'  // Zinc-200
   ];
 
   // Initialize confetti particles
@@ -93,6 +94,11 @@ export function onCanvasReady(args: any) {
     if (canvasCtx && viewModel && !viewModel.isLoading) {
       canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+      // Render canvas background to blend with page
+      const isDark = Application.systemAppearance() === 'dark';
+      canvasCtx.fillStyle = isDark ? '#09090b' : '#ffffff';
+      canvasCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+
       for (const p of confettis) {
         p.x += p.vx;
         p.y += p.vy;
@@ -107,6 +113,10 @@ export function onCanvasReady(args: any) {
         if (p.x < 0 || p.x > canvasWidth) {
           p.vx *= -1;
         }
+
+        // Skip drawing black confetti on black background or white on white
+        if (isDark && p.color === '#000000') continue;
+        if (!isDark && p.color === '#ffffff') continue;
 
         canvasCtx.save();
         canvasCtx.translate(p.x, p.y);

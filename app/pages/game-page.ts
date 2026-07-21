@@ -1,4 +1,4 @@
-import { EventData, Page, Frame, Observable } from '@nativescript/core';
+import { EventData, Page, Frame, Observable, Application } from '@nativescript/core';
 import { localize } from '@nativescript/localize';
 import { AudioHelper } from '../shared/audio-helper';
 
@@ -32,7 +32,7 @@ class GameViewModel extends Observable {
   // Scan effect properties
   public scanY = 0;
   public isScanning = false;
-  public scanColor = 'rgba(16, 185, 129, 0.8)'; // emerald-500
+  public scanColor = 'rgba(0, 0, 0, 0.8)';
 
   constructor() {
     super();
@@ -63,8 +63,10 @@ class GameViewModel extends Observable {
   public answer(yes: boolean) {
     AudioHelper.playTap();
 
-    // Trigger scanning animation
-    this.scanColor = yes ? 'rgba(16, 185, 129, 0.8)' : 'rgba(244, 63, 94, 0.8)'; // Green or Pink/Red
+    // Trigger scanning animation matching light/dark theme
+    const isDark = Application.systemAppearance() === 'dark';
+    this.scanColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)';
+    
     this.scanY = 0;
     this.isScanning = true;
 

@@ -1,4 +1,4 @@
-import { EventData, Page, Frame, Observable } from '@nativescript/core';
+import { EventData, Page, Frame, Observable, Application } from '@nativescript/core';
 import { overrideLocale } from '@nativescript/localize';
 import { AudioHelper } from './shared/audio-helper';
 
@@ -12,7 +12,6 @@ interface FloatingNumber {
   vy: number;
   fontSize: number;
   text: string;
-  color: string;
   alpha: number;
 }
 
@@ -66,15 +65,6 @@ export function onCanvasReady(args: any) {
   const width = canvas.width;
   const height = canvas.height;
 
-  // Colorful numbers to float in background
-  const colors = [
-    'rgba(236, 72, 153, ',  // Pink-500
-    'rgba(99, 102, 241, ',  // Indigo-500
-    'rgba(168, 85, 247, ',  // Purple-500
-    'rgba(245, 158, 11, ',  // Amber-500
-    'rgba(16, 185, 129, '   // Emerald-500
-  ];
-
   const floatingNumbers: FloatingNumber[] = [];
   for (let i = 0; i < 20; i++) {
     floatingNumbers.push({
@@ -84,8 +74,7 @@ export function onCanvasReady(args: any) {
       vy: (Math.random() - 0.5) * 1.5,
       fontSize: Math.floor(Math.random() * 20) + 16,
       text: String(Math.floor(Math.random() * 31) + 1),
-      color: colors[Math.floor(Math.random() * colors.length)],
-      alpha: Math.random() * 0.4 + 0.1
+      alpha: Math.random() * 0.3 + 0.05
     });
   }
 
@@ -94,10 +83,17 @@ export function onCanvasReady(args: any) {
 
     ctx.clearRect(0, 0, width, height);
 
-    // Draw background subtle gradient
+    // Dynamic background based on light/dark mode
+    const isDark = Application.systemAppearance() === 'dark';
+    
     const grad = ctx.createLinearGradient(0, 0, 0, height);
-    grad.addColorStop(0, '#0f172a'); // slate-900
-    grad.addColorStop(1, '#1e1b4b'); // indigo-950
+    if (isDark) {
+      grad.addColorStop(0, '#09090b'); // zinc-950
+      grad.addColorStop(1, '#18181b'); // zinc-900
+    } else {
+      grad.addColorStop(0, '#ffffff'); // white
+      grad.addColorStop(1, '#f4f4f5'); // zinc-100
+    }
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
 
@@ -112,7 +108,9 @@ export function onCanvasReady(args: any) {
       if (num.y < -30) num.y = height + 30;
       if (num.y > height + 30) num.y = -30;
 
-      ctx.fillStyle = num.color + num.alpha + ')';
+      // Color changes according to theme
+      const colorPrefix = isDark ? 'rgba(255, 255, 255, ' : 'rgba(9, 9, 11, ';
+      ctx.fillStyle = colorPrefix + num.alpha + ')';
       ctx.font = `bold ${num.fontSize}px sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';

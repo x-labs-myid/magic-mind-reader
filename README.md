@@ -106,4 +106,5 @@ npm run clean
 
 - Original Game by: **Kang Cahya**
 - Rebranded Version: **Magic Mind Reader**
+- Icons by: **FontAwesome Free** (Classic Solid & Brands)
 - _Note: This project is a modernized rework of the original repository: [your-number](https://github.com/dyazincahya-archive/your-number)_
