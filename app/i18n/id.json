@@ -16,5 +16,9 @@
   "loading_push": "Mengirimkan sihir...",
   "lang_en": "English",
   "lang_id": "Bahasa Indonesia",
-  "choose_lang": "Bahasa"
+  "choose_lang": "Bahasa",
+  "about_title": "Tentang Aplikasi",
+  "about_desc": "Magic Mind Reader adalah aplikasi gamifikasi yang menggunakan trik kartu matematika pencarian biner. Pengguna diminta memikirkan angka antara 1 dan 31. Dengan menjawab 5 pertanyaan Ya/Tidak sederhana saat kartu ditampilkan, mesin sulap akan mengidentifikasi dan mengungkapkan angka yang dipilih dengan benar.",
+  "about_credits": "Kredit & Atribusi",
+  "btn_back": "Kembali"
 }

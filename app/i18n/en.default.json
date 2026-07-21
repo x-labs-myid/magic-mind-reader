@@ -16,5 +16,9 @@
   "loading_push": "Pushing magic...",
   "lang_en": "English",
   "lang_id": "Bahasa Indonesia",
-  "choose_lang": "Language"
+  "choose_lang": "Language",
+  "about_title": "About App",
+  "about_desc": "Magic Mind Reader is a gamified application that employs a binary-search mathematical card trick. The user is asked to think of any integer between 1 and 31. By answering 5 simple Yes/No questions as cards are presented, the magic engine correctly identifies and reveals the chosen number.",
+  "about_credits": "Credits & Attributions",
+  "btn_back": "Back"
 }

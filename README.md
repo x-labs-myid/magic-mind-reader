@@ -1,4 +1,7 @@
 # Magic Mind Reader 🔮
+<p align="center">
+  <img src="app/assets/images/logo.png" width="160" alt="Magic Mind Reader Logo" />
+</p>
 
 > **I can read your mind! Think of a number, and witness the magic.**
 

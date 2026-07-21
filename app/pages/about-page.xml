@@ -1,0 +1,68 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    actionBarHidden="true"
+    class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white">
+
+    <GridLayout rows="auto, *, auto" class="p-6">
+        <!-- Header with Back Button -->
+        <GridLayout row="0" columns="auto, *" class="w-full mb-4">
+            <Button col="0" tap="goBack" class="text-lg bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 rounded-full w-10 h-10 text-zinc-800 dark:text-zinc-200">
+                <FormattedString>
+                    <Span text="&#xf060;" class="fas" />
+                </FormattedString>
+            </Button>
+            <Label col="1" text="{{ L('about_title') }}" class="text-xl font-bold self-center ml-4 text-zinc-900 dark:text-white" />
+        </GridLayout>
+
+        <!-- Scrollable content -->
+        <ScrollView row="1" class="w-full">
+            <StackLayout class="space-y-6 text-center">
+                <!-- App Logo Image -->
+                <Image src="~/assets/images/logo.png" width="128" height="128" class="self-center my-4" />
+
+                <!-- App Version -->
+                <Label text="Version 2.0.0" class="text-xs font-bold text-zinc-400 dark:text-zinc-500 tracking-wider" />
+
+                <!-- About Description -->
+                <Label text="{{ L('about_desc') }}" class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300 bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-100 dark:border-zinc-800/40 rounded-2xl p-6 text-left" textWrap="true" />
+
+                <!-- Credits Section -->
+                <StackLayout class="bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-100 dark:border-zinc-800/40 rounded-2xl p-6 text-left space-y-4">
+                    <Label text="{{ L('about_credits') }}" class="text-base font-extrabold text-zinc-900 dark:text-white border-b border-zinc-200 dark:border-zinc-800 pb-2" />
+                    
+                    <!-- Developer -->
+                    <GridLayout columns="auto, *" class="gap-2">
+                        <Label col="0" text="&#xf007;" class="fas text-zinc-400 dark:text-zinc-500 w-6" />
+                        <StackLayout col="1">
+                            <Label text="Developer" class="text-xs text-zinc-400 dark:text-zinc-500" />
+                            <Label text="Cahya" class="text-sm font-bold text-zinc-800 dark:text-zinc-200" />
+                        </StackLayout>
+                    </GridLayout>
+
+                    <!-- Iconography -->
+                    <GridLayout columns="auto, *" class="gap-2">
+                        <Label col="0" text="&#xf2b7;" class="fab text-zinc-400 dark:text-zinc-500 w-6" />
+                        <StackLayout col="1">
+                            <Label text="Iconography" class="text-xs text-zinc-400 dark:text-zinc-500" />
+                            <Label text="FontAwesome Free" class="text-sm font-bold text-zinc-800 dark:text-zinc-200" />
+                        </StackLayout>
+                    </GridLayout>
+
+                    <!-- Framework -->
+                    <GridLayout columns="auto, *" class="gap-2">
+                        <Label col="0" text="&#xf10b;" class="fas text-zinc-400 dark:text-zinc-500 w-6" />
+                        <StackLayout col="1">
+                            <Label text="Framework" class="text-xs text-zinc-400 dark:text-zinc-500" />
+                            <Label text="NativeScript 9 &amp; Vite" class="text-sm font-bold text-zinc-800 dark:text-zinc-200" />
+                        </StackLayout>
+                    </GridLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Footer -->
+        <StackLayout row="2" class="text-center pt-4">
+            <Label text="© 2026 x-labs.my.id. All rights reserved." class="text-xs text-zinc-400 dark:text-zinc-600" />
+        </StackLayout>
+    </GridLayout>
+</Page>

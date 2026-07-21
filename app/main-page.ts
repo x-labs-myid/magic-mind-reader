@@ -41,6 +41,24 @@ export function selectIndonesian() {
   });
 }
 
+export function goAbout() {
+  AudioHelper.playTap();
+  isAnimating = false;
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+  Frame.topmost().navigate({
+    moduleName: 'pages/about-page',
+    animated: true,
+    transition: {
+      name: 'slideTop',
+      duration: 300,
+      curve: 'easeInOut'
+    }
+  });
+}
+
 export function startPlay() {
   AudioHelper.playTap();
   isAnimating = false;
