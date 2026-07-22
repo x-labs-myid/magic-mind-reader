@@ -1,5 +1,7 @@
-import { EventData, Page, Frame, Observable, Application } from '@nativescript/core';
+import { EventData, Page, Frame, Observable, View } from '@nativescript/core';
 import { AudioHelper } from '../shared/audio-helper';
+import { TopicService } from '../shared/topic-service';
+import { getAppLocale } from '../shared/locale-manager';
 
 interface Confetti {
   x: number;
@@ -12,43 +14,131 @@ interface Confetti {
   rotationSpeed: number;
 }
 
-class ResultViewModel extends Observable {
-  public result = 0;
-  public isLoading = true;
+let viewModel: Observable;
+let currentPage: Page | null = null;
+let currentTopicId: string = 'animals';
+let finalResultVal: number = 1;
 
-  constructor(resultValue: number) {
-    super();
-    this.result = resultValue;
-    this.set('result', this.result);
-    this.set('isLoading', this.isLoading);
-
-    // Simulate magic analysis duration
-    setTimeout(() => {
-      this.set('isLoading', false);
-      AudioHelper.playComplete();
-    }, 2500);
-  }
-}
-
-let viewModel: ResultViewModel;
-let canvasCtx: any = null;
-let canvasWidth = 0;
-let canvasHeight = 0;
-let animationFrameId: number | null = null;
+let confettiCtx: any = null;
+let confettiWidth = 0;
+let confettiHeight = 0;
+let confettiFrameId: number | null = null;
 const confettis: Confetti[] = [];
 
 export function onNavigatingTo(args: EventData) {
-  const page = <Page>args.object;
-  const resultVal = page.navigationContext ? page.navigationContext.result : 0;
-  viewModel = new ResultViewModel(resultVal);
-  page.bindingContext = viewModel;
+  currentPage = <Page>args.object;
+  const navContext = currentPage.navigationContext || {};
+  currentTopicId = navContext.topicId || 'animals';
+  finalResultVal = navContext.result || 1;
+  const userAnswers: boolean[] = navContext.userAnswers || [true, true, true, true, true];
+
+  const topic = TopicService.getTopicById(currentTopicId);
+  const lang = getAppLocale();
+  const firstItem = topic.items[0];
+  const finalItem = TopicService.getItemByValue(currentTopicId, finalResultVal, lang);
+
+  viewModel = new Observable();
+  viewModel.set('displayIcon', firstItem.icon);
+  viewModel.set('displayFontClass', firstItem.fontClass || (currentTopicId === 'brands' ? 'fab' : 'fas'));
+  viewModel.set('displayName', finalItem.name);
+
+  // Set 5 Step Answer Summary Badges (Simple & Clean Pill Badges)
+  for (let i = 0; i < 5; i++) {
+    const stepNum = i + 1;
+    const isYes = userAnswers[i] !== undefined ? userAnswers[i] : true;
+    if (isYes) {
+      viewModel.set(`ans${i}Text`, `${stepNum}: ✓`);
+      viewModel.set(`ans${i}Bg`, '#2ecc71');
+      viewModel.set(`ans${i}Fg`, '#000000');
+    } else {
+      viewModel.set(`ans${i}Text`, `${stepNum}: ✕`);
+      viewModel.set(`ans${i}Bg`, '#ff4081');
+      viewModel.set(`ans${i}Fg`, '#ffffff');
+    }
+  }
+
+  currentPage.bindingContext = viewModel;
+}
+
+export async function onNavigatedTo(args: EventData) {
+  if (!currentPage) return;
+
+  const resultCircle = currentPage.getViewById<View>('resultCircle');
+  const resultNameLabel = currentPage.getViewById<View>('resultNameLabel');
+
+  if (resultCircle && resultNameLabel) {
+    await doCoinFlipReveal(resultCircle, resultNameLabel);
+  }
+}
+
+async function doCoinFlipReveal(resultCircle: View, resultNameLabel: View) {
+  const topic = TopicService.getTopicById(currentTopicId);
+  const lang = getAppLocale();
+  const finalItem = TopicService.getItemByValue(currentTopicId, finalResultVal, lang);
+
+  // Reset initial rotation and scales
+  resultCircle.rotate = 0;
+  resultCircle.scaleX = 1.0;
+  resultCircle.scaleY = 1.0;
+
+  // 6 Rapid Coin Flips (Y-Axis Squeeze & Expand)
+  const totalFlips = 6;
+  for (let i = 0; i < totalFlips; i++) {
+    // Squeeze coin to edge (Y-axis flip)
+    await resultCircle.animate({
+      scale: { x: 0.08, y: 1.05 },
+      duration: 100,
+      curve: 'easeIn'
+    });
+
+    // Random icon swap at coin edge
+    const randomIdx = Math.floor(Math.random() * topic.items.length);
+    const randItem = topic.items[randomIdx];
+    viewModel.set('displayIcon', randItem.icon);
+    viewModel.set('displayFontClass', randItem.fontClass || (currentTopicId === 'brands' ? 'fab' : 'fas'));
+    AudioHelper.playTap();
+
+    // Expand coin flat
+    await resultCircle.animate({
+      scale: { x: 1.0, y: 1.0 },
+      duration: 100,
+      curve: 'easeOut'
+    });
+  }
+
+  // Final Squeeze
+  await resultCircle.animate({
+    scale: { x: 0.08, y: 1.05 },
+    duration: 110,
+    curve: 'easeIn'
+  });
+
+  // Reveal Final Guessed Item
+  viewModel.set('displayIcon', finalItem.icon);
+  viewModel.set('displayFontClass', finalItem.fontClass || (currentTopicId === 'brands' ? 'fab' : 'fas'));
+  viewModel.set('displayName', finalItem.name);
+
+  AudioHelper.playComplete();
+
+  // Expand coin with Bounce Explosion
+  await resultCircle.animate({
+    scale: { x: 1.25, y: 1.25 },
+    duration: 220,
+    curve: 'easeOut'
+  });
+
+  await resultCircle.animate({
+    scale: { x: 1.0, y: 1.0 },
+    duration: 250,
+    curve: 'bounceOut'
+  });
 }
 
 export function restartGame() {
   AudioHelper.playTap();
-  if (animationFrameId !== null) {
-    cancelAnimationFrame(animationFrameId);
-    animationFrameId = null;
+  if (confettiFrameId !== null) {
+    cancelAnimationFrame(confettiFrameId);
+    confettiFrameId = null;
   }
   Frame.topmost().navigate({
     moduleName: 'main-page',
@@ -60,27 +150,27 @@ export function restartGame() {
   });
 }
 
-export function onCanvasReady(args: any) {
+export function onConfettiCanvasReady(args: any) {
   const canvas = args.object;
-  canvasCtx = canvas.getContext('2d');
-  canvasWidth = canvas.width;
-  canvasHeight = canvas.height;
+  confettiCtx = canvas.getContext('2d');
+  confettiWidth = canvas.width;
+  confettiHeight = canvas.height;
 
-  // Colorful festive party palette
   const colors = [
-    '#f59e0b', // Amber / Gold
-    '#ec4899', // Pink
-    '#8b5cf6', // Violet
-    '#10b981', // Emerald green
-    '#06b6d4', // Cyan
-    '#ffffff'  // Bright White
+    '#ffee00',
+    '#ff4081',
+    '#00e5ff',
+    '#2ecc71',
+    '#ff9800',
+    '#a855f7',
+    '#000000'
   ];
 
-  // Initialize confetti particles
-  for (let i = 0; i < 90; i++) {
+  confettis.length = 0;
+  for (let i = 0; i < 70; i++) {
     confettis.push({
-      x: Math.random() * canvasWidth,
-      y: Math.random() * -canvasHeight - 20,
+      x: Math.random() * confettiWidth,
+      y: Math.random() * -confettiHeight - 20,
       vx: (Math.random() - 0.5) * 4,
       vy: Math.random() * 3 + 2,
       size: Math.random() * 8 + 6,
@@ -91,47 +181,41 @@ export function onCanvasReady(args: any) {
   }
 
   function renderConfetti() {
-    if (canvasCtx && viewModel && !viewModel.isLoading) {
-      canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+    if (confettiCtx) {
+      confettiCtx.clearRect(0, 0, confettiWidth, confettiHeight);
 
-      // Render dark indigo canvas background to match page
-      canvasCtx.fillStyle = '#0f172a';
-      canvasCtx.fillRect(0, 0, canvasWidth, canvasHeight);
-      const isDark = Application.systemAppearance ? Application.systemAppearance() === 'dark' : true;
+      confettiCtx.fillStyle = '#ffffff';
+      confettiCtx.fillRect(0, 0, confettiWidth, confettiHeight);
 
       for (const p of confettis) {
         p.x += p.vx;
         p.y += p.vy;
         p.rotation += p.rotationSpeed;
 
-        // Reset particle if it goes off bottom/sides
-        if (p.y > canvasHeight) {
+        if (p.y > confettiHeight) {
           p.y = -20;
-          p.x = Math.random() * canvasWidth;
+          p.x = Math.random() * confettiWidth;
           p.vy = Math.random() * 3 + 2;
         }
-        if (p.x < 0 || p.x > canvasWidth) {
+        if (p.x < 0 || p.x > confettiWidth) {
           p.vx *= -1;
         }
 
-        // Skip drawing black confetti on black background or white on white
-        if (isDark && p.color === '#000000') continue;
-        if (!isDark && p.color === '#ffffff') continue;
-
-        canvasCtx.save();
-        canvasCtx.translate(p.x, p.y);
-        canvasCtx.rotate(p.rotation);
-        canvasCtx.fillStyle = p.color;
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate(p.rotation);
+        confettiCtx.fillStyle = p.color;
         
-        // Draw little rect confetti
-        canvasCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size / 2);
-        canvasCtx.restore();
+        confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size / 2);
+        confettiCtx.lineWidth = 1;
+        confettiCtx.strokeStyle = '#000000';
+        confettiCtx.strokeRect(-p.size / 2, -p.size / 2, p.size, p.size / 2);
+
+        confettiCtx.restore();
       }
-    } else if (canvasCtx) {
-      canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     }
 
-    animationFrameId = requestAnimationFrame(renderConfetti);
+    confettiFrameId = requestAnimationFrame(renderConfetti);
   }
 
   renderConfetti();

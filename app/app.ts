@@ -1,26 +1,16 @@
-/*
-In NativeScript, the app.ts file is the entry point to your application.
-You can use this file to perform app-level initialization, but the primary
-purpose of the file is to pass control to the app’s first module.
-*/
-
 import { Application } from '@nativescript/core';
-import { localize } from '@nativescript/localize';
 import { androidLaunchEventLocalizationHandler } from '@nativescript/localize';
+import { AudioHelper } from './shared/audio-helper';
+import { localize } from './shared/locale-manager';
 
-// Register Android localization handler
 Application.on(Application.launchEvent, (args) => {
     if (args.android) {
         androidLaunchEventLocalizationHandler();
     }
+    AudioHelper.init();
 });
 
-// Register localization filter for XML templates
+// Register localize function as 'L' resource for XML data binding
 Application.setResources({ L: localize });
 
 Application.run({ moduleName: 'app-root' });
-
-/*
-Do not place any code after the application has been started as it will not
-be executed on iOS.
-*/

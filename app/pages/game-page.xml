@@ -2,73 +2,173 @@
     xmlns="http://schemas.nativescript.org/tns.xsd" 
     xmlns:canvas="@nativescript/canvas"
     navigatingTo="onNavigatingTo" 
+    navigatedTo="onNavigatedTo"
     actionBarHidden="true"
-    class="bg-indigo-950 text-white">
+    backgroundColor="#ffffff"
+    color="#000000">
 
     <GridLayout rows="auto, *, auto">
-        <!-- Header -->
-        <StackLayout row="0" class="p-6 text-center">
-            <Label text="✨ {{ L('step_title') }} ✨" class="text-xl font-black text-amber-300 uppercase tracking-wider" />
-            <Label text="{{ stepText }}" class="text-xs text-indigo-950 font-black bg-amber-400 rounded-full px-5 py-1.5 self-center mt-2 shadow-md" />
+        <!-- Header & Step Progress Bar -->
+        <StackLayout row="0" padding="16 16 8 16">
+            <!-- Top Navigation & Topic Title Badge Bar -->
+            <GridLayout columns="auto, *, auto" width="100%" margin="0 0 12 0">
+                <!-- Back Button -->
+                <StackLayout col="0" tap="goBack" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="22" width="44" height="44" verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="&#xf060;" class="fas" fontSize="16" color="#000000" textAlignment="center" verticalAlignment="center" />
+                </StackLayout>
+
+                <!-- Topic Title Badge -->
+                <StackLayout col="1" backgroundColor="#ffee00" borderColor="#000000" borderWidth="2" borderRadius="18" padding="6 16" horizontalAlignment="center" verticalAlignment="center">
+                    <Label fontSize="13" fontWeight="bold" color="#000000" textAlignment="center" maxLines="1">
+                        <FormattedString>
+                            <Span text="&#xf005;" class="fas" fontSize="11" />
+                            <Span text="  " />
+                            <Span text="{{ topicTitle }}" />
+                            <Span text="  " />
+                            <Span text="&#xf005;" class="fas" fontSize="11" />
+                        </FormattedString>
+                    </Label>
+                </StackLayout>
+
+                <StackLayout col="2" width="44" />
+            </GridLayout>
+
+            <!-- 5 Steps Circle Row -->
+            <StackLayout orientation="horizontal" horizontalAlignment="center" margin="4 0 0 0">
+                <!-- Step 1 -->
+                <StackLayout width="38" height="38" borderRadius="19" borderWidth="2" borderColor="#000000" backgroundColor="{{ step1Bg }}" margin="0 4" verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="{{ step1Text }}" fontSize="14" fontWeight="bold" color="{{ step1Fg }}" textAlignment="center" verticalAlignment="center" />
+                </StackLayout>
+                <!-- Step 2 -->
+                <StackLayout width="38" height="38" borderRadius="19" borderWidth="2" borderColor="#000000" backgroundColor="{{ step2Bg }}" margin="0 4" verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="{{ step2Text }}" fontSize="14" fontWeight="bold" color="{{ step2Fg }}" textAlignment="center" verticalAlignment="center" />
+                </StackLayout>
+                <!-- Step 3 -->
+                <StackLayout width="38" height="38" borderRadius="19" borderWidth="2" borderColor="#000000" backgroundColor="{{ step3Bg }}" margin="0 4" verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="{{ step3Text }}" fontSize="14" fontWeight="bold" color="{{ step3Fg }}" textAlignment="center" verticalAlignment="center" />
+                </StackLayout>
+                <!-- Step 4 -->
+                <StackLayout width="38" height="38" borderRadius="19" borderWidth="2" borderColor="#000000" backgroundColor="{{ step4Bg }}" margin="0 4" verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="{{ step4Text }}" fontSize="14" fontWeight="bold" color="{{ step4Fg }}" textAlignment="center" verticalAlignment="center" />
+                </StackLayout>
+                <!-- Step 5 -->
+                <StackLayout width="38" height="38" borderRadius="19" borderWidth="2" borderColor="#000000" backgroundColor="{{ step5Bg }}" margin="0 4" verticalAlignment="center" horizontalAlignment="center">
+                    <Label text="{{ step5Text }}" fontSize="14" fontWeight="bold" color="{{ step5Fg }}" textAlignment="center" verticalAlignment="center" />
+                </StackLayout>
+            </StackLayout>
         </StackLayout>
 
-        <!-- Body with Card & Numbers Grid -->
-        <GridLayout row="1" class="px-6 py-2">
-            <!-- Canvas for Scan/Particle Effects -->
+        <!-- Body with Card & Items Grid -->
+        <GridLayout row="1" padding="4 12">
+            <!-- Canvas for Scan Effects -->
             <canvas:Canvas id="effectsCanvas" width="100%" height="100%" ready="onCanvasReady" />
 
-            <!-- Numbers Panel Container -->
-            <StackLayout verticalAlignment="center" class="card-panel border-2 rounded-3xl p-6 shadow-2xl">
-                <StackLayout class="badge-amber rounded-full w-14 h-14 self-center mb-2 p-2" verticalAlignment="center" horizontalAlignment="center">
-                    <Label text="&#xe05d;" class="fas text-2xl text-amber-300 text-center" />
+            <!-- Card Container -->
+            <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="24" padding="14 10" verticalAlignment="center">
+                <!-- Question Banner Header -->
+                <StackLayout backgroundColor="#7c4dff" borderWidth="2" borderColor="#000000" borderRadius="14" padding="10 14" margin="0 0 10 0" textAlignment="center">
+                    <Label fontSize="14" fontWeight="bold" color="#ffffff" textAlignment="center" textWrap="true">
+                        <FormattedString>
+                            <Span text="&#xf059;" class="fas" fontSize="15" />
+                            <Span text="  " />
+                            <Span text="{{ L('question') }}" />
+                        </FormattedString>
+                    </Label>
                 </StackLayout>
-                <Label text="{{ L('question') }}" class="text-lg text-center font-extrabold text-indigo-100 mb-5" textWrap="true" />
 
-                <!-- 4x4 Grid for 16 numbers with colorful badge styling -->
-                <GridLayout rows="auto, auto, auto, auto" columns="*, *, *, *" class="gap-3">
+                <!-- 4x4 Grid for 16 items -->
+                <GridLayout rows="auto, auto, auto, auto" columns="*, *, *, *" width="100%">
                     <!-- Row 0 -->
-                    <Label row="0" col="0" text="{{ num0 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="0" col="1" text="{{ num1 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="0" col="2" text="{{ num2 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="0" col="3" text="{{ num3 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <StackLayout id="tile0" row="0" col="0" backgroundColor="{{ tile0Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon0 }}" class="{{ fontClass0 }}" fontSize="18" color="{{ tile0Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label0 }}" fontSize="8.5" fontWeight="bold" color="{{ tile0Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile1" row="0" col="1" backgroundColor="{{ tile1Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon1 }}" class="{{ fontClass1 }}" fontSize="18" color="{{ tile1Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label1 }}" fontSize="8.5" fontWeight="bold" color="{{ tile1Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile2" row="0" col="2" backgroundColor="{{ tile2Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon2 }}" class="{{ fontClass2 }}" fontSize="18" color="{{ tile2Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label2 }}" fontSize="8.5" fontWeight="bold" color="{{ tile2Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile3" row="0" col="3" backgroundColor="{{ tile3Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon3 }}" class="{{ fontClass3 }}" fontSize="18" color="{{ tile3Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label3 }}" fontSize="8.5" fontWeight="bold" color="{{ tile3Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
 
                     <!-- Row 1 -->
-                    <Label row="1" col="0" text="{{ num4 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="1" col="1" text="{{ num5 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="1" col="2" text="{{ num6 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="1" col="3" text="{{ num7 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <StackLayout id="tile4" row="1" col="0" backgroundColor="{{ tile4Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon4 }}" class="{{ fontClass4 }}" fontSize="18" color="{{ tile4Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label4 }}" fontSize="8.5" fontWeight="bold" color="{{ tile4Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile5" row="1" col="1" backgroundColor="{{ tile5Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon5 }}" class="{{ fontClass5 }}" fontSize="18" color="{{ tile5Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label5 }}" fontSize="8.5" fontWeight="bold" color="{{ tile5Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile6" row="1" col="2" backgroundColor="{{ tile6Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon6 }}" class="{{ fontClass6 }}" fontSize="18" color="{{ tile6Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label6 }}" fontSize="8.5" fontWeight="bold" color="{{ tile6Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile7" row="1" col="3" backgroundColor="{{ tile7Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon7 }}" class="{{ fontClass7 }}" fontSize="18" color="{{ tile7Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label7 }}" fontSize="8.5" fontWeight="bold" color="{{ tile7Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
 
                     <!-- Row 2 -->
-                    <Label row="2" col="0" text="{{ num8 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="2" col="1" text="{{ num9 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="2" col="2" text="{{ num10 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="2" col="3" text="{{ num11 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <StackLayout id="tile8" row="2" col="0" backgroundColor="{{ tile8Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon8 }}" class="{{ fontClass8 }}" fontSize="18" color="{{ tile8Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label8 }}" fontSize="8.5" fontWeight="bold" color="{{ tile8Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile9" row="2" col="1" backgroundColor="{{ tile9Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon9 }}" class="{{ fontClass9 }}" fontSize="18" color="{{ tile9Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label9 }}" fontSize="8.5" fontWeight="bold" color="{{ tile9Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile10" row="2" col="2" backgroundColor="{{ tile10Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon10 }}" class="{{ fontClass10 }}" fontSize="18" color="{{ tile10Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label10 }}" fontSize="8.5" fontWeight="bold" color="{{ tile10Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile11" row="2" col="3" backgroundColor="{{ tile11Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon11 }}" class="{{ fontClass11 }}" fontSize="18" color="{{ tile11Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label11 }}" fontSize="8.5" fontWeight="bold" color="{{ tile11Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
 
                     <!-- Row 3 -->
-                    <Label row="3" col="0" text="{{ num12 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="3" col="1" text="{{ num13 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="3" col="2" text="{{ num14 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
-                    <Label row="3" col="3" text="{{ num15 }}" class="text-center text-xl font-black text-white grid-num border rounded-2xl py-3 shadow-md" />
+                    <StackLayout id="tile12" row="3" col="0" backgroundColor="{{ tile12Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon12 }}" class="{{ fontClass12 }}" fontSize="18" color="{{ tile12Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label12 }}" fontSize="8.5" fontWeight="bold" color="{{ tile12Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile13" row="3" col="1" backgroundColor="{{ tile13Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon13 }}" class="{{ fontClass13 }}" fontSize="18" color="{{ tile13Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label13 }}" fontSize="8.5" fontWeight="bold" color="{{ tile13Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile14" row="3" col="2" backgroundColor="{{ tile14Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon14 }}" class="{{ fontClass14 }}" fontSize="18" color="{{ tile14Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label14 }}" fontSize="8.5" fontWeight="bold" color="{{ tile14Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
+                    <StackLayout id="tile15" row="3" col="3" backgroundColor="{{ tile15Bg }}" borderWidth="2" borderColor="#000000" borderRadius="12" height="66" margin="3" padding="4 2" verticalAlignment="center" opacity="0">
+                        <Label text="{{ icon15 }}" class="{{ fontClass15 }}" fontSize="18" color="{{ tile15Fg }}" textAlignment="center" margin="0 0 2 0" />
+                        <Label text="{{ label15 }}" fontSize="8.5" fontWeight="bold" color="{{ tile15Fg }}" textAlignment="center" textWrap="true" maxLines="2" />
+                    </StackLayout>
                 </GridLayout>
             </StackLayout>
         </GridLayout>
 
         <!-- Actions Footer -->
-        <GridLayout row="2" columns="*, *" class="p-6 gap-4">
-            <!-- NO Button (Vibrant Rose/Red) -->
-            <Button col="0" tap="onNo" class="bg-rose-600 active:bg-rose-500 text-white font-black text-xl rounded-2xl py-4 shadow-lg border-b-4 border-rose-800">
+        <GridLayout row="2" columns="*, *" padding="16" gap="12">
+            <!-- NO Button -->
+            <Button col="0" tap="onNo" backgroundColor="#ff4081" color="#ffffff" borderRadius="28" borderWidth="3" borderColor="#000000" padding="14" margin="0 6 0 0">
                 <FormattedString>
-                    <Span text="&#xf00d;" class="fas" />
-                    <Span text="&nbsp;&nbsp; " />
-                    <Span text="{{ L('btn_no') }}" />
+                    <Span text="&#xf00d;" class="fas" fontSize="16" />
+                    <Span text="  " />
+                    <Span text="{{ L('btn_no') }}" fontSize="18" fontWeight="bold" />
                 </FormattedString>
             </Button>
-            <!-- YES Button (Vibrant Emerald/Green) -->
-            <Button col="1" tap="onYes" class="bg-emerald-500 active:bg-emerald-400 text-white font-black text-xl rounded-2xl py-4 shadow-lg border-b-4 border-emerald-700">
+            <!-- YES Button -->
+            <Button col="1" tap="onYes" backgroundColor="#2ecc71" color="#000000" borderRadius="28" borderWidth="3" borderColor="#000000" padding="14" margin="0 0 0 6">
                 <FormattedString>
-                    <Span text="&#xf00c;" class="fas" />
-                    <Span text="&nbsp;&nbsp; " />
-                    <Span text="{{ L('btn_yes') }}" />
+                    <Span text="&#xf00c;" class="fas" fontSize="16" />
+                    <Span text="  " />
+                    <Span text="{{ L('btn_yes') }}" fontSize="18" fontWeight="bold" />
                 </FormattedString>
             </Button>
         </GridLayout>

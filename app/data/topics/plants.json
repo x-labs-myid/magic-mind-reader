@@ -1,0 +1,45 @@
+{
+  "id": "plants",
+  "icon": "\uf1bb",
+  "title": {
+    "en": "Plants & Nature",
+    "id": "Tumbuhan & Alam"
+  },
+  "description": {
+    "en": "Think of any plant or nature element!",
+    "id": "Pikirkan salah satu tumbuhan atau elemen alam!"
+  },
+  "items": [
+    { "value": 1, "icon": "\uf1bb", "name": { "en": "Oak Tree", "id": "Pohon Beringin" } },
+    { "value": 2, "icon": "\uf79d", "name": { "en": "Rose", "id": "Bunga Mawar" } },
+    { "value": 3, "icon": "\uf06c", "name": { "en": "Green Leaf", "id": "Daun Hijau" } },
+    { "value": 4, "icon": "\uf4d8", "name": { "en": "Sprout Seedling", "id": "Tunas Muda" } },
+    { "value": 5, "icon": "\uf5d1", "name": { "en": "Red Apple", "id": "Apel Merah" } },
+    { "value": 6, "icon": "\uf576", "name": { "en": "Lemon", "id": "Lemon Segar" } },
+    { "value": 7, "icon": "\uf185", "name": { "en": "Sun", "id": "Matahari" } },
+    { "value": 8, "icon": "\uf0c2", "name": { "en": "Cloud", "id": "Awan" } },
+    { "value": 9, "icon": "\uf6fc", "name": { "en": "Mountain", "id": "Gunung Tingggi" } },
+    { "value": 10, "icon": "\uf043", "name": { "en": "Water Drop", "id": "Tetes Air" } },
+    { "value": 11, "icon": "\uf06d", "name": { "en": "Campfire", "id": "Api Unggun" } },
+    { "value": 12, "icon": "\uf7e0", "name": { "en": "Snowman", "id": "Manusia Salju" } },
+    { "value": 13, "icon": "\uf72e", "name": { "en": "Wind Breeze", "id": "Hembusan Angin" } },
+    { "value": 14, "icon": "\uf75b", "name": { "en": "Rainbow", "id": "Pelangi Indah" } },
+    { "value": 15, "icon": "\uf005", "name": { "en": "Shining Star", "id": "Bintang Terang" } },
+    { "value": 16, "icon": "\uf186", "name": { "en": "Crescent Moon", "id": "Bulan Sabit" } },
+    { "value": 17, "icon": "\uf787", "name": { "en": "Carrot", "id": "Wortel Segar" } },
+    { "value": 18, "icon": "\uf816", "name": { "en": "Chili Pepper", "id": "Cabai Pedas" } },
+    { "value": 19, "icon": "\uf730", "name": { "en": "Mushroom", "id": "Jamur Hutan" } },
+    { "value": 20, "icon": "\uf55f", "name": { "en": "Medicinal Herb", "id": "Tanaman Herbal" } },
+    { "value": 21, "icon": "\uf7b6", "name": { "en": "Holly Berry", "id": "Buah Beri" } },
+    { "value": 22, "icon": "\uf780", "name": { "en": "Wild Bio Forest", "id": "Hutan Rimba" } },
+    { "value": 23, "icon": "\uf788", "name": { "en": "Fertile Soil", "id": "Tanah Subur" } },
+    { "value": 24, "icon": "\uf0ac", "name": { "en": "Planet Earth", "id": "Planet Bumi" } },
+    { "value": 25, "icon": "\uf6bb", "name": { "en": "Camping Tent", "id": "Tenda Kemah" } },
+    { "value": 26, "icon": "\uf770", "name": { "en": "Volcano", "id": "Gunung Berapi" } },
+    { "value": 27, "icon": "\uf753", "name": { "en": "Shooting Meteor", "id": "Meteor Jatuh" } },
+    { "value": 28, "icon": "\uf5ba", "name": { "en": "Solar Energy", "id": "Energi Surya" } },
+    { "value": 29, "icon": "\uf0e9", "name": { "en": "Rain Umbrella", "id": "Payung Hujan" } },
+    { "value": 30, "icon": "\uf2c7", "name": { "en": "Nature Temp", "id": "Suhu Udara" } },
+    { "value": 31, "icon": "\uf773", "name": { "en": "Ocean Waves", "id": "Ombak Laut" } }
+  ]
+}

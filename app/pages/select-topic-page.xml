@@ -1,0 +1,111 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    navigatingTo="onNavigatingTo" 
+    actionBarHidden="true"
+    backgroundColor="#ffffff"
+    color="#000000">
+
+    <GridLayout rows="auto, *" padding="16">
+        <!-- Header -->
+        <GridLayout row="0" columns="auto, *" width="100%" margin="0 0 16 0">
+            <!-- Back Button -->
+            <StackLayout col="0" tap="goBack" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="22" width="44" height="44" verticalAlignment="center" horizontalAlignment="center">
+                <Label text="&#xf060;" class="fas" fontSize="16" color="#000000" textAlignment="center" verticalAlignment="center" />
+            </StackLayout>
+            <!-- Title -->
+            <StackLayout col="1" margin="0 0 0 12" verticalAlignment="center">
+                <Label text="{{ L('choose_topic') }}" fontSize="20" fontWeight="bold" color="#000000" />
+                <Label text="{{ L('select_topic_desc') }}" fontSize="12" color="#64748b" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
+
+        <!-- Topic Cards Grid List -->
+        <ScrollView row="1">
+            <StackLayout padding="0 4">
+                <!-- Topic 1: Animals -->
+                <GridLayout tap="onSelectAnimals" columns="auto, *, auto" backgroundColor="#ffee00" borderWidth="3" borderColor="#000000" borderRadius="20" padding="16" margin="0 0 14 0">
+                    <StackLayout col="0" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="28" width="56" height="56" verticalAlignment="center" horizontalAlignment="center" margin="0 14 0 0">
+                        <Label text="&#xf6d3;" class="fas" fontSize="26" color="#000000" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+                    <StackLayout col="1" verticalAlignment="center">
+                        <Label text="{{ animalsTitle }}" fontSize="16" fontWeight="bold" color="#000000" />
+                        <Label text="{{ animalsDesc }}" fontSize="12" color="#000000" opacity="0.8" textWrap="true" />
+                    </StackLayout>
+                    <Label col="2" text="&#xf061;" class="fas" fontSize="16" color="#000000" verticalAlignment="center" margin="0 4 0 0" />
+                </GridLayout>
+
+                <!-- Topic 2: Vehicles -->
+                <GridLayout tap="onSelectVehicles" columns="auto, *, auto" backgroundColor="#00e5ff" borderWidth="3" borderColor="#000000" borderRadius="20" padding="16" margin="0 0 14 0">
+                    <StackLayout col="0" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="28" width="56" height="56" verticalAlignment="center" horizontalAlignment="center" margin="0 14 0 0">
+                        <Label text="&#xf1b9;" class="fas" fontSize="26" color="#000000" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+                    <StackLayout col="1" verticalAlignment="center">
+                        <Label text="{{ vehiclesTitle }}" fontSize="16" fontWeight="bold" color="#000000" />
+                        <Label text="{{ vehiclesDesc }}" fontSize="12" color="#000000" opacity="0.8" textWrap="true" />
+                    </StackLayout>
+                    <Label col="2" text="&#xf061;" class="fas" fontSize="16" color="#000000" verticalAlignment="center" margin="0 4 0 0" />
+                </GridLayout>
+
+                <!-- Topic 3: Plants & Nature -->
+                <GridLayout tap="onSelectPlants" columns="auto, *, auto" backgroundColor="#2ecc71" borderWidth="3" borderColor="#000000" borderRadius="20" padding="16" margin="0 0 14 0">
+                    <StackLayout col="0" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="28" width="56" height="56" verticalAlignment="center" horizontalAlignment="center" margin="0 14 0 0">
+                        <Label text="&#xf1bb;" class="fas" fontSize="26" color="#000000" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+                    <StackLayout col="1" verticalAlignment="center">
+                        <Label text="{{ plantsTitle }}" fontSize="16" fontWeight="bold" color="#000000" />
+                        <Label text="{{ plantsDesc }}" fontSize="12" color="#000000" opacity="0.8" textWrap="true" />
+                    </StackLayout>
+                    <Label col="2" text="&#xf061;" class="fas" fontSize="16" color="#000000" verticalAlignment="center" margin="0 4 0 0" />
+                </GridLayout>
+
+                <!-- Topic 4: Food & Beverages -->
+                <GridLayout tap="onSelectFoods" columns="auto, *, auto" backgroundColor="#ff9800" borderWidth="3" borderColor="#000000" borderRadius="20" padding="16" margin="0 0 14 0">
+                    <StackLayout col="0" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="28" width="56" height="56" verticalAlignment="center" horizontalAlignment="center" margin="0 14 0 0">
+                        <Label text="&#xf818;" class="fas" fontSize="26" color="#000000" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+                    <StackLayout col="1" verticalAlignment="center">
+                        <Label text="{{ foodsTitle }}" fontSize="16" fontWeight="bold" color="#000000" />
+                        <Label text="{{ foodsDesc }}" fontSize="12" color="#000000" opacity="0.8" textWrap="true" />
+                    </StackLayout>
+                    <Label col="2" text="&#xf061;" class="fas" fontSize="16" color="#000000" verticalAlignment="center" margin="0 4 0 0" />
+                </GridLayout>
+
+                <!-- Topic 5: Sports & Hobbies -->
+                <GridLayout tap="onSelectSports" columns="auto, *, auto" backgroundColor="#ff4081" borderWidth="3" borderColor="#000000" borderRadius="20" padding="16" margin="0 0 14 0">
+                    <StackLayout col="0" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="28" width="56" height="56" verticalAlignment="center" horizontalAlignment="center" margin="0 14 0 0">
+                        <Label text="&#xf1e3;" class="fas" fontSize="26" color="#000000" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+                    <StackLayout col="1" verticalAlignment="center">
+                        <Label text="{{ sportsTitle }}" fontSize="16" fontWeight="bold" color="#ffffff" />
+                        <Label text="{{ sportsDesc }}" fontSize="12" color="#ffffff" opacity="0.9" textWrap="true" />
+                    </StackLayout>
+                    <Label col="2" text="&#xf061;" class="fas" fontSize="16" color="#ffffff" verticalAlignment="center" margin="0 4 0 0" />
+                </GridLayout>
+
+                <!-- Topic 6: Brands & Logos -->
+                <GridLayout tap="onSelectBrands" columns="auto, *, auto" backgroundColor="#7c4dff" borderWidth="3" borderColor="#000000" borderRadius="20" padding="16" margin="0 0 14 0">
+                    <StackLayout col="0" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="28" width="56" height="56" verticalAlignment="center" horizontalAlignment="center" margin="0 14 0 0">
+                        <Label text="&#xf02b;" class="fas" fontSize="26" color="#000000" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+                    <StackLayout col="1" verticalAlignment="center">
+                        <Label text="{{ brandsTitle }}" fontSize="16" fontWeight="bold" color="#ffffff" />
+                        <Label text="{{ brandsDesc }}" fontSize="12" color="#ffffff" opacity="0.9" textWrap="true" />
+                    </StackLayout>
+                    <Label col="2" text="&#xf061;" class="fas" fontSize="16" color="#ffffff" verticalAlignment="center" margin="0 4 0 0" />
+                </GridLayout>
+
+                <!-- Topic 7: Classic Numbers -->
+                <GridLayout tap="onSelectNumbers" columns="auto, *, auto" backgroundColor="#a855f7" borderWidth="3" borderColor="#000000" borderRadius="20" padding="16" margin="0 0 14 0">
+                    <StackLayout col="0" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="28" width="56" height="56" verticalAlignment="center" horizontalAlignment="center" margin="0 14 0 0">
+                        <Label text="&#xf1ec;" class="fas" fontSize="26" color="#000000" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+                    <StackLayout col="1" verticalAlignment="center">
+                        <Label text="{{ numbersTitle }}" fontSize="16" fontWeight="bold" color="#ffffff" />
+                        <Label text="{{ numbersDesc }}" fontSize="12" color="#ffffff" opacity="0.9" textWrap="true" />
+                    </StackLayout>
+                    <Label col="2" text="&#xf061;" class="fas" fontSize="16" color="#ffffff" verticalAlignment="center" margin="0 4 0 0" />
+                </GridLayout>
+            </StackLayout>
+        </ScrollView>
+    </GridLayout>
+</Page>

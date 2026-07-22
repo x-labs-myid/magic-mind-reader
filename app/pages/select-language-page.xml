@@ -1,0 +1,38 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    navigatingTo="onNavigatingTo" 
+    actionBarHidden="true"
+    backgroundColor="#ffffff"
+    color="#000000">
+
+    <GridLayout rows="*" padding="20">
+        <StackLayout row="0" verticalAlignment="center" horizontalAlignment="stretch">
+            <!-- Neo-Brutalist Icon Circle -->
+            <StackLayout backgroundColor="#ffee00" borderWidth="3" borderColor="#000000" borderRadius="48" width="96" height="96" horizontalAlignment="center" margin="0 0 20 0" verticalAlignment="center">
+                <Label text="&#xf0ac;" class="fas" fontSize="40" color="#000000" textAlignment="center" verticalAlignment="center" />
+            </StackLayout>
+
+            <Label text="Choose Language" fontSize="28" fontWeight="bold" color="#000000" textAlignment="center" margin="0 0 8 0" textWrap="true" />
+            <Label text="Pilih bahasa yang ingin Anda gunakan" fontSize="14" color="#475569" fontWeight="bold" textAlignment="center" margin="0 0 28 0" textWrap="true" />
+
+            <!-- Language Buttons Container -->
+            <StackLayout horizontalAlignment="stretch">
+                <!-- English Button -->
+                <Button tap="selectEnglish" backgroundColor="#00e5ff" color="#000000" fontSize="18" fontWeight="bold" borderRadius="28" borderWidth="3" borderColor="#000000" padding="14" margin="0 0 16 0">
+                    <FormattedString>
+                        <Span text="🇬🇧   " />
+                        <Span text="English" />
+                    </FormattedString>
+                </Button>
+
+                <!-- Bahasa Indonesia Button -->
+                <Button tap="selectIndonesian" backgroundColor="#ffee00" color="#000000" fontSize="18" fontWeight="bold" borderRadius="28" borderWidth="3" borderColor="#000000" padding="14">
+                    <FormattedString>
+                        <Span text="🇮🇩   " />
+                        <Span text="Bahasa Indonesia" />
+                    </FormattedString>
+                </Button>
+            </StackLayout>
+        </StackLayout>
+    </GridLayout>
+</Page>

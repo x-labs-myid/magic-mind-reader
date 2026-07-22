@@ -1,0 +1,45 @@
+{
+  "id": "sports",
+  "icon": "\uf1e3",
+  "title": {
+    "en": "Sports & Hobbies",
+    "id": "Olahraga & Hobi"
+  },
+  "description": {
+    "en": "Think of any sport or hobby!",
+    "id": "Pikirkan salah satu olahraga atau hobi!"
+  },
+  "items": [
+    { "value": 1, "icon": "\uf1e3", "name": { "en": "Soccer Ball", "id": "Sepak Bola" } },
+    { "value": 2, "icon": "\uf434", "name": { "en": "Basketball", "id": "Bola Basket" } },
+    { "value": 3, "icon": "\uf433", "name": { "en": "Baseball", "id": "Bisbol" } },
+    { "value": 4, "icon": "\uf436", "name": { "en": "Bowling Pin", "id": "Bowling" } },
+    { "value": 5, "icon": "\uf091", "name": { "en": "Golden Trophy", "id": "Piala Emas" } },
+    { "value": 6, "icon": "\uf5a2", "name": { "en": "Gold Medal", "id": "Medali Emas" } },
+    { "value": 7, "icon": "\uf7a6", "name": { "en": "Guitar", "id": "Gitar Akustik" } },
+    { "value": 8, "icon": "\uf70c", "name": { "en": "Volleyball", "id": "Bola Voli" } },
+    { "value": 9, "icon": "\uf451", "name": { "en": "Table Tennis", "id": "Tenis Meja" } },
+    { "value": 10, "icon": "\uf448", "name": { "en": "Golf Ball", "id": "Olahraga Golf" } },
+    { "value": 11, "icon": "\uf84a", "name": { "en": "Roller Skates", "id": "Sepatu Roda" } },
+    { "value": 12, "icon": "\uf45d", "name": { "en": "Tennis Racket", "id": "Raket Tenis" } },
+    { "value": 13, "icon": "\uf443", "name": { "en": "Shuttlecock", "id": "Bulu Tangkis" } },
+    { "value": 14, "icon": "\uf11b", "name": { "en": "Gamepad", "id": "Video Game" } },
+    { "value": 15, "icon": "\uf001", "name": { "en": "Music Note", "id": "Bermain Musik" } },
+    { "value": 16, "icon": "\uf54b", "name": { "en": "Running Shoe", "id": "Sepatu Lari" } },
+    { "value": 17, "icon": "\uf44b", "name": { "en": "Gym Dumbbell", "id": "Angkat Beban" } },
+    { "value": 18, "icon": "\uf7c9", "name": { "en": "Skiing", "id": "Olahraga Ski" } },
+    { "value": 19, "icon": "\uf439", "name": { "en": "Chess King", "id": "Catur King" } },
+    { "value": 20, "icon": "\uf522", "name": { "en": "Game Dice", "id": "Dadu Permainan" } },
+    { "value": 21, "icon": "\uf004", "name": { "en": "Playing Cards", "id": "Kartu Remi" } },
+    { "value": 22, "icon": "\uf140", "name": { "en": "Target Darts", "id": "Panahan Target" } },
+    { "value": 23, "icon": "\uf025", "name": { "en": "Headphones", "id": "Audio Headphone" } },
+    { "value": 24, "icon": "\uf030", "name": { "en": "Camera", "id": "Fotografi" } },
+    { "value": 25, "icon": "\uf53f", "name": { "en": "Paint Palette", "id": "Melukis Kuas" } },
+    { "value": 26, "icon": "\uf008", "name": { "en": "Movie Film", "id": "Film Bioskop" } },
+    { "value": 27, "icon": "\uf130", "name": { "en": "Microphone", "id": "Menyanyi Vokal" } },
+    { "value": 28, "icon": "\uf02d", "name": { "en": "Book Reading", "id": "Membaca Buku" } },
+    { "value": 29, "icon": "\uf2f2", "name": { "en": "Stopwatch", "id": "Stopwatch Lomba" } },
+    { "value": 30, "icon": "\uf6c4", "name": { "en": "Boxing Gloves", "id": "Sarung Tinju" } },
+    { "value": 31, "icon": "\uf708", "name": { "en": "Fishing Rod", "id": "Pancingan Ikan" } }
+  ]
+}

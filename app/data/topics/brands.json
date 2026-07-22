@@ -1,0 +1,200 @@
+{
+  "id": "brands",
+  "icon": "\uf02b",
+  "title": {
+    "en": "Famous Brands",
+    "id": "Merek & Logo Terkenal"
+  },
+  "description": {
+    "en": "Think of any world famous brand!",
+    "id": "Pikirkan salah satu merek atau logo terkenal!"
+  },
+  "items": [
+    {
+      "value": 1,
+      "icon": "\uf179",
+      "fontClass": "fab",
+      "name": { "en": "Apple Inc.", "id": "Apple" }
+    },
+    {
+      "value": 2,
+      "icon": "\uf1a0",
+      "fontClass": "fab",
+      "name": { "en": "Google", "id": "Google" }
+    },
+    {
+      "value": 3,
+      "icon": "\uf099",
+      "fontClass": "fab",
+      "name": { "en": "Twitter / X", "id": "Twitter" }
+    },
+    {
+      "value": 4,
+      "icon": "\uf09a",
+      "fontClass": "fab",
+      "name": { "en": "Facebook", "id": "Facebook" }
+    },
+    {
+      "value": 5,
+      "icon": "\uf270",
+      "fontClass": "fab",
+      "name": { "en": "Amazon", "id": "Amazon" }
+    },
+    {
+      "value": 6,
+      "icon": "\uf167",
+      "fontClass": "fab",
+      "name": { "en": "YouTube", "id": "YouTube" }
+    },
+    {
+      "value": 7,
+      "icon": "\uf1bc",
+      "fontClass": "fab",
+      "name": { "en": "Spotify", "id": "Spotify" }
+    },
+    {
+      "value": 8,
+      "icon": "\uf3df",
+      "fontClass": "fab",
+      "name": { "en": "PlayStation", "id": "PlayStation" }
+    },
+    {
+      "value": 9,
+      "icon": "\uf412",
+      "fontClass": "fab",
+      "name": { "en": "Xbox", "id": "Xbox" }
+    },
+    {
+      "value": 10,
+      "icon": "\uf3ca",
+      "fontClass": "fab",
+      "name": { "en": "Microsoft", "id": "Microsoft" }
+    },
+    {
+      "value": 11,
+      "icon": "\uf17b",
+      "fontClass": "fab",
+      "name": { "en": "Android", "id": "Android" }
+    },
+    {
+      "value": 12,
+      "icon": "\uf1b6",
+      "fontClass": "fab",
+      "name": { "en": "Steam", "id": "Steam" }
+    },
+    {
+      "value": 13,
+      "icon": "\uf09b",
+      "fontClass": "fab",
+      "name": { "en": "GitHub", "id": "GitHub" }
+    },
+    {
+      "value": 14,
+      "icon": "\uf402",
+      "fontClass": "fab",
+      "name": { "en": "Uber", "id": "Uber" }
+    },
+    {
+      "value": 15,
+      "icon": "\uf834",
+      "fontClass": "fab",
+      "name": { "en": "Airbnb", "id": "Airbnb" }
+    },
+    {
+      "value": 16,
+      "icon": "\uf1e8",
+      "fontClass": "fab",
+      "name": { "en": "Twitch", "id": "Twitch" }
+    },
+    {
+      "value": 17,
+      "icon": "\uf392",
+      "fontClass": "fab",
+      "name": { "en": "Discord", "id": "Discord" }
+    },
+    {
+      "value": 18,
+      "icon": "\uf1a1",
+      "fontClass": "fab",
+      "name": { "en": "Reddit", "id": "Reddit" }
+    },
+    {
+      "value": 19,
+      "icon": "\ue07b",
+      "fontClass": "fab",
+      "name": { "en": "TikTok", "id": "TikTok" }
+    },
+    {
+      "value": 20,
+      "icon": "\uf16d",
+      "fontClass": "fab",
+      "name": { "en": "Instagram", "id": "Instagram" }
+    },
+    {
+      "value": 21,
+      "icon": "\uf232",
+      "fontClass": "fab",
+      "name": { "en": "WhatsApp", "id": "WhatsApp" }
+    },
+    {
+      "value": 22,
+      "icon": "\uf2c6",
+      "fontClass": "fab",
+      "name": { "en": "Telegram", "id": "Telegram" }
+    },
+    {
+      "value": 23,
+      "icon": "\uf1ed",
+      "fontClass": "fab",
+      "name": { "en": "PayPal", "id": "PayPal" }
+    },
+    {
+      "value": 24,
+      "icon": "\uf1f0",
+      "fontClass": "fab",
+      "name": { "en": "Visa Card", "id": "Visa" }
+    },
+    {
+      "value": 25,
+      "icon": "\uf1f1",
+      "fontClass": "fab",
+      "name": { "en": "MasterCard", "id": "MasterCard" }
+    },
+    {
+      "value": 26,
+      "icon": "\uf797",
+      "fontClass": "fab",
+      "name": { "en": "FedEx Express", "id": "FedEx" }
+    },
+    {
+      "value": 27,
+      "icon": "\uf198",
+      "fontClass": "fab",
+      "name": { "en": "Slack Workspace", "id": "Slack" }
+    },
+    {
+      "value": 28,
+      "icon": "\uf395",
+      "fontClass": "fab",
+      "name": { "en": "Docker Container", "id": "Docker" }
+    },
+    {
+      "value": 29,
+      "icon": "\uf799",
+      "fontClass": "fab",
+      "name": { "en": "Figma Design", "id": "Figma" }
+    },
+    {
+      "value": 30,
+      "icon": "\uf181",
+      "fontClass": "fab",
+      "name": { "en": "Trello Board", "id": "Trello" }
+    },
+    {
+      "value": 31,
+      "icon": "\uf268",
+      "fontClass": "fab",
+      "name": { "en": "Google Chrome", "id": "Chrome" }
+    }
+  ]
+}

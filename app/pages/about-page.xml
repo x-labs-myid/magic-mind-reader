@@ -1,68 +1,64 @@
 <Page 
     xmlns="http://schemas.nativescript.org/tns.xsd" 
+    navigatingTo="onNavigatingTo"
     actionBarHidden="true"
-    class="bg-indigo-950 text-white">
+    backgroundColor="#ffffff"
+    color="#000000">
 
-    <GridLayout rows="auto, *, auto" class="p-6">
-        <!-- Header with Back Button -->
-        <GridLayout row="0" columns="auto, *" class="w-full mb-4">
-            <Button col="0" tap="goBack" class="text-lg btn-header active:bg-indigo-800 rounded-full w-12 h-12 text-amber-300 border shadow-md">
-                <FormattedString>
-                    <Span text="&#xf060;" class="fas" />
-                </FormattedString>
-            </Button>
-            <Label col="1" text="{{ L('about_title') }}" class="text-2xl font-black self-center ml-4 text-amber-300" />
+    <GridLayout rows="auto, *" padding="16">
+        <!-- Header -->
+        <GridLayout row="0" columns="auto, *" width="100%" margin="0 0 12 0">
+            <!-- Back Button -->
+            <StackLayout col="0" tap="goBack" backgroundColor="#ffffff" borderWidth="2" borderColor="#000000" borderRadius="22" width="44" height="44" verticalAlignment="center" horizontalAlignment="center">
+                <Label text="&#xf060;" class="fas" fontSize="16" color="#000000" textAlignment="center" verticalAlignment="center" />
+            </StackLayout>
+
+            <!-- Title Header -->
+            <StackLayout col="1" margin="0 0 0 12" verticalAlignment="center">
+                <Label text="{{ L('about_title') }}" fontSize="18" fontWeight="bold" color="#000000" />
+            </StackLayout>
         </GridLayout>
 
-        <!-- Scrollable content -->
-        <ScrollView row="1" class="w-full">
-            <StackLayout class="space-y-6 text-center">
-                <!-- App Logo Image -->
-                <Image src="~/assets/images/logo.png" width="120" height="120" class="self-center my-4" />
+        <!-- About Content Card -->
+        <ScrollView row="1" verticalAlignment="top">
+            <StackLayout margin="8 0">
+                <!-- App Header Banner -->
+                <StackLayout backgroundColor="#ffee00" borderWidth="3" borderColor="#000000" borderRadius="24" padding="24 16" textAlignment="center" margin="0 0 16 0">
+                    <StackLayout backgroundColor="#ff9800" borderWidth="2" borderColor="#000000" borderRadius="36" width="72" height="72" horizontalAlignment="center" margin="0 0 12 0" verticalAlignment="center">
+                        <Label text="&#xf25a;" class="fas" fontSize="36" color="#000000" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+                    <Label text="{{ L('title') }}" fontSize="22" fontWeight="bold" color="#000000" textAlignment="center" margin="0 0 4 0" />
+                    <Label text="Version 2.0.0" fontSize="12" fontWeight="bold" color="#000000" />
+                </StackLayout>
 
-                <!-- App Version -->
-                <Label text="Version 2.0.0" class="text-xs font-black text-amber-400 tracking-widest uppercase badge-amber rounded-full px-4 py-1 self-center" />
-
-                <!-- About Description -->
-                <Label text="{{ L('about_desc') }}" class="text-sm leading-relaxed text-indigo-100 btn-header border rounded-3xl p-6 text-left shadow-xl" textWrap="true" />
+                <!-- About Description Card -->
+                <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="20" padding="20" margin="0 0 16 0">
+                    <Label text="{{ L('about_desc') }}" fontSize="14" color="#000000" textWrap="true" />
+                </StackLayout>
 
                 <!-- Credits Section -->
-                <StackLayout class="btn-header border rounded-3xl p-6 text-left space-y-4 shadow-xl">
-                    <Label text="{{ L('about_credits') }}" class="text-base font-black text-amber-300 border-b border-indigo-700 pb-2" />
+                <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="20" padding="20">
+                    <Label text="{{ L('about_credits') }}" fontSize="16" fontWeight="bold" color="#000000" margin="0 0 12 0" />
                     
-                    <!-- Developer -->
-                    <GridLayout columns="auto, *" class="gap-3">
-                        <Label col="0" text="&#xf007;" class="fas text-amber-400 text-lg w-6" />
+                    <!-- Developer (Tap to open Developer Icon Preview) -->
+                    <GridLayout columns="auto, *" margin="0 0 10 0" tap="goDevPreview">
+                        <Label col="0" text="&#xf007;" class="fas" fontSize="18" color="#ff9800" width="30" verticalAlignment="center" />
                         <StackLayout col="1">
-                            <Label text="Developer" class="text-xs text-indigo-300" />
-                            <Label text="Cahya" class="text-sm font-extrabold text-white" />
+                            <Label text="Developer" fontSize="12" color="#64748b" fontWeight="bold" />
+                            <Label text="Kang Cahya 🛠️" fontSize="14" fontWeight="bold" color="#000000" />
                         </StackLayout>
                     </GridLayout>
 
                     <!-- Iconography -->
-                    <GridLayout columns="auto, *" class="gap-3">
-                        <Label col="0" text="&#xf2b7;" class="fab text-amber-400 text-lg w-6" />
+                    <GridLayout columns="auto, *">
+                        <Label col="0" text="&#xf35b;" class="fas" fontSize="18" color="#00e5ff" width="30" verticalAlignment="center" />
                         <StackLayout col="1">
-                            <Label text="Iconography" class="text-xs text-indigo-300" />
-                            <Label text="FontAwesome Free" class="text-sm font-extrabold text-white" />
-                        </StackLayout>
-                    </GridLayout>
-
-                    <!-- Framework -->
-                    <GridLayout columns="auto, *" class="gap-3">
-                        <Label col="0" text="&#xf10b;" class="fas text-amber-400 text-lg w-6" />
-                        <StackLayout col="1">
-                            <Label text="Framework" class="text-xs text-indigo-300" />
-                            <Label text="NativeScript 9 &amp; Webpack" class="text-sm font-extrabold text-white" />
+                            <Label text="Icons" fontSize="12" color="#64748b" fontWeight="bold" />
+                            <Label text="FontAwesome 7 Free" fontSize="14" fontWeight="bold" color="#000000" />
                         </StackLayout>
                     </GridLayout>
                 </StackLayout>
             </StackLayout>
         </ScrollView>
-
-        <!-- Footer -->
-        <StackLayout row="2" class="text-center pt-4 pb-2">
-            <Label text="© 2026 x-labs.my.id. All rights reserved." class="text-xs footer-text font-semibold" />
-        </StackLayout>
     </GridLayout>
 </Page>

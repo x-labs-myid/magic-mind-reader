@@ -1,0 +1,125 @@
+{
+  "id": "animals",
+  "icon": "\uf6d3",
+  "title": {
+    "en": "Animals & Wildlife",
+    "id": "Hewan & Binatang"
+  },
+  "description": {
+    "en": "Think of any animal from the list!",
+    "id": "Pikirkan salah satu hewan di bawah ini!"
+  },
+  "items": [
+    { "value": 1, "icon": "\uf6d3", "name": { "en": "Dog", "id": "Anjing" } },
+    { "value": 2, "icon": "\uf6be", "name": { "en": "Cat", "id": "Kucing" } },
+    { "value": 3, "icon": "\uf6f0", "name": { "en": "Horse", "id": "Kuda" } },
+    { "value": 4, "icon": "\uf6c0", "name": { "en": "Lion", "id": "Singa" } },
+    { "value": 5, "icon": "\uf6d5", "name": { "en": "Dragon", "id": "Naga" } },
+    { "value": 6, "icon": "\uf578", "name": { "en": "Fish", "id": "Ikan" } },
+    { "value": 7, "icon": "\uf52e", "name": { "en": "Frog", "id": "Katak" } },
+    {
+      "value": 8,
+      "icon": "\uf6ed",
+      "name": { "en": "Hippo", "id": "Kuda Nil" }
+    },
+    {
+      "value": 9,
+      "icon": "\uf700",
+      "name": { "en": "Otter", "id": "Berang-berang" }
+    },
+    {
+      "value": 10,
+      "icon": "\uf717",
+      "name": { "en": "Spider", "id": "Laba-laba" }
+    },
+    {
+      "value": 11,
+      "icon": "\uf4ba",
+      "name": { "en": "Dove", "id": "Merpati" }
+    },
+    {
+      "value": 12,
+      "icon": "\uf188",
+      "name": { "en": "Bug", "id": "Serangga" }
+    },
+    { "value": 13, "icon": "\uf520", "name": { "en": "Crow", "id": "Gagak" } },
+    {
+      "value": 14,
+      "icon": "\uf52d",
+      "name": { "en": "Feather", "id": "Bulu Burung" }
+    },
+    {
+      "value": 15,
+      "icon": "\uf1b0",
+      "name": { "en": "Paw Prints", "id": "Jejak Hewan" }
+    },
+    { "value": 16, "icon": "\uf715", "name": { "en": "Snake", "id": "Ular" } },
+    {
+      "value": 17,
+      "icon": "\uf52c",
+      "name": { "en": "Turtle", "id": "Kura-kura" }
+    },
+    { "value": 18, "icon": "\uf40a", "name": { "en": "Snail", "id": "Siput" } },
+    { "value": 19, "icon": "\uf6e8", "name": { "en": "Worm", "id": "Cacing" } },
+    {
+      "value": 20,
+      "icon": "\uf6b5",
+      "name": { "en": "Bat", "id": "Kelelawar" }
+    },
+    {
+      "value": 21,
+      "icon": "\uf54c",
+      "name": { "en": "Dinosaur", "id": "Dinosaurus" }
+    },
+    {
+      "value": 22,
+      "icon": "\uf6e2",
+      "name": { "en": "Ghost Monster", "id": "Monster Mitos" }
+    },
+    {
+      "value": 23,
+      "icon": "\uf8f5",
+      "name": { "en": "Alien Creature", "id": "Makhluk Asing" }
+    },
+    {
+      "value": 24,
+      "icon": "\uf7fb",
+      "name": { "en": "Bird Egg", "id": "Telur Burung" }
+    },
+    {
+      "value": 25,
+      "icon": "\ue448",
+      "name": { "en": "Shrimp", "id": "Udang" }
+    },
+    {
+      "value": 26,
+      "icon": "\uf5d7",
+      "name": { "en": "Dog Bone", "id": "Tulang Anjing" }
+    },
+    {
+      "value": 27,
+      "icon": "\uf6d3",
+      "name": { "en": "Puppy", "id": "Anak Anjing" }
+    },
+    {
+      "value": 28,
+      "icon": "\uf6be",
+      "name": { "en": "Kitten", "id": "Anak Kucing" }
+    },
+    {
+      "value": 29,
+      "icon": "\uf14e",
+      "name": { "en": "Animal Tracker", "id": "Pelacak Jejak" }
+    },
+    {
+      "value": 30,
+      "icon": "\uf06e",
+      "name": { "en": "Eagle Eye", "id": "Mata Elang" }
+    },
+    {
+      "value": 31,
+      "icon": "\uf521",
+      "name": { "en": "King Lion", "id": "Raja Hutan" }
+    }
+  ]
+}

@@ -1,51 +1,89 @@
 <Page 
     xmlns="http://schemas.nativescript.org/tns.xsd" 
     xmlns:canvas="@nativescript/canvas"
-    navigatingTo="onNavigatingTo" 
+    navigatingTo="onNavigatingTo"
+    navigatedTo="onNavigatedTo"
     actionBarHidden="true"
-    class="bg-indigo-950 text-white">
+    backgroundColor="#ffffff"
+    color="#000000">
 
     <GridLayout rows="*">
         <!-- Confetti Canvas Background Layer -->
-        <canvas:Canvas id="confettiCanvas" row="0" width="100%" height="100%" ready="onCanvasReady" />
+        <canvas:Canvas id="confettiCanvas" row="0" width="100%" height="100%" ready="onConfettiCanvasReady" />
 
         <!-- UI Content Layer -->
-        <GridLayout row="0" rows="*, auto">
-            <!-- Main Content Area -->
-            <StackLayout row="0" verticalAlignment="center" horizontalAlignment="center" class="px-6 text-center">
-                <!-- Loading State -->
-                <StackLayout visibility="{{ isLoading ? 'visible' : 'collapsed' }}" class="space-y-4">
-                    <ActivityIndicator busy="true" class="text-amber-300 w-16 h-16 self-center" />
-                    <Label text="{{ L('loading_result') }}" class="text-amber-200 text-lg font-black tracking-wide" textWrap="true" />
-                </StackLayout>
-
-                <!-- Result Revealed State -->
-                <StackLayout visibility="{{ !isLoading ? 'visible' : 'collapsed' }}" class="space-y-6">
-                    <StackLayout class="badge-amber rounded-full w-16 h-16 self-center mb-2 p-3" verticalAlignment="center" horizontalAlignment="center">
-                        <Label text="&#xe05d;" class="fas text-3xl text-amber-300 text-center" />
+        <GridLayout row="0" rows="auto, *, auto" padding="16">
+            <!-- Top Success Badge -->
+            <StackLayout row="0" margin="4 0 0 0" horizontalAlignment="center">
+                <StackLayout backgroundColor="#ffee00" borderWidth="2" borderColor="#000000" borderRadius="20" padding="8 18" horizontalAlignment="center">
+                    <StackLayout orientation="horizontal" verticalAlignment="center">
+                        <Label text="&#xf005;" class="fas" fontSize="13" color="#000000" verticalAlignment="center" margin="0 6 0 0" />
+                        <Label text="{{ L('result_title') }}" fontSize="14" fontWeight="bold" color="#000000" verticalAlignment="center" />
+                        <Label text="&#xf005;" class="fas" fontSize="13" color="#000000" verticalAlignment="center" margin="0 0 0 6" />
                     </StackLayout>
-                    <Label text="✨ {{ L('result_title') }} ✨" class="text-2xl font-black text-amber-300 uppercase tracking-widest" />
-                    <Label text="{{ L('result_message') }}" class="text-indigo-100 text-lg font-bold" />
-                    
-                    <!-- Reveal Circle -->
-                    <AbsoluteLayout class="w-56 h-56 self-center my-4">
-                        <!-- Outer Glow Ring -->
-                        <StackLayout class="w-56 h-56 badge-amber rounded-full opacity-60 animate-pulse" />
-                        <!-- Inner Container -->
-                        <GridLayout class="w-48 h-48 bg-gradient-to-br from-amber-400 to-amber-500 border-4 border-amber-300 rounded-full shadow-2xl m-4" verticalAlignment="center" horizontalAlignment="center">
-                            <Label text="{{ result }}" class="text-center text-8xl font-black text-indigo-950" />
-                        </GridLayout>
-                    </AbsoluteLayout>
                 </StackLayout>
             </StackLayout>
 
-            <!-- Action Button Footer -->
-            <StackLayout row="1" class="p-6" visibility="{{ !isLoading ? 'visible' : 'collapsed' }}">
-                <Button tap="restartGame" class="bg-amber-400 active:bg-amber-300 text-indigo-950 font-black text-xl rounded-2xl py-4 btn-play border-2 border-amber-300">
+            <!-- Center Result Card Container & Answer History -->
+            <ScrollView row="1" verticalAlignment="center">
+                <StackLayout horizontalAlignment="stretch" verticalAlignment="center" margin="6 4">
+                    <!-- Main Result Card -->
+                    <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="24" padding="20 16" textAlignment="center" horizontalAlignment="stretch" margin="0 0 12 0">
+                        <!-- Subtitle -->
+                        <Label fontSize="15" fontWeight="bold" color="#000000" textAlignment="center" textWrap="true" margin="0 0 14 0">
+                            <FormattedString>
+                                <Span text="{{ L('result_message') }}" />
+                                <Span text=":" />
+                            </FormattedString>
+                        </Label>
+
+                        <!-- Large Result Yellow Coin Circle (CONTAINS ICON ONLY) -->
+                        <StackLayout id="resultCircle" backgroundColor="#ffee00" borderWidth="4" borderColor="#ff4081" borderRadius="60" width="120" height="120" horizontalAlignment="center" verticalAlignment="center">
+                            <StackLayout borderWidth="3" borderColor="#000000" borderRadius="52" width="104" height="104" verticalAlignment="center" horizontalAlignment="center">
+                                <Label id="resultIconLabel" text="{{ displayIcon }}" class="{{ displayFontClass }}" fontSize="46" color="#000000" textAlignment="center" verticalAlignment="center" horizontalAlignment="center" />
+                            </StackLayout>
+                        </StackLayout>
+
+                        <!-- Item Name Label (Placed BELOW Coin Circle, ALWAYS 100% VISIBLE) -->
+                        <Label id="resultNameLabel" text="{{ displayName }}" fontSize="18" fontWeight="bold" color="#000000" textAlignment="center" textWrap="true" maxLines="2" margin="14 0 0 0" />
+                    </StackLayout>
+
+                    <!-- Simple & Elegant Answer History Row -->
+                    <StackLayout horizontalAlignment="center" margin="4 0">
+                        <StackLayout orientation="horizontal" horizontalAlignment="center" margin="0 0 6 0">
+                            <Label text="&#xf0ae;" class="fas" fontSize="11" color="#64748b" verticalAlignment="center" margin="0 4 0 0" />
+                            <Label text="{{ L('your_answers') }}" fontSize="12" fontWeight="bold" color="#64748b" verticalAlignment="center" />
+                        </StackLayout>
+
+                        <!-- Simple 5-Pill Answer Row -->
+                        <StackLayout orientation="horizontal" horizontalAlignment="center">
+                            <StackLayout backgroundColor="{{ ans0Bg }}" borderWidth="2" borderColor="#000000" borderRadius="10" padding="4 10" margin="0 3">
+                                <Label text="{{ ans0Text }}" fontSize="12" fontWeight="bold" color="{{ ans0Fg }}" textAlignment="center" />
+                            </StackLayout>
+                            <StackLayout backgroundColor="{{ ans1Bg }}" borderWidth="2" borderColor="#000000" borderRadius="10" padding="4 10" margin="0 3">
+                                <Label text="{{ ans1Text }}" fontSize="12" fontWeight="bold" color="{{ ans1Fg }}" textAlignment="center" />
+                            </StackLayout>
+                            <StackLayout backgroundColor="{{ ans2Bg }}" borderWidth="2" borderColor="#000000" borderRadius="10" padding="4 10" margin="0 3">
+                                <Label text="{{ ans2Text }}" fontSize="12" fontWeight="bold" color="{{ ans2Fg }}" textAlignment="center" />
+                            </StackLayout>
+                            <StackLayout backgroundColor="{{ ans3Bg }}" borderWidth="2" borderColor="#000000" borderRadius="10" padding="4 10" margin="0 3">
+                                <Label text="{{ ans3Text }}" fontSize="12" fontWeight="bold" color="{{ ans3Fg }}" textAlignment="center" />
+                            </StackLayout>
+                            <StackLayout backgroundColor="{{ ans4Bg }}" borderWidth="2" borderColor="#000000" borderRadius="10" padding="4 10" margin="0 3">
+                                <Label text="{{ ans4Text }}" fontSize="12" fontWeight="bold" color="{{ ans4Fg }}" textAlignment="center" />
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+            <!-- Bottom Play Again Button with Explicit Height -->
+            <StackLayout row="2" margin="4 0 0 0">
+                <Button tap="restartGame" height="58" backgroundColor="#ffee00" color="#000000" borderRadius="29" borderWidth="3" borderColor="#000000" verticalAlignment="center">
                     <FormattedString>
-                        <Span text="&#xf01e;" class="fas text-indigo-950" />
-                        <Span text="&nbsp;&nbsp; " />
-                        <Span text="{{ L('btn_restart') }}" />
+                        <Span text="&#xf01e;" class="fas" fontSize="16" />
+                        <Span text="  " />
+                        <Span text="{{ L('btn_restart') }}" fontSize="18" fontWeight="bold" />
                     </FormattedString>
                 </Button>
             </StackLayout>

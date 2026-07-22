@@ -1,68 +1,201 @@
 @import "@nativescript/theme/css/core.css";
-@import "@nativescript/theme/css/default.css";
 @import "./fonts.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.card-violet {
-  background-color: #6366f1;
+/* Base Page Styling */
+Page {
+  background-color: #ffffff;
+  color: #000000;
 }
 
-.card-purple {
+/* Neo-Brutalism Card Containers */
+.neo-card {
+  background-color: #ffffff;
+  border-width: 3;
+  border-color: #000000;
+  border-radius: 24;
+}
+
+.neo-card-dark {
+  background-color: #0b2528;
+  border-width: 3;
+  border-color: #000000;
+  border-radius: 20;
+}
+
+/* Neo Buttons */
+.neo-btn-yellow {
+  background-color: #ffee00;
+  color: #000000;
+  font-weight: bold;
+  border-width: 3;
+  border-color: #000000;
+  border-radius: 28;
+  padding: 14 20;
+}
+
+.neo-btn-pink {
+  background-color: #ff4081;
+  color: #ffffff;
+  font-weight: bold;
+  border-width: 3;
+  border-color: #000000;
+  border-radius: 28;
+  padding: 14 20;
+}
+
+.neo-btn-green {
+  background-color: #2ecc71;
+  color: #000000;
+  font-weight: bold;
+  border-width: 3;
+  border-color: #000000;
+  border-radius: 28;
+  padding: 14 20;
+}
+
+.neo-btn-cyan {
+  background-color: #00e5ff;
+  color: #000000;
+  font-weight: bold;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 20;
+  padding: 8 16;
+}
+
+/* Header Circle Buttons */
+.neo-circle-btn {
+  background-color: #ffffff;
+  color: #000000;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 22;
+  width: 44;
+  height: 44;
+}
+
+.neo-circle-pink {
+  background-color: #ff4081;
+  color: #ffffff;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 22;
+  width: 44;
+  height: 44;
+}
+
+.neo-circle-purple {
   background-color: #a855f7;
-}
-
-.card-pink {
-  background-color: #ec4899;
-}
-
-.btn-yes {
-  background-color: #10b981;
   color: #ffffff;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 22;
+  width: 44;
+  height: 44;
 }
 
-.btn-no {
-  background-color: #ef4444;
+/* Badges & Banners */
+.neo-badge-yellow {
+  background-color: #ffee00;
+  color: #000000;
+  font-weight: bold;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 20;
+  padding: 6 16;
+}
+
+.neo-subtitle-box {
+  background-color: #fef9c3;
+  border-radius: 16;
+  padding: 14 16;
+}
+
+.neo-banner-purple {
+  background-color: #7c4dff;
   color: #ffffff;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 16;
 }
 
-.btn-header {
-  background-color: rgba(49, 46, 129, 0.8);
-  border-color: rgba(67, 56, 202, 0.5);
+/* Step Indicator Circles */
+.step-circle {
+  width: 38;
+  height: 38;
+  border-radius: 19;
+  border-width: 2;
+  border-color: #000000;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
 }
 
-.btn-lang {
-  background-color: rgba(49, 46, 129, 0.8);
-  border-color: rgba(67, 56, 202, 0.4);
+.step-circle-active {
+  background-color: #ffee00;
+  color: #000000;
 }
 
-.card-panel {
-  background-color: rgba(49, 46, 129, 0.85);
-  border-color: rgba(99, 102, 241, 0.3);
+.step-circle-done {
+  background-color: #2ecc71;
+  color: #000000;
 }
 
-.badge-amber {
-  background-color: rgba(251, 191, 36, 0.2);
+/* Grid Number Tiles */
+.tile-cyan {
+  background-color: #00e5ff;
+  color: #000000;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 14;
+  font-weight: bold;
 }
 
-.badge-magic {
-  box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.3);
+.tile-purple {
+  background-color: #8b5cf6;
+  color: #ffffff;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 14;
+  font-weight: bold;
 }
 
-.btn-play {
-  box-shadow: 0 20px 25px -5px rgba(251, 191, 36, 0.4);
+.tile-yellow {
+  background-color: #ffee00;
+  color: #000000;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 14;
+  font-weight: bold;
+}
+
+.tile-pink {
+  background-color: #ff4081;
+  color: #ffffff;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 14;
+  font-weight: bold;
+}
+
+.tile-green {
+  background-color: #2ecc71;
+  color: #000000;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 14;
+  font-weight: bold;
+}
+
+.tile-orange {
+  background-color: #ff9800;
+  color: #000000;
+  border-width: 2;
+  border-color: #000000;
+  border-radius: 14;
+  font-weight: bold;
 }
 
 .footer-text {
-  color: rgba(165, 180, 252, 0.8);
+  color: #64748b;
 }
-
-.grid-num {
-  background-color: rgba(55, 48, 163, 0.9);
-  border-color: rgba(79, 70, 229, 0.5);
-}
-
-
-

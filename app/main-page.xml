@@ -3,56 +3,95 @@
     xmlns:canvas="@nativescript/canvas"
     navigatingTo="onNavigatingTo" 
     actionBarHidden="true"
-    class="bg-indigo-950 text-white">
+    backgroundColor="#ffffff"
+    color="#000000">
 
     <GridLayout rows="*">
         <!-- Canvas Background Layer -->
         <canvas:Canvas id="bgCanvas" row="0" width="100%" height="100%" ready="onCanvasReady" />
 
-        <!-- UI Content Layer -->
-        <GridLayout row="0" rows="auto, *, auto" class="p-6">
-            <!-- Header (Language & About) -->
-            <GridLayout row="0" columns="auto, *" class="w-full">
-                <!-- About App Button (FontAwesome info-circle) -->
-                <Button col="0" tap="goAbout" class="text-lg btn-header active:bg-indigo-800 rounded-full w-12 h-12 text-amber-300 border shadow-md">
-                    <FormattedString>
-                        <Span text="&#xf05a;" class="fas" />
-                    </FormattedString>
-                </Button>
+        <!-- Main Content Layer -->
+        <GridLayout row="0" rows="auto, *" padding="16">
+            <!-- Header Bar -->
+            <GridLayout row="0" columns="auto, *, auto" width="100%" margin="0 0 10 0">
+                <!-- Top Left: Language Selector Button (Replaces Magic 2.0 Badge) -->
+                <StackLayout col="0" tap="toggleSettings" backgroundColor="#00e5ff" borderColor="#000000" borderWidth="2" borderRadius="16" padding="6 14" verticalAlignment="center">
+                    <Label text="{{ currentLangBadge }}" color="#000000" fontWeight="bold" fontSize="13" verticalAlignment="center" />
+                </StackLayout>
 
-                <!-- Language Selector -->
-                <StackLayout col="1" orientation="horizontal" horizontalAlignment="right" class="space-x-2">
-                    <Label text="{{ L('choose_lang') + ':' }}" class="text-xs text-indigo-300 font-bold self-center mr-1" />
-                    <Button text="{{ L('lang_en') }}" tap="selectEnglish" class="text-xs btn-lang active:bg-indigo-700 border rounded-xl px-3 py-1.5 font-extrabold text-amber-300 shadow-sm" />
-                    <Button text="{{ L('lang_id') }}" tap="selectIndonesian" class="text-xs btn-lang active:bg-indigo-700 border rounded-xl px-3 py-1.5 font-extrabold text-amber-300 shadow-sm" />
+                <!-- Top Right Actions: Sound & About -->
+                <StackLayout col="2" orientation="horizontal" horizontalAlignment="right" verticalAlignment="center">
+                    <!-- Sound Toggle Button -->
+                    <StackLayout tap="toggleSound" backgroundColor="#ff4081" borderWidth="2" borderColor="#000000" borderRadius="22" width="44" height="44" margin="0 8 0 0" verticalAlignment="center" horizontalAlignment="center">
+                        <Label text="{{ soundIcon }}" class="fas" fontSize="16" color="#ffffff" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
+
+                    <!-- Info / About Button -->
+                    <StackLayout tap="goAbout" backgroundColor="#a855f7" borderWidth="2" borderColor="#000000" borderRadius="22" width="44" height="44" verticalAlignment="center" horizontalAlignment="center">
+                        <Label text="&#xf05a;" class="fas" fontSize="16" color="#ffffff" textAlignment="center" verticalAlignment="center" />
+                    </StackLayout>
                 </StackLayout>
             </GridLayout>
 
-            <!-- Main Menu Card Panel -->
-            <StackLayout row="1" verticalAlignment="center" horizontalAlignment="center" class="card-panel border-2 rounded-3xl p-7 max-w-sm text-center shadow-2xl">
-                <StackLayout class="bg-gradient-to-tr from-amber-400 to-pink-500 rounded-full w-20 h-20 self-center mb-4 p-4 badge-magic" verticalAlignment="center" horizontalAlignment="center">
-                    <Label text="&#xe05d;" class="fas text-4xl text-white text-center" />
+            <!-- Center Content -->
+            <ScrollView row="1" verticalAlignment="center">
+                <StackLayout horizontalAlignment="stretch" verticalAlignment="center">
+                    <!-- Main Card -->
+                    <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="24" padding="24 20" margin="10 4">
+                        <!-- Orange Hand Icon Circle -->
+                        <StackLayout backgroundColor="#ff9800" borderWidth="2" borderColor="#000000" borderRadius="36" width="72" height="72" horizontalAlignment="center" margin="0 0 16 0" verticalAlignment="center">
+                            <Label text="&#xf25a;" class="fas" fontSize="36" color="#000000" textAlignment="center" verticalAlignment="center" />
+                        </StackLayout>
+                        
+                        <!-- Title -->
+                        <Label text="{{ L('title') }}" fontSize="24" fontWeight="bold" color="#000000" textAlignment="center" textWrap="true" margin="0 0 12 0" />
+                        
+                        <!-- Subtitle Highlight Box -->
+                        <StackLayout backgroundColor="#fef9c3" borderRadius="16" padding="14 16" margin="0 0 20 0">
+                            <Label text="{{ L('subtitle') }}" fontSize="14" fontWeight="bold" color="#000000" textAlignment="center" textWrap="true" />
+                        </StackLayout>
+
+                        <!-- Start Play Button with Explicit Height & FontAwesome Icon -->
+                        <Button tap="startPlay" height="58" backgroundColor="#ffee00" color="#000000" borderRadius="29" borderWidth="3" borderColor="#000000" verticalAlignment="center">
+                            <FormattedString>
+                                <Span text="&#xf0d0;" class="fas" fontSize="16" />
+                                <Span text="  " />
+                                <Span text="{{ L('btn_play') }}" fontSize="18" fontWeight="bold" />
+                            </FormattedString>
+                        </Button>
+                    </StackLayout>
+
+                    <!-- How It Works Accordion Panel -->
+                    <StackLayout backgroundColor="#0b2528" borderWidth="3" borderColor="#000000" borderRadius="18" padding="14 16" margin="12 4 0 4">
+                        <GridLayout columns="*, auto" tap="toggleHowItWorks" width="100%">
+                            <StackLayout col="0" orientation="horizontal" verticalAlignment="center">
+                                <Label text="&#xf0eb;" class="fas" fontSize="14" color="#ffee00" verticalAlignment="center" margin="0 8 0 0" />
+                                <Label text="{{ L('how_it_works') }}" fontSize="14" fontWeight="bold" color="#ffffff" verticalAlignment="center" />
+                            </StackLayout>
+                            <Label col="1" text="{{ accordionIcon }}" fontSize="12" fontWeight="bold" color="#ffee00" verticalAlignment="center" />
+                        </GridLayout>
+
+                        <!-- Expandable Explanation -->
+                        <StackLayout visibility="{{ isHowItWorksOpen ? 'visible' : 'collapsed' }}" margin="10 0 0 0" padding="10 0 0 0">
+                            <Label text="{{ L('about_desc') }}" fontSize="12" color="#e0f2fe" textWrap="true" />
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
-                
-                <!-- Game Title -->
-                <Label text="{{ L('title') }}" class="text-3xl font-black text-amber-300 mb-2" textWrap="true" />
-                
-                <!-- Subtitle -->
-                <Label text="{{ L('subtitle') }}" class="text-indigo-100 text-sm leading-relaxed mb-6 font-semibold" textWrap="true" />
+            </ScrollView>
+        </GridLayout>
 
-                <!-- Let's Play Button (Vibrant Pink/Amber Gradient Accent) -->
-                <Button tap="startPlay" class="bg-amber-400 active:bg-amber-300 text-indigo-950 font-black text-xl rounded-2xl py-4 btn-play border-2 border-amber-300">
-                    <FormattedString>
-                        <Span text="&#xf04b;" class="fas text-amber-950" />
-                        <Span text="&nbsp;&nbsp; " />
-                        <Span text="{{ L('btn_play') }}" />
-                    </FormattedString>
-                </Button>
-            </StackLayout>
+        <!-- Settings Overlay / Language Dialog -->
+        <GridLayout row="0" visibility="{{ isSettingsOpen ? 'visible' : 'collapsed' }}" backgroundColor="rgba(0, 0, 0, 0.6)" padding="20">
+            <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="24" padding="24 20" verticalAlignment="center" horizontalAlignment="stretch">
+                <StackLayout orientation="horizontal" horizontalAlignment="center" margin="0 0 20 0">
+                    <Label text="&#xf013;" class="fas" fontSize="18" color="#000000" verticalAlignment="center" margin="0 8 0 0" />
+                    <Label text="Language / Bahasa" fontSize="20" fontWeight="bold" color="#000000" verticalAlignment="center" />
+                </StackLayout>
 
-            <!-- Footer -->
-            <StackLayout row="2" class="text-center pb-2">
-                <Label text="{{ L('created_by') }}" class="text-xs footer-text font-bold" />
+                <Button text="🇬🇧  English" tap="selectEnglish" height="52" backgroundColor="#00e5ff" color="#000000" fontSize="16" fontWeight="bold" borderRadius="20" borderWidth="2" borderColor="#000000" margin="0 0 12 0" verticalAlignment="center" />
+                <Button text="🇮🇩  Bahasa Indonesia" tap="selectIndonesian" height="52" backgroundColor="#ffee00" color="#000000" fontSize="16" fontWeight="bold" borderRadius="20" borderWidth="2" borderColor="#000000" margin="0 0 12 0" verticalAlignment="center" />
+
+                <Button text="{{ L('btn_back') }}" tap="toggleSettings" height="52" backgroundColor="#ff4081" color="#ffffff" fontSize="16" fontWeight="bold" borderRadius="20" borderWidth="2" borderColor="#000000" verticalAlignment="center" />
             </StackLayout>
         </GridLayout>
     </GridLayout>

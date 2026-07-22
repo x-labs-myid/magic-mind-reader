@@ -1,6 +1,7 @@
-import { EventData, Page, Frame, Observable, Application } from '@nativescript/core';
-import { localize } from '@nativescript/localize';
+import { EventData, Page, Frame, Observable, View } from '@nativescript/core';
 import { AudioHelper } from '../shared/audio-helper';
+import { TopicService } from '../shared/topic-service';
+import { getAppLocale } from '../shared/locale-manager';
 
 const keys = [1, 2, 4, 8, 16];
 const tables = [
@@ -11,80 +12,138 @@ const tables = [
   [ 17, 18, 19, 20, 21, 22, 31, 30, 29, 28, 27, 16, 26, 25, 24, 23 ]
 ];
 
-function shuffle(array: number[]): number[] {
-  const arr = [...array];
-  let tmp, current, top = arr.length;
-  if (top) while (--top) {
-    current = Math.floor(Math.random() * (top + 1));
-    tmp = arr[current];
-    arr[current] = arr[top];
-    arr[top] = tmp;
-  }
-  return arr;
-}
+const colorPalettes = [
+  [
+    { bg: '#00e5ff', fg: '#000000' }, { bg: '#8b5cf6', fg: '#ffffff' }, { bg: '#ffee00', fg: '#000000' }, { bg: '#00e5ff', fg: '#000000' },
+    { bg: '#8b5cf6', fg: '#ffffff' }, { bg: '#ffee00', fg: '#000000' }, { bg: '#00e5ff', fg: '#000000' }, { bg: '#8b5cf6', fg: '#ffffff' },
+    { bg: '#ffee00', fg: '#000000' }, { bg: '#00e5ff', fg: '#000000' }, { bg: '#8b5cf6', fg: '#ffffff' }, { bg: '#ffee00', fg: '#000000' },
+    { bg: '#00e5ff', fg: '#000000' }, { bg: '#8b5cf6', fg: '#ffffff' }, { bg: '#ffee00', fg: '#000000' }, { bg: '#00e5ff', fg: '#000000' }
+  ],
+  [
+    { bg: '#2ecc71', fg: '#000000' }, { bg: '#8b5cf6', fg: '#ffffff' }, { bg: '#ff9800', fg: '#000000' }, { bg: '#ffee00', fg: '#000000' },
+    { bg: '#ff4081', fg: '#ffffff' }, { bg: '#00e5ff', fg: '#000000' }, { bg: '#2ecc71', fg: '#000000' }, { bg: '#8b5cf6', fg: '#ffffff' },
+    { bg: '#ff9800', fg: '#000000' }, { bg: '#ffee00', fg: '#000000' }, { bg: '#ff4081', fg: '#ffffff' }, { bg: '#00e5ff', fg: '#000000' },
+    { bg: '#2ecc71', fg: '#000000' }, { bg: '#8b5cf6', fg: '#ffffff' }, { bg: '#ff9800', fg: '#000000' }, { bg: '#ffee00', fg: '#000000' }
+  ]
+];
+
+let currentPage: Page | null = null;
 
 class GameViewModel extends Observable {
   private ofTables: number[] = [0, 1, 2, 3, 4];
   private step = 1;
   private result = 0;
   private currentTableIdx = 0;
+  public topicId: string = 'animals';
+  private userAnswers: boolean[] = [];
 
   // Scan effect properties
   public scanY = 0;
   public isScanning = false;
-  public scanColor = 'rgba(0, 0, 0, 0.8)';
+  public scanColor = 'rgba(0, 229, 255, 0.9)';
 
-  constructor() {
+  constructor(topicId: string) {
     super();
+    this.topicId = topicId || TopicService.getSelectedTopicId();
+    TopicService.setSelectedTopicId(this.topicId);
+
+    const lang = getAppLocale();
+    const topic = TopicService.getTopicById(this.topicId);
+    const topicTitle = lang === 'id' ? topic.title.id : topic.title.en;
+    this.set('topicTitle', topicTitle);
+
     this.setupNextStep();
   }
 
-  get stepText(): string {
-    return localize('step_info', String(this.step));
+  private updateStepIndicators() {
+    for (let i = 1; i <= 5; i++) {
+      if (i < this.step) {
+        const isYes = this.userAnswers[i - 1];
+        if (isYes) {
+          this.set(`step${i}Bg`, '#2ecc71');
+          this.set(`step${i}Fg`, '#000000');
+          this.set(`step${i}Text`, '✓');
+        } else {
+          this.set(`step${i}Bg`, '#ff4081');
+          this.set(`step${i}Fg`, '#ffffff');
+          this.set(`step${i}Text`, '✕');
+        }
+      } else if (i === this.step) {
+        this.set(`step${i}Bg`, '#ffee00');
+        this.set(`step${i}Fg`, '#000000');
+        this.set(`step${i}Text`, String(i));
+      } else {
+        this.set(`step${i}Bg`, '#ffffff');
+        this.set(`step${i}Fg`, '#000000');
+        this.set(`step${i}Text`, String(i));
+      }
+    }
   }
 
-  private setupNextStep() {
-    // Pick a random table index from remaining
+  public setupNextStep() {
     const randIdx = Math.floor(Math.random() * this.ofTables.length);
     this.currentTableIdx = this.ofTables[randIdx];
-    
-    // Remove it from the list
     this.ofTables.splice(randIdx, 1);
 
-    // Shuffle numbers for presentation
-    const numbers = shuffle(tables[this.currentTableIdx]);
+    const rawNumbers = tables[this.currentTableIdx];
+    const lang = getAppLocale();
+
+    // Map each number to localized topic item and sort alphabetically A-Z
+    const itemsList = rawNumbers.map((val) => {
+      const topicItem = TopicService.getItemByValue(this.topicId, val, lang);
+      return { val, topicItem };
+    });
+
+    itemsList.sort((a, b) => a.topicItem.name.localeCompare(b.topicItem.name, lang));
+
+    const palette = colorPalettes[(this.step - 1) % colorPalettes.length];
+
     for (let i = 0; i < 16; i++) {
-      this.set(`num${i}`, String(numbers[i]));
+      const { topicItem } = itemsList[i];
+
+      this.set(`icon${i}`, topicItem.icon);
+      this.set(`label${i}`, topicItem.name);
+      this.set(`fontClass${i}`, topicItem.fontClass || 'fas');
+      this.set(`tile${i}Bg`, palette[i].bg);
+      this.set(`tile${i}Fg`, palette[i].fg);
     }
 
-    this.set('stepText', this.stepText);
+    this.set('step', String(this.step));
+    this.updateStepIndicators();
+
+    // Trigger grid pop-in animation
+    setTimeout(() => {
+      animateGridTiles();
+    }, 50);
   }
 
   public answer(yes: boolean) {
     AudioHelper.playTap();
 
-    // Trigger scanning animation matching vibrant theme
-    this.scanColor = 'rgba(6, 182, 212, 0.9)'; // Neon Cyan Laser
-    
+    const currentKey = keys[this.currentTableIdx];
+    this.userAnswers.push(yes);
+
+    if (yes) {
+      this.result += currentKey;
+    }
+
+    this.scanColor = yes ? 'rgba(46, 204, 113, 0.9)' : 'rgba(255, 64, 129, 0.9)';
     this.scanY = 0;
     this.isScanning = true;
 
-    // Accumulate result if YES
-    if (yes) {
-      this.result += keys[this.currentTableIdx];
-    }
-
-    // Wait for the scan animation to finish before proceeding
     setTimeout(() => {
       this.isScanning = false;
       if (this.step < 5) {
         this.step++;
         this.setupNextStep();
       } else {
-        // Go to result page
         Frame.topmost().navigate({
           moduleName: 'pages/result-page',
-          context: { result: this.result },
+          context: {
+            topicId: this.topicId,
+            result: this.result,
+            userAnswers: this.userAnswers
+          },
           clearHistory: true,
           transition: {
             name: 'fade',
@@ -92,7 +151,30 @@ class GameViewModel extends Observable {
           }
         });
       }
-    }, 600);
+    }, 450);
+  }
+}
+
+function animateGridTiles() {
+  if (!currentPage) return;
+  for (let i = 0; i < 16; i++) {
+    const tileView = currentPage.getViewById<View>(`tile${i}`);
+    if (tileView) {
+      tileView.opacity = 0;
+      tileView.scaleX = 0.45;
+      tileView.scaleY = 0.45;
+      tileView.translateY = 24;
+
+      setTimeout(() => {
+        tileView.animate({
+          opacity: 1,
+          scale: { x: 1, y: 1 },
+          translate: { x: 0, y: 0 },
+          duration: 220,
+          curve: 'easeOut'
+        });
+      }, i * 22);
+    }
   }
 }
 
@@ -103,9 +185,31 @@ let canvasHeight = 0;
 let animationFrameId: number | null = null;
 
 export function onNavigatingTo(args: EventData) {
-  const page = <Page>args.object;
-  viewModel = new GameViewModel();
-  page.bindingContext = viewModel;
+  currentPage = <Page>args.object;
+  const navContext = currentPage.navigationContext || {};
+  const topicId = navContext.topicId || TopicService.getSelectedTopicId();
+
+  viewModel = new GameViewModel(topicId);
+  currentPage.bindingContext = viewModel;
+}
+
+export function onNavigatedTo(args: EventData) {
+  animateGridTiles();
+}
+
+export function goBack() {
+  AudioHelper.playTap();
+  const currentTopic = viewModel ? viewModel.topicId : TopicService.getSelectedTopicId();
+  Frame.topmost().navigate({
+    moduleName: 'pages/topic-preview-page',
+    context: { topicId: currentTopic },
+    clearHistory: true,
+    animated: true,
+    transition: {
+      name: 'slideRight',
+      duration: 300
+    }
+  });
 }
 
 export function onYes() {
@@ -126,18 +230,16 @@ export function onCanvasReady(args: any) {
     if (viewModel && viewModel.isScanning && canvasCtx) {
       canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      // Draw laser scanning line
       const y = (viewModel.scanY / 100) * canvasHeight;
       const grad = canvasCtx.createLinearGradient(0, y - 20, 0, y + 2);
-      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(0, 'rgba(255,255,255,0)');
       grad.addColorStop(0.8, viewModel.scanColor);
-      grad.addColorStop(1, '#ffffff');
+      grad.addColorStop(1, '#000000');
 
       canvasCtx.fillStyle = grad;
       canvasCtx.fillRect(0, y - 20, canvasWidth, 22);
 
-      // Move laser down
-      viewModel.scanY += 3;
+      viewModel.scanY += 5;
       if (viewModel.scanY > 100) {
         viewModel.scanY = 0;
       }

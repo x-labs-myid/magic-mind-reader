@@ -1,48 +1,100 @@
-import { EventData, Page, Frame, Observable, Application } from '@nativescript/core';
-import { overrideLocale } from '@nativescript/localize';
+import { EventData, Page, Frame, Observable } from '@nativescript/core';
 import { AudioHelper } from './shared/audio-helper';
+import { getAppLocale, setAppLocale } from './shared/locale-manager';
 
 let animationFrameId: number | null = null;
 let isAnimating = false;
 
-interface FloatingNumber {
+interface FloatingBubble {
   x: number;
   y: number;
   vx: number;
   vy: number;
-  fontSize: number;
-  text: string;
-  alpha: number;
+  radius: number;
+  numberText: string;
+  fillColor: string;
 }
+
+let mainViewModel: Observable;
 
 export function onNavigatingTo(args: EventData) {
   const page = <Page>args.object;
   isAnimating = true;
-  page.bindingContext = new Observable();
+
+  const currentLang = getAppLocale();
+  const isMuted = AudioHelper.isMuted();
+
+  mainViewModel = new Observable();
+  mainViewModel.set('isSettingsOpen', false);
+  mainViewModel.set('isHowItWorksOpen', false);
+  mainViewModel.set('isMuted', isMuted);
+  mainViewModel.set('currentLangBadge', currentLang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN');
+  mainViewModel.set('soundIcon', isMuted ? '\uf026' : '\uf028');
+  mainViewModel.set('accordionIcon', '▼');
+
+  page.bindingContext = mainViewModel;
+
+  // Start backsound on Home page
+  AudioHelper.startBacksound();
+}
+
+export function onNavigatingFrom(args: EventData) {
+  // Stop backsound when leaving Home page
+  AudioHelper.stopBacksound();
+}
+
+export function toggleSettings() {
+  AudioHelper.playTap();
+  if (mainViewModel) {
+    const current = mainViewModel.get('isSettingsOpen');
+    mainViewModel.set('isSettingsOpen', !current);
+  }
+}
+
+export function toggleHowItWorks() {
+  AudioHelper.playTap();
+  if (mainViewModel) {
+    const current = mainViewModel.get('isHowItWorksOpen');
+    mainViewModel.set('isHowItWorksOpen', !current);
+    mainViewModel.set('accordionIcon', !current ? '▲' : '▼');
+  }
+}
+
+export function toggleSound() {
+  const isMuted = AudioHelper.toggleMute();
+  if (mainViewModel) {
+    mainViewModel.set('isMuted', isMuted);
+    mainViewModel.set('soundIcon', isMuted ? '\uf026' : '\uf028');
+  }
+}
+
+function changeLanguage(lang: string) {
+  AudioHelper.playTap();
+  setAppLocale(lang);
+
+  if (mainViewModel) {
+    mainViewModel.set('isSettingsOpen', false);
+    mainViewModel.set('currentLangBadge', lang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN');
+  }
+
+  Frame.topmost().navigate({
+    moduleName: 'main-page',
+    clearHistory: true,
+    animated: false
+  });
 }
 
 export function selectEnglish() {
-  AudioHelper.playTap();
-  overrideLocale('en');
-  Frame.topmost().navigate({
-    moduleName: 'main-page',
-    clearHistory: true,
-    animated: false
-  });
+  changeLanguage('en');
 }
 
 export function selectIndonesian() {
-  AudioHelper.playTap();
-  overrideLocale('id');
-  Frame.topmost().navigate({
-    moduleName: 'main-page',
-    clearHistory: true,
-    animated: false
-  });
+  changeLanguage('id');
 }
 
 export function goAbout() {
   AudioHelper.playTap();
+  AudioHelper.stopBacksound();
   isAnimating = false;
   if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId);
@@ -61,13 +113,14 @@ export function goAbout() {
 
 export function startPlay() {
   AudioHelper.playTap();
+  AudioHelper.stopBacksound();
   isAnimating = false;
   if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId);
     animationFrameId = null;
   }
   Frame.topmost().navigate({
-    moduleName: 'pages/game-page',
+    moduleName: 'pages/select-topic-page',
     animated: true,
     transition: {
       name: 'slide',
@@ -83,16 +136,28 @@ export function onCanvasReady(args: any) {
   const width = canvas.width;
   const height = canvas.height;
 
-  const floatingNumbers: FloatingNumber[] = [];
-  for (let i = 0; i < 20; i++) {
-    floatingNumbers.push({
+  const scale = width / 360;
+
+  const bubbleColors = [
+    '#00e5ff',
+    '#ff4081',
+    '#ffee00',
+    '#2ecc71',
+    '#ff9800',
+    '#a855f7'
+  ];
+
+  const floatingBubbles: FloatingBubble[] = [];
+  for (let i = 0; i < 16; i++) {
+    const radius = (Math.floor(Math.random() * 10) + 20) * scale;
+    floatingBubbles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 1.5,
-      vy: (Math.random() - 0.5) * 1.5,
-      fontSize: Math.floor(Math.random() * 20) + 16,
-      text: String(Math.floor(Math.random() * 31) + 1),
-      alpha: Math.random() * 0.3 + 0.05
+      vx: (Math.random() - 0.5) * 2 * scale,
+      vy: (Math.random() - 0.5) * 2 * scale,
+      radius: radius,
+      numberText: String(Math.floor(Math.random() * 31) + 1),
+      fillColor: bubbleColors[i % bubbleColors.length]
     });
   }
 
@@ -100,48 +165,37 @@ export function onCanvasReady(args: any) {
     if (!isAnimating) return;
 
     ctx.clearRect(0, 0, width, height);
-
-    // Deep Indigo Night sky gradient
-    const grad = ctx.createLinearGradient(0, 0, 0, height);
-    grad.addColorStop(0, '#0f172a'); // slate-900
-    grad.addColorStop(0.5, '#1e1b4b'); // indigo-950
-    grad.addColorStop(1, '#311042'); // purple-950
-    ctx.fillStyle = grad;
+    ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, width, height);
 
-    // Playful neon colors for magic floating items
-    const particleColors = ['#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4', '#10b981'];
+    for (let i = 0; i < floatingBubbles.length; i++) {
+      const b = floatingBubbles[i];
+      b.x += b.vx;
+      b.y += b.vy;
 
-    // Render floating numbers and magical glowing bubbles
-    for (let i = 0; i < floatingNumbers.length; i++) {
-      const num = floatingNumbers[i];
-      num.x += num.vx;
-      num.y += num.vy;
+      if (b.x < -b.radius * 2) b.x = width + b.radius * 2;
+      if (b.x > width + b.radius * 2) b.x = -b.radius * 2;
+      if (b.y < -b.radius * 2) b.y = height + b.radius * 2;
+      if (b.y > height + b.radius * 2) b.y = -b.radius * 2;
 
-      // Wrap around bounds
-      if (num.x < -30) num.x = width + 30;
-      if (num.x > width + 30) num.x = -30;
-      if (num.y < -30) num.y = height + 30;
-      if (num.y > height + 30) num.y = -30;
+      ctx.save();
 
-      const color = particleColors[i % particleColors.length];
-
-      // Draw soft ambient glow circle
       ctx.beginPath();
-      ctx.arc(num.x, num.y, num.fontSize * 0.9, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.globalAlpha = 0.12;
+      ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+      ctx.fillStyle = b.fillColor;
       ctx.fill();
 
-      // Draw floating number
-      ctx.globalAlpha = num.alpha + 0.3;
-      ctx.fillStyle = color;
-      ctx.font = `900 ${num.fontSize}px sans-serif`;
+      ctx.lineWidth = Math.max(2, 3 * scale);
+      ctx.strokeStyle = '#000000';
+      ctx.stroke();
+
+      ctx.fillStyle = '#000000';
+      ctx.font = `900 ${Math.floor(b.radius * 0.9)}px sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(num.text, num.x, num.y);
+      ctx.fillText(b.numberText, b.x, b.y);
 
-      ctx.globalAlpha = 1.0;
+      ctx.restore();
     }
 
     animationFrameId = requestAnimationFrame(render);

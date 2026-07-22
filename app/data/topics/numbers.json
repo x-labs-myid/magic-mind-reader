@@ -1,0 +1,45 @@
+{
+  "id": "numbers",
+  "icon": "\uf1ec",
+  "title": {
+    "en": "Classic Numbers (1-31)",
+    "id": "Angka Klasik (1-31)"
+  },
+  "description": {
+    "en": "Think of any number from 1 to 31!",
+    "id": "Pikirkan angka dari 1 sampai 31!"
+  },
+  "items": [
+    { "value": 1, "icon": "\uf1ec", "name": { "en": "Number 1", "id": "Angka 1" } },
+    { "value": 2, "icon": "\uf1ec", "name": { "en": "Number 2", "id": "Angka 2" } },
+    { "value": 3, "icon": "\uf1ec", "name": { "en": "Number 3", "id": "Angka 3" } },
+    { "value": 4, "icon": "\uf1ec", "name": { "en": "Number 4", "id": "Angka 4" } },
+    { "value": 5, "icon": "\uf1ec", "name": { "en": "Number 5", "id": "Angka 5" } },
+    { "value": 6, "icon": "\uf1ec", "name": { "en": "Number 6", "id": "Angka 6" } },
+    { "value": 7, "icon": "\uf1ec", "name": { "en": "Number 7", "id": "Angka 7" } },
+    { "value": 8, "icon": "\uf1ec", "name": { "en": "Number 8", "id": "Angka 8" } },
+    { "value": 9, "icon": "\uf1ec", "name": { "en": "Number 9", "id": "Angka 9" } },
+    { "value": 10, "icon": "\uf1ec", "name": { "en": "Number 10", "id": "Angka 10" } },
+    { "value": 11, "icon": "\uf1ec", "name": { "en": "Number 11", "id": "Angka 11" } },
+    { "value": 12, "icon": "\uf1ec", "name": { "en": "Number 12", "id": "Angka 12" } },
+    { "value": 13, "icon": "\uf1ec", "name": { "en": "Number 13", "id": "Angka 13" } },
+    { "value": 14, "icon": "\uf1ec", "name": { "en": "Number 14", "id": "Angka 14" } },
+    { "value": 15, "icon": "\uf1ec", "name": { "en": "Number 15", "id": "Angka 15" } },
+    { "value": 16, "icon": "\uf1ec", "name": { "en": "Number 16", "id": "Angka 16" } },
+    { "value": 17, "icon": "\uf1ec", "name": { "en": "Number 17", "id": "Angka 17" } },
+    { "value": 18, "icon": "\uf1ec", "name": { "en": "Number 18", "id": "Angka 18" } },
+    { "value": 19, "icon": "\uf1ec", "name": { "en": "Number 19", "id": "Angka 19" } },
+    { "value": 20, "icon": "\uf1ec", "name": { "en": "Number 20", "id": "Angka 20" } },
+    { "value": 21, "icon": "\uf1ec", "name": { "en": "Number 21", "id": "Angka 21" } },
+    { "value": 22, "icon": "\uf1ec", "name": { "en": "Number 22", "id": "Angka 22" } },
+    { "value": 23, "icon": "\uf1ec", "name": { "en": "Number 23", "id": "Angka 23" } },
+    { "value": 24, "icon": "\uf1ec", "name": { "en": "Number 24", "id": "Angka 24" } },
+    { "value": 25, "icon": "\uf1ec", "name": { "en": "Number 25", "id": "Angka 25" } },
+    { "value": 26, "icon": "\uf1ec", "name": { "en": "Number 26", "id": "Angka 26" } },
+    { "value": 27, "icon": "\uf1ec", "name": { "en": "Number 27", "id": "Angka 27" } },
+    { "value": 28, "icon": "\uf1ec", "name": { "en": "Number 28", "id": "Angka 28" } },
+    { "value": 29, "icon": "\uf1ec", "name": { "en": "Number 29", "id": "Angka 29" } },
+    { "value": 30, "icon": "\uf1ec", "name": { "en": "Number 30", "id": "Angka 30" } },
+    { "value": 31, "icon": "\uf1ec", "name": { "en": "Number 31", "id": "Angka 31" } }
+  ]
+}
