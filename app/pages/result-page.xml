@@ -44,8 +44,8 @@
                             </StackLayout>
                         </StackLayout>
 
-                        <!-- Item Name Label (Placed BELOW Coin Circle, ALWAYS 100% VISIBLE) -->
-                        <Label id="resultNameLabel" text="{{ displayName }}" fontSize="18" fontWeight="bold" color="#000000" textAlignment="center" textWrap="true" maxLines="2" margin="14 0 0 0" />
+                        <!-- Item Name Label (Initially hidden, scales up with the coin animation completion) -->
+                        <Label id="resultNameLabel" text="{{ displayName }}" fontSize="18" fontWeight="bold" color="#000000" textAlignment="center" textWrap="true" maxLines="2" margin="14 0 0 0" opacity="0" scaleX="0.2" scaleY="0.2" />
                     </StackLayout>
 
                     <!-- Simple & Elegant Answer History Row -->

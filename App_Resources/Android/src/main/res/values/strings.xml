@@ -3,7 +3,7 @@
   <string name="btn_back">"Back"</string>
   <string name="created_by">"Developed by Cahya"</string>
   <string name="about_credits">"Credits &amp; Information"</string>
-  <string name="about_desc">"Magic Mind Reader is a mind-reading game using binary math algorithms to accurately guess whatever item you have in mind!"</string>
+  <string name="about_desc">"Magic Mind Reader is a math-magic mind-reading game utilizing a binary card trick algorithm to accurately guess any item you have in mind from various categories!"</string>
   <string name="loading_push">"Loading Magic..."</string>
   <string name="how_it_works">"How it Works"</string>
   <string name="about_title">"How it Works"</string>

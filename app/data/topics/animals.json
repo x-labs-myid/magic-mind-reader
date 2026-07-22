@@ -59,11 +59,11 @@
       "icon": "\uf52c",
       "name": { "en": "Turtle", "id": "Kura-kura" }
     },
-    { "value": 18, "icon": "\uf40a", "name": { "en": "Snail", "id": "Siput" } },
+    { "value": 18, "icon": "\ue445", "name": { "en": "Snail", "id": "Siput" } },
     { "value": 19, "icon": "\uf6e8", "name": { "en": "Worm", "id": "Cacing" } },
     {
       "value": 20,
-      "icon": "\uf6b5",
+      "icon": "\uf2cd",
       "name": { "en": "Bat", "id": "Kelelawar" }
     },
     {
@@ -78,7 +78,7 @@
     },
     {
       "value": 23,
-      "icon": "\uf8f5",
+      "icon": "\uf2fe",
       "name": { "en": "Alien Creature", "id": "Makhluk Asing" }
     },
     {

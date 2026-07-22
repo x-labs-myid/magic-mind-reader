@@ -120,18 +120,34 @@ async function doCoinFlipReveal(resultCircle: View, resultNameLabel: View) {
 
   AudioHelper.playComplete();
 
-  // Expand coin with Bounce Explosion
-  await resultCircle.animate({
-    scale: { x: 1.25, y: 1.25 },
-    duration: 220,
-    curve: 'easeOut'
-  });
+  // Expand coin and fade/scale in the label simultaneously
+  await Promise.all([
+    resultCircle.animate({
+      scale: { x: 1.25, y: 1.25 },
+      duration: 220,
+      curve: 'easeOut'
+    }),
+    resultNameLabel.animate({
+      opacity: 1,
+      scale: { x: 1.25, y: 1.25 },
+      duration: 220,
+      curve: 'easeOut'
+    })
+  ]);
 
-  await resultCircle.animate({
-    scale: { x: 1.0, y: 1.0 },
-    duration: 250,
-    curve: 'bounceOut'
-  });
+  // Bounce back to normal scale together
+  await Promise.all([
+    resultCircle.animate({
+      scale: { x: 1.0, y: 1.0 },
+      duration: 250,
+      curve: 'bounceOut'
+    }),
+    resultNameLabel.animate({
+      scale: { x: 1.0, y: 1.0 },
+      duration: 250,
+      curve: 'bounceOut'
+    })
+  ]);
 }
 
 export function restartGame() {

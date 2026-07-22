@@ -25,23 +25,23 @@
                 <!-- App Header Banner -->
                 <StackLayout backgroundColor="#ffee00" borderWidth="3" borderColor="#000000" borderRadius="24" padding="24 16" textAlignment="center" margin="0 0 16 0">
                     <StackLayout backgroundColor="#ff9800" borderWidth="2" borderColor="#000000" borderRadius="36" width="72" height="72" horizontalAlignment="center" margin="0 0 12 0" verticalAlignment="center">
-                        <Label text="&#xf25a;" class="fas" fontSize="36" color="#000000" textAlignment="center" verticalAlignment="center" />
+                        <Label text="&#xe05d;" class="fas" fontSize="36" color="#000000" textAlignment="center" verticalAlignment="center" />
                     </StackLayout>
                     <Label text="{{ L('title') }}" fontSize="22" fontWeight="bold" color="#000000" textAlignment="center" margin="0 0 4 0" />
                     <Label text="Version 2.0.0" fontSize="12" fontWeight="bold" color="#000000" />
                 </StackLayout>
 
                 <!-- About Description Card -->
-                <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="20" padding="20" margin="0 0 16 0">
-                    <Label text="{{ L('about_desc') }}" fontSize="14" color="#000000" textWrap="true" />
+                <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="20" padding="16" margin="0 0 16 0">
+                    <Label text="{{ L('about_desc') }}" fontSize="14" color="#000000" textWrap="true" textAlignment="center" />
                 </StackLayout>
 
                 <!-- Credits Section -->
                 <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="20" padding="20">
-                    <Label text="{{ L('about_credits') }}" fontSize="16" fontWeight="bold" color="#000000" margin="0 0 12 0" />
+                    <Label text="{{ L('about_credits') }}" fontSize="16" fontWeight="bold" color="#000000" margin="0 0 16 0" />
                     
-                    <!-- Developer (Tap to open Developer Icon Preview) -->
-                    <GridLayout columns="auto, *" margin="0 0 10 0" tap="goDevPreview">
+                    <!-- Developer -->
+                    <GridLayout columns="auto, *" margin="0 0 10 0">
                         <Label col="0" text="&#xf007;" class="fas" fontSize="18" color="#ff9800" width="30" verticalAlignment="center" />
                         <StackLayout col="1">
                             <Label text="Developer" fontSize="12" color="#64748b" fontWeight="bold" />

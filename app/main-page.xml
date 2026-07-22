@@ -38,9 +38,9 @@
                 <StackLayout horizontalAlignment="stretch" verticalAlignment="center">
                     <!-- Main Card -->
                     <StackLayout backgroundColor="#ffffff" borderWidth="3" borderColor="#000000" borderRadius="24" padding="24 20" margin="10 4">
-                        <!-- Orange Hand Icon Circle -->
+                        <!-- Orange Logo Icon Circle -->
                         <StackLayout backgroundColor="#ff9800" borderWidth="2" borderColor="#000000" borderRadius="36" width="72" height="72" horizontalAlignment="center" margin="0 0 16 0" verticalAlignment="center">
-                            <Label text="&#xf25a;" class="fas" fontSize="36" color="#000000" textAlignment="center" verticalAlignment="center" />
+                            <Label text="&#xe05d;" class="fas" fontSize="36" color="#000000" textAlignment="center" verticalAlignment="center" />
                         </StackLayout>
                         
                         <!-- Title -->

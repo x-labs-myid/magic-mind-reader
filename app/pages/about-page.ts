@@ -1,24 +1,10 @@
-import { EventData, Page, Frame } from '@nativescript/core';
+import { EventData, Page, Frame, Observable } from '@nativescript/core';
 import { AudioHelper } from '../shared/audio-helper';
 
-// Import dev-preview-page statically to ensure Webpack bundles it
-import * as devPreviewPageModule from './dev-preview-page';
-
 export function onNavigatingTo(args: EventData) {
-  // Page initialization logic if needed
-}
-
-export function goDevPreview() {
-  AudioHelper.playTap();
-  Frame.topmost().navigate({
-    moduleName: 'pages/dev-preview-page',
-    animated: true,
-    transition: {
-      name: 'slide',
-      duration: 300,
-      curve: 'easeInOut'
-    }
-  });
+  const page = <Page>args.object;
+  const viewModel = new Observable();
+  page.bindingContext = viewModel;
 }
 
 export function goBack() {

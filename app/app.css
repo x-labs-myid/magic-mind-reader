@@ -5,6 +5,8 @@
 Page {
   background-color: #ffffff;
   color: #000000;
+  androidStatusBarBackground: #ffffff;
+  statusBarStyle: light;
 }
 
 /* Neo-Brutalism Card Containers */

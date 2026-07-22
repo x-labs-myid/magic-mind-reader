@@ -10,36 +10,156 @@
     "id": "Pikirkan salah satu kendaraan di bawah ini!"
   },
   "items": [
-    { "value": 1, "icon": "\uf1b9", "name": { "en": "Sports Car", "id": "Mobil Balap" } },
-    { "value": 2, "icon": "\uf206", "name": { "en": "Bicycle", "id": "Sepeda" } },
-    { "value": 3, "icon": "\uf207", "name": { "en": "City Bus", "id": "Bus Kota" } },
-    { "value": 4, "icon": "\uf072", "name": { "en": "Airplane", "id": "Pesawat Terbang" } },
-    { "value": 5, "icon": "\uf135", "name": { "en": "Space Rocket", "id": "Roket Luar Angkasa" } },
-    { "value": 6, "icon": "\uf21a", "name": { "en": "Cruise Ship", "id": "Kapal Pesiar" } },
-    { "value": 7, "icon": "\uf533", "name": { "en": "Helicopter", "id": "Helikopter" } },
-    { "value": 8, "icon": "\uf0d1", "name": { "en": "Cargo Truck", "id": "Truk Kargo" } },
-    { "value": 9, "icon": "\uf238", "name": { "en": "High-Speed Train", "id": "Kereta Cepat" } },
-    { "value": 10, "icon": "\uf21c", "name": { "en": "Motorcycle", "id": "Sepeda Motor" } },
-    { "value": 11, "icon": "\uf0f9", "name": { "en": "Ambulance", "id": "Ambulans" } },
+    {
+      "value": 1,
+      "icon": "\uf1b9",
+      "name": { "en": "Sports Car", "id": "Mobil Balap" }
+    },
+    {
+      "value": 2,
+      "icon": "\uf206",
+      "name": { "en": "Bicycle", "id": "Sepeda" }
+    },
+    {
+      "value": 3,
+      "icon": "\uf207",
+      "name": { "en": "City Bus", "id": "Bus Kota" }
+    },
+    {
+      "value": 4,
+      "icon": "\uf072",
+      "name": { "en": "Airplane", "id": "Pesawat Terbang" }
+    },
+    {
+      "value": 5,
+      "icon": "\uf135",
+      "name": { "en": "Space Rocket", "id": "Roket Luar Angkasa" }
+    },
+    {
+      "value": 6,
+      "icon": "\uf21a",
+      "name": { "en": "Cruise Ship", "id": "Kapal Pesiar" }
+    },
+    {
+      "value": 7,
+      "icon": "\uf533",
+      "name": { "en": "Helicopter", "id": "Helikopter" }
+    },
+    {
+      "value": 8,
+      "icon": "\uf0d1",
+      "name": { "en": "Cargo Truck", "id": "Truk Kargo" }
+    },
+    {
+      "value": 9,
+      "icon": "\uf238",
+      "name": { "en": "High-Speed Train", "id": "Kereta Cepat" }
+    },
+    {
+      "value": 10,
+      "icon": "\uf21c",
+      "name": { "en": "Motorcycle", "id": "Sepeda Motor" }
+    },
+    {
+      "value": 11,
+      "icon": "\uf0f9",
+      "name": { "en": "Ambulance", "id": "Ambulans" }
+    },
     { "value": 12, "icon": "\uf1ba", "name": { "en": "Taxi", "id": "Taksi" } },
-    { "value": 13, "icon": "\uf722", "name": { "en": "Tractor", "id": "Traktor" } },
-    { "value": 14, "icon": "\uf13d", "name": { "en": "Submarine Anchor", "id": "Jangkar Kapal" } },
-    { "value": 15, "icon": "\uf52f", "name": { "en": "Gas Station", "id": "SPBU Bensin" } },
-    { "value": 16, "icon": "\uf637", "name": { "en": "Traffic Light", "id": "Lampu Lalu Lintas" } },
-    { "value": 17, "icon": "\uf524", "name": { "en": "Car Wheel", "id": "Roda Mobil" } },
-    { "value": 18, "icon": "\uf625", "name": { "en": "Steering Wheel", "id": "Setir Mobil" } },
-    { "value": 19, "icon": "\uf018", "name": { "en": "Highway Road", "id": "Jalan Tol" } },
-    { "value": 20, "icon": "\uf14e", "name": { "en": "GPS Navigation", "id": "Navigasi GPS" } },
-    { "value": 21, "icon": "\uf5e7", "name": { "en": "EV Charger", "id": "Stasiun Listrik EV" } },
-    { "value": 22, "icon": "\uf453", "name": { "en": "Propeller Plane", "id": "Baling-baling" } },
-    { "value": 23, "icon": "\uf145", "name": { "en": "Travel Ticket", "id": "Tiket Perjalanan" } },
-    { "value": 24, "icon": "\uf0f2", "name": { "en": "Luggage Suitcase", "id": "Koper Wisata" } },
-    { "value": 25, "icon": "\uf279", "name": { "en": "Road Map", "id": "Peta Jalan" } },
-    { "value": 26, "icon": "\uf197", "name": { "en": "Space Shuttle", "id": "Pesawat Ulang Alik" } },
-    { "value": 27, "icon": "\uf7d9", "name": { "en": "City Tram", "id": "Tram Kota" } },
-    { "value": 28, "icon": "\uf75c", "name": { "en": "Skateboard", "id": "Skateboard" } },
-    { "value": 29, "icon": "\uf7cc", "name": { "en": "Snow Sleigh", "id": "Kereta Salju" } },
-    { "value": 30, "icon": "\uf6ec", "name": { "en": "Parachute", "id": "Parasut Terbang" } },
-    { "value": 31, "icon": "\uf7c6", "name": { "en": "Orbit Satellite", "id": "Satelit Orbit" } }
+    {
+      "value": 13,
+      "icon": "\uf722",
+      "name": { "en": "Tractor", "id": "Traktor" }
+    },
+    {
+      "value": 14,
+      "icon": "\uf13d",
+      "name": { "en": "Submarine Anchor", "id": "Jangkar Kapal" }
+    },
+    {
+      "value": 15,
+      "icon": "\uf52f",
+      "name": { "en": "Gas Station", "id": "SPBU Bensin" }
+    },
+    {
+      "value": 16,
+      "icon": "\uf637",
+      "name": { "en": "Traffic Light", "id": "Lampu Lalu Lintas" }
+    },
+    {
+      "value": 17,
+      "icon": "\uf524",
+      "name": { "en": "Car Wheel", "id": "Roda Mobil" }
+    },
+    {
+      "value": 18,
+      "icon": "\uf625",
+      "name": { "en": "Steering Wheel", "id": "Setir Mobil" }
+    },
+    {
+      "value": 19,
+      "icon": "\uf018",
+      "name": { "en": "Highway Road", "id": "Jalan Tol" }
+    },
+    {
+      "value": 20,
+      "icon": "\uf14e",
+      "name": { "en": "GPS Navigation", "id": "Navigasi GPS" }
+    },
+    {
+      "value": 21,
+      "icon": "\uf5e7",
+      "name": { "en": "EV Charger", "id": "Stasiun Listrik EV" }
+    },
+    {
+      "value": 22,
+      "icon": "\uf453",
+      "name": { "en": "Propeller Plane", "id": "Baling-baling" }
+    },
+    {
+      "value": 23,
+      "icon": "\uf145",
+      "name": { "en": "Travel Ticket", "id": "Tiket Perjalanan" }
+    },
+    {
+      "value": 24,
+      "icon": "\uf0f2",
+      "name": { "en": "Luggage Suitcase", "id": "Koper Wisata" }
+    },
+    {
+      "value": 25,
+      "icon": "\uf279",
+      "name": { "en": "Road Map", "id": "Peta Jalan" }
+    },
+    {
+      "value": 26,
+      "icon": "\uf197",
+      "name": { "en": "Space Shuttle", "id": "Pesawat Ulang Alik" }
+    },
+    {
+      "value": 27,
+      "icon": "\ue5b4",
+      "name": { "en": "City Tram", "id": "Tram Kota" }
+    },
+    {
+      "value": 28,
+      "icon": "\uf43c",
+      "name": { "en": "Skateboard", "id": "Skateboard" }
+    },
+    {
+      "value": 29,
+      "icon": "\uf7cc",
+      "name": { "en": "Snow Sleigh", "id": "Kereta Salju" }
+    },
+    {
+      "value": 30,
+      "icon": "\uf6ec",
+      "name": { "en": "Parachute", "id": "Parasut Terbang" }
+    },
+    {
+      "value": 31,
+      "icon": "\uf7bf",
+      "name": { "en": "Orbit Satellite", "id": "Satelit Orbit" }
+    }
   ]
 }

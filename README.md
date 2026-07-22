@@ -4,7 +4,7 @@
 
 # Magic Mind Reader
 
-> **I can read your mind! Think of a number, and witness the magic.**
+> **I can read your mind! Think of any item from your chosen topic, and witness the magic.**
 
 A modern, interactive, and colorful math-magic guessing game rebuilt from the ground up using the latest mobile technology stack.
 
@@ -12,7 +12,7 @@ A modern, interactive, and colorful math-magic guessing game rebuilt from the gr
 
 ## 📖 Short Description
 
-**Magic Mind Reader** (formerly _Your Number_) is a gamified mobile application utilizing a classic binary card trick. Think of any number between **1 and 31**, answer five quick questions, and watch the app correctly reveal the number you have in mind with immersive animations and sound effects!
+**Magic Mind Reader** (formerly _Your Number_) is a gamified mobile application utilizing a classic binary card trick. Choose from various categories, think of any item from the category, answer five quick questions, and watch the app correctly reveal the secret item you have in mind with immersive animations and sound effects!
 
 ---
 
