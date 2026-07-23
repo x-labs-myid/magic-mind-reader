@@ -6,7 +6,8 @@
   "scripts": {
     "dev:android": "ns run android",
     "dev:ios": "ns run ios",
-    "clean": "ns clean"
+    "clean": "ns clean",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@nativescript-community/audio": "^6.4.14",
@@ -23,6 +24,7 @@
     "@nativescript/webpack": "^5.0.36",
     "@valor/nativescript-websockets": "^1.0.3",
     "concurrently": "^8.2.0",
-    "typescript": "~5.4.0"
+    "patch-package": "^8.0.1",
+    "typescript": "~7.0.2"
   }
 }

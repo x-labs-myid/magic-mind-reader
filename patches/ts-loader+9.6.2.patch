@@ -1,0 +1,654 @@
+diff --git a/node_modules/ts-loader/dist/compilerSetup.js b/node_modules/ts-loader/dist/compilerSetup.js
+index f99823d..d6dd738 100644
+--- a/node_modules/ts-loader/dist/compilerSetup.js
++++ b/node_modules/ts-loader/dist/compilerSetup.js
+@@ -17,6 +17,11 @@ function getCompiler(loaderOptions, log) {
+                 : `Could not load TypeScript compiler with NPM package name \`${loaderOptions.compiler}\`. Are you sure it is correctly installed?`;
+     }
+     if (errorMessage === undefined) {
++        if (loaderOptions.compiler === 'typescript' &&
++            (compiler.sys === undefined ||
++                typeof compiler.transpileModule !== 'function')) {
++            compiler = require('./ts7-compat').createCompiler(compiler);
++        }
+         compilerDetailsLogMessage = `ts-loader: Using ${loaderOptions.compiler}@${compiler.version}`;
+         compilerCompatible = false;
+         if (loaderOptions.compiler === 'typescript') {
+diff --git a/node_modules/ts-loader/dist/ts7-compat.js b/node_modules/ts-loader/dist/ts7-compat.js
+new file mode 100644
+index 0000000..5aa5a53
+--- /dev/null
++++ b/node_modules/ts-loader/dist/ts7-compat.js
+@@ -0,0 +1,632 @@
++"use strict";
++Object.defineProperty(exports, "__esModule", { value: true });
++exports.createCompiler = createCompiler;
++const child_process = require("child_process");
++const crypto = require("crypto");
++const fs = require("fs");
++const os = require("os");
++const path = require("path");
++const JSON5 = require("json5");
++const picomatch = require("picomatch");
++
++const tscBin = path.join(path.dirname(require.resolve("typescript/package.json")), "bin", "tsc");
++
++const DiagnosticCategory = {
++    Warning: 0,
++    Error: 1,
++    Suggestion: 2,
++    Message: 3,
++    0: "Warning",
++    1: "Error",
++    2: "Suggestion",
++    3: "Message",
++};
++const ScriptTarget = {
++    ES3: 0,
++    ES5: 1,
++    ES2015: 2,
++    ES2016: 3,
++    ES2017: 4,
++    ES2018: 5,
++    ES2019: 6,
++    ES2020: 7,
++    ES2021: 8,
++    ES2022: 9,
++    ES2023: 10,
++    ES2024: 11,
++    ES2025: 12,
++    ESNext: 99,
++    JSON: 100,
++    Latest: 99,
++};
++const ModuleKind = {
++    None: 0,
++    CommonJS: 1,
++    AMD: 2,
++    UMD: 3,
++    System: 4,
++    ES2015: 5,
++    ES2020: 6,
++    ES2022: 7,
++    ESNext: 99,
++    Node16: 100,
++    Node18: 101,
++    Node20: 102,
++    NodeNext: 199,
++    Preserve: 200,
++};
++const ModuleResolutionKind = {
++    Classic: 1,
++    Node10: 2,
++    Node16: 3,
++    NodeNext: 99,
++    Bundler: 100,
++};
++const JsxEmit = {
++    None: 0,
++    Preserve: 1,
++    ReactNative: 2,
++    React: 3,
++    ReactJSX: 4,
++    ReactJSXDev: 5,
++};
++const NewLineKind = {
++    None: 0,
++    CRLF: 1,
++    LF: 2,
++};
++const FileWatcherEventKind = {
++    Created: 0,
++    Changed: 1,
++    Deleted: 2,
++};
++const enumNames = {
++    target: invertEnum(ScriptTarget),
++    module: invertEnum(ModuleKind),
++    moduleResolution: {
++        1: "classic",
++        2: "node10",
++        3: "node16",
++        99: "nodenext",
++        100: "bundler",
++    },
++    jsx: {
++        1: "preserve",
++        2: "react-native",
++        3: "react",
++        4: "react-jsx",
++        5: "react-jsxdev",
++    },
++    newLine: {
++        1: "crlf",
++        2: "lf",
++    },
++};
++const sys = {
++    args: [],
++    newLine: os.EOL,
++    useCaseSensitiveFileNames: process.platform !== "win32",
++    getCurrentDirectory: () => process.cwd(),
++    fileExists: fs.existsSync,
++    directoryExists: (directoryName) => {
++        try {
++            return fs.statSync(directoryName).isDirectory();
++        }
++        catch (_e) {
++            return false;
++        }
++    },
++    readFile: (fileName, encoding = "utf8") => {
++        try {
++            return fs.readFileSync(fileName, encoding);
++        }
++        catch (_e) {
++            return undefined;
++        }
++    },
++    readDirectory: (rootDir, extensions = [".ts", ".tsx", ".d.ts"], excludes = [], includes = [], depth) => collectFiles(rootDir, extensions, excludes, includes, depth),
++    getDirectories: (directoryName) => {
++        try {
++            return fs
++                .readdirSync(directoryName, { withFileTypes: true })
++                .filter((entry) => entry.isDirectory())
++                .map((entry) => path.join(directoryName, entry.name));
++        }
++        catch (_e) {
++            return [];
++        }
++    },
++    realpath: fs.realpathSync.native || fs.realpathSync,
++};
++const transpileCache = new Map();
++const showConfigCache = new Map();
++
++function createCompiler(baseCompiler) {
++    return {
++        ...(baseCompiler || {}),
++        version: (baseCompiler === null || baseCompiler === void 0 ? void 0 : baseCompiler.version) || "7.0.0",
++        sys,
++        DiagnosticCategory,
++        ScriptTarget,
++        ModuleKind,
++        ModuleResolutionKind,
++        JsxEmit,
++        NewLineKind,
++        FileWatcherEventKind,
++        readConfigFile,
++        parseJsonConfigFileContent,
++        convertCompilerOptionsFromJson,
++        flattenDiagnosticMessageText,
++        createProgram,
++        transpileModule,
++    };
++}
++
++function readConfigFile(configFilePath, readFile = sys.readFile) {
++    const text = readFile(configFilePath);
++    if (text === undefined) {
++        return {
++            config: {},
++            error: makeDiagnostic(`File '${configFilePath}' not found.`),
++        };
++    }
++    try {
++        const config = JSON5.parse(text);
++        Object.defineProperty(config, "__ts7ConfigFilePath", {
++            value: path.resolve(configFilePath),
++            enumerable: false,
++        });
++        return { config };
++    }
++    catch (error) {
++        return {
++            config: {},
++            error: makeDiagnostic(error instanceof Error ? error.message : String(error), configFilePath),
++        };
++    }
++}
++
++function parseJsonConfigFileContent(config, _host, basePath, existingOptions = {}) {
++    const normalizedBasePath = path.resolve(basePath || process.cwd());
++    const shownConfig = config.__ts7ConfigFilePath
++        ? readTsgoShowConfig(config.__ts7ConfigFilePath)
++        : undefined;
++    if ((shownConfig === null || shownConfig === void 0 ? void 0 : shownConfig.error) !== undefined) {
++        return {
++            options: normalizeCompilerOptions(existingOptions, normalizedBasePath),
++            fileNames: [],
++            projectReferences: undefined,
++            errors: [shownConfig.error],
++            raw: config,
++        };
++    }
++    const effectiveConfig = (shownConfig === null || shownConfig === void 0 ? void 0 : shownConfig.config) || config;
++    const configBasePath = config.__ts7ConfigFilePath
++        ? path.dirname(config.__ts7ConfigFilePath)
++        : normalizedBasePath;
++    const configOptions = normalizeCompilerOptions(effectiveConfig.compilerOptions || {}, configBasePath);
++    const options = normalizeCompilerOptions({
++        ...configOptions,
++        ...existingOptions,
++    }, configBasePath);
++    return {
++        options,
++        fileNames: collectConfigFileNames(effectiveConfig, configBasePath, options),
++        projectReferences: effectiveConfig.references,
++        errors: [],
++        raw: config,
++    };
++}
++
++function convertCompilerOptionsFromJson(options, basePath) {
++    return {
++        options: normalizeCompilerOptions(options || {}, path.resolve(basePath || process.cwd())),
++        errors: [],
++    };
++}
++
++function normalizeCompilerOptions(options, basePath) {
++    const normalized = { ...options };
++    normalized.target = normalizeEnumOption(normalized.target, ScriptTarget, "target");
++    normalized.module = normalizeEnumOption(normalized.module, ModuleKind, "module");
++    normalized.moduleResolution = normalizeEnumOption(normalized.moduleResolution, ModuleResolutionKind, "moduleResolution");
++    normalized.jsx = normalizeEnumOption(normalized.jsx, JsxEmit, "jsx");
++    normalized.newLine = normalizeEnumOption(normalized.newLine, NewLineKind, "newLine");
++    if (normalized.baseUrl && !path.isAbsolute(normalized.baseUrl)) {
++        normalized.baseUrl = path.resolve(basePath, normalized.baseUrl);
++    }
++    if (normalized.pathsBasePath && !path.isAbsolute(normalized.pathsBasePath)) {
++        normalized.pathsBasePath = path.resolve(basePath, normalized.pathsBasePath);
++    }
++    return normalized;
++}
++
++function createProgram() {
++    return {
++        getOptionsDiagnostics: () => [],
++    };
++}
++
++function transpileModule(input, transpileOptions = {}) {
++    const compilerOptions = transpileOptions.compilerOptions || {};
++    const fileName = path.resolve(transpileOptions.fileName || "module.ts");
++    const cacheKey = crypto
++        .createHash("sha256")
++        .update(input)
++        .update("\0")
++        .update(fileName)
++        .update("\0")
++        .update(JSON.stringify(stableCompilerOptions(compilerOptions)))
++        .digest("hex");
++    const cached = transpileCache.get(cacheKey);
++    if (cached) {
++        return cached;
++    }
++    const result = transpileWithTsgo(input, compilerOptions, fileName);
++    transpileCache.set(cacheKey, result);
++    if (transpileCache.size > 256) {
++        transpileCache.delete(transpileCache.keys().next().value);
++    }
++    return result;
++}
++
++function transpileWithTsgo(input, compilerOptions, fileName) {
++    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ts7-loader-"));
++    const srcRoot = path.join(tempRoot, "src");
++    const outDir = path.join(tempRoot, "out");
++    const projectRoot = getProjectRoot(compilerOptions, fileName);
++    const relativeName = getRelativeInputName(fileName, projectRoot);
++    const tempInputFile = path.join(srcRoot, relativeName);
++    const outputFile = path.join(outDir, changeExtension(relativeName));
++    const sourceMapFile = `${outputFile}.map`;
++    try {
++        fs.mkdirSync(path.dirname(tempInputFile), { recursive: true });
++        fs.mkdirSync(outDir, { recursive: true });
++        fs.writeFileSync(tempInputFile, input);
++        const args = buildTscArgs(compilerOptions, srcRoot, outDir, tempInputFile);
++        let commandOutput = "";
++        try {
++            child_process.execFileSync(process.execPath, [tscBin, ...args], {
++                cwd: projectRoot,
++                encoding: "utf8",
++                stdio: ["ignore", "pipe", "pipe"],
++            });
++        }
++        catch (error) {
++            commandOutput = [
++                error.stdout ? String(error.stdout) : "",
++                error.stderr ? String(error.stderr) : "",
++                error.message && !error.stdout && !error.stderr ? String(error.message) : "",
++            ]
++                .filter(Boolean)
++                .join("\n")
++                .replaceAll(tempRoot, projectRoot);
++        }
++        if (!fs.existsSync(outputFile)) {
++            return {
++                outputText: undefined,
++                sourceMapText: undefined,
++                diagnostics: [
++                    makeDiagnostic(commandOutput || `TypeScript 7 emitted no output for '${fileName}'.`, fileName),
++                ],
++            };
++        }
++        const outputText = fs.readFileSync(outputFile, "utf8");
++        const sourceMapText = fs.existsSync(sourceMapFile)
++            ? fs.readFileSync(sourceMapFile, "utf8")
++            : undefined;
++        return {
++            outputText,
++            sourceMapText,
++            diagnostics: commandOutput ? [makeDiagnostic(commandOutput, fileName)] : [],
++        };
++    }
++    catch (error) {
++        return {
++            outputText: undefined,
++            sourceMapText: undefined,
++            diagnostics: [makeDiagnostic(error instanceof Error ? error.message : String(error), fileName)],
++        };
++    }
++    finally {
++        try {
++            fs.rmSync(tempRoot, { recursive: true, force: true });
++        }
++        catch (_e) {
++            // Temporary output can be left behind without affecting correctness.
++        }
++    }
++}
++
++function buildTscArgs(compilerOptions, srcRoot, outDir, inputFile) {
++    const args = [
++        "--ignoreConfig",
++        "--noCheck",
++        "--pretty",
++        "false",
++        "--declaration",
++        "false",
++        "--noEmitOnError",
++        "false",
++        "--rootDir",
++        srcRoot,
++        "--outDir",
++        outDir,
++    ];
++    pushEnumOption(args, "target", compilerOptions.target, enumNames.target);
++    pushEnumOption(args, "module", compilerOptions.module, enumNames.module);
++    pushEnumOption(args, "moduleResolution", compilerOptions.moduleResolution, enumNames.moduleResolution);
++    pushEnumOption(args, "jsx", compilerOptions.jsx, enumNames.jsx);
++    pushEnumOption(args, "newLine", compilerOptions.newLine, enumNames.newLine);
++    pushBooleanOption(args, "sourceMap", compilerOptions.sourceMap);
++    pushBooleanOption(args, "inlineSourceMap", compilerOptions.inlineSourceMap);
++    pushBooleanOption(args, "inlineSources", compilerOptions.inlineSources);
++    pushBooleanOption(args, "experimentalDecorators", compilerOptions.experimentalDecorators);
++    pushBooleanOption(args, "emitDecoratorMetadata", compilerOptions.emitDecoratorMetadata);
++    pushBooleanOption(args, "noEmitHelpers", compilerOptions.noEmitHelpers);
++    pushBooleanOption(args, "importHelpers", compilerOptions.importHelpers);
++    pushBooleanOption(args, "useDefineForClassFields", compilerOptions.useDefineForClassFields);
++    pushBooleanOption(args, "removeComments", compilerOptions.removeComments);
++    pushBooleanOption(args, "isolatedModules", compilerOptions.isolatedModules);
++    pushBooleanOption(args, "verbatimModuleSyntax", compilerOptions.verbatimModuleSyntax);
++    pushBooleanOption(args, "rewriteRelativeImportExtensions", compilerOptions.rewriteRelativeImportExtensions);
++    pushStringOption(args, "jsxFactory", compilerOptions.jsxFactory);
++    pushStringOption(args, "jsxFragmentFactory", compilerOptions.jsxFragmentFactory);
++    pushStringOption(args, "jsxImportSource", compilerOptions.jsxImportSource);
++    args.push(inputFile);
++    return args;
++}
++
++function readTsgoShowConfig(configFilePath) {
++    const resolved = path.resolve(configFilePath);
++    const cached = showConfigCache.get(resolved);
++    if (cached) {
++        return cached;
++    }
++    let result;
++    try {
++        const output = child_process.execFileSync(process.execPath, [
++            tscBin,
++            "--showConfig",
++            "--project",
++            resolved,
++        ], {
++            cwd: path.dirname(resolved),
++            encoding: "utf8",
++            stdio: ["ignore", "pipe", "pipe"],
++        });
++        result = { config: JSON.parse(output) };
++    }
++    catch (error) {
++        const message = [
++            error.stdout ? String(error.stdout) : "",
++            error.stderr ? String(error.stderr) : "",
++            error.message && !error.stdout && !error.stderr ? String(error.message) : "",
++        ]
++            .filter(Boolean)
++            .join("\n");
++        result = { error: makeDiagnostic(message || `Failed to parse '${resolved}' with TypeScript 7.`, resolved) };
++    }
++    showConfigCache.set(resolved, result);
++    return result;
++}
++
++function collectConfigFileNames(config, basePath, options) {
++    const result = new Set();
++    const extensions = options.allowJs
++        ? [".ts", ".tsx", ".d.ts", ".js", ".jsx", ".mjs", ".cjs"]
++        : [".ts", ".tsx", ".d.ts"];
++    for (const fileName of config.files || []) {
++        result.add(path.resolve(basePath, fileName));
++    }
++    const include = config.include || (config.files ? [] : ["**/*"]);
++    for (const fileName of collectFiles(basePath, extensions, config.exclude || defaultExcludes(), include)) {
++        result.add(fileName);
++    }
++    return [...result];
++}
++
++function collectFiles(rootDir, extensions, excludes = [], includes = [], depth) {
++    const root = path.resolve(rootDir);
++    const includePatterns = normalizePatterns(includes.length ? includes : ["**/*"]);
++    const excludePatterns = normalizeExcludePatterns(excludes.length ? excludes : defaultExcludes());
++    const includeMatcher = picomatch(includePatterns, { dot: true });
++    const excludeMatcher = picomatch(excludePatterns, { dot: true });
++    const output = [];
++    walk(root, 0);
++    return output;
++
++    function walk(directoryName, currentDepth) {
++        if (depth !== undefined && currentDepth > depth) {
++            return;
++        }
++        let entries;
++        try {
++            entries = fs.readdirSync(directoryName, { withFileTypes: true });
++        }
++        catch (_e) {
++            return;
++        }
++        for (const entry of entries) {
++            const absolutePath = path.join(directoryName, entry.name);
++            const relativePath = toPosix(path.relative(root, absolutePath));
++            if (excludeMatcher(relativePath) || excludeMatcher(`${relativePath}/`)) {
++                continue;
++            }
++            if (entry.isDirectory()) {
++                walk(absolutePath, currentDepth + 1);
++                continue;
++            }
++            if (extensions.length && !extensions.some((extension) => absolutePath.endsWith(extension))) {
++                continue;
++            }
++            if (includeMatcher(relativePath)) {
++                output.push(absolutePath);
++            }
++        }
++    }
++}
++
++function defaultExcludes() {
++    return ["node_modules", "bower_components", "jspm_packages"];
++}
++
++function normalizePatterns(patterns) {
++    return patterns.map((pattern) => toPosix(pattern).replace(/^\.\//, ""));
++}
++
++function normalizeExcludePatterns(patterns) {
++    return normalizePatterns(patterns).flatMap((pattern) => {
++        if (/[?*[\]{}()!+@]/.test(pattern)) {
++            return [pattern];
++        }
++        return [pattern, `${pattern}/**`];
++    });
++}
++
++function normalizeEnumOption(value, enumObject, optionName) {
++    if (typeof value === "number") {
++        return value;
++    }
++    if (typeof value !== "string") {
++        return value;
++    }
++    const normalized = value.replace(/^lib\./i, "").replace(/\.d\.ts$/i, "");
++    const lower = normalized.toLowerCase().replace(/[-_]/g, "");
++    const aliases = {
++        es6: "es2015",
++        latest: "esnext",
++        node: "node10",
++        reactnative: "reactnative",
++        reactjsx: "reactjsx",
++        reactjsxdev: "reactjsxdev",
++    };
++    const target = aliases[lower] || lower;
++    for (const [name, enumValue] of Object.entries(enumObject)) {
++        if (typeof enumValue === "number" && name.toLowerCase().replace(/[-_]/g, "") === target) {
++            return enumValue;
++        }
++    }
++    if (optionName === "moduleResolution" && target === "bundler") {
++        return ModuleResolutionKind.Bundler;
++    }
++    return value;
++}
++
++function pushEnumOption(args, name, value, names) {
++    if (value === undefined || value === null) {
++        return;
++    }
++    const optionValue = typeof value === "number" ? names[value] : value;
++    if (optionValue !== undefined && optionValue !== "None") {
++        args.push(`--${name}`, String(optionValue));
++    }
++}
++
++function pushBooleanOption(args, name, value) {
++    if (value === true) {
++        args.push(`--${name}`);
++    }
++    else if (value === false) {
++        args.push(`--${name}`, "false");
++    }
++}
++
++function pushStringOption(args, name, value) {
++    if (typeof value === "string" && value.length > 0) {
++        args.push(`--${name}`, value);
++    }
++}
++
++function invertEnum(enumObject) {
++    const result = {};
++    for (const [name, value] of Object.entries(enumObject)) {
++        if (typeof value === "number") {
++            result[value] = name;
++        }
++    }
++    return result;
++}
++
++function getProjectRoot(compilerOptions, fileName) {
++    if (compilerOptions.configFilePath) {
++        return path.dirname(path.resolve(compilerOptions.configFilePath));
++    }
++    return findNearestPackageRoot(path.dirname(fileName)) || process.cwd();
++}
++
++function findNearestPackageRoot(start) {
++    let current = path.resolve(start);
++    while (true) {
++        if (fs.existsSync(path.join(current, "package.json"))) {
++            return current;
++        }
++        const parent = path.dirname(current);
++        if (parent === current) {
++            return undefined;
++        }
++        current = parent;
++    }
++}
++
++function getRelativeInputName(fileName, projectRoot) {
++    const relative = path.relative(projectRoot, fileName);
++    if (relative && !relative.startsWith("..") && !path.isAbsolute(relative)) {
++        return relative;
++    }
++    return fileName.replace(/^[a-zA-Z]:/, "").replace(/[\\/]+/g, "_").replace(/^_+/, "");
++}
++
++function changeExtension(fileName) {
++    if (/\.mts$/i.test(fileName)) {
++        return fileName.replace(/\.mts$/i, ".mjs");
++    }
++    if (/\.cts$/i.test(fileName)) {
++        return fileName.replace(/\.cts$/i, ".cjs");
++    }
++    return fileName.replace(/\.[cm]?tsx?$/i, ".js");
++}
++
++function stableCompilerOptions(options) {
++    return Object.keys(options)
++        .sort()
++        .reduce((result, key) => {
++        const value = options[key];
++        if (typeof value !== "function") {
++            result[key] = value;
++        }
++        return result;
++    }, {});
++}
++
++function toPosix(fileName) {
++    return fileName.replace(/\\/g, "/");
++}
++
++function flattenDiagnosticMessageText(messageText, newLine) {
++    if (typeof messageText === "string") {
++        return messageText;
++    }
++    if (!messageText) {
++        return "";
++    }
++    const message = messageText.messageText || "";
++    const next = messageText.next || [];
++    return [message, ...next.map((item) => flattenDiagnosticMessageText(item, newLine))].join(newLine);
++}
++
++function makeDiagnostic(messageText, fileName) {
++    return {
++        category: DiagnosticCategory.Error,
++        code: 7000,
++        file: fileName
++            ? {
++                fileName,
++                getLineAndCharacterOfPosition: () => ({ line: 0, character: 0 }),
++            }
++            : undefined,
++        start: 0,
++        length: 0,
++        messageText,
++    };
++}

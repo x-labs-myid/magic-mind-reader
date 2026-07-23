@@ -14,10 +14,30 @@ export class AudioHelper {
 
   private static isMutedState: boolean = false;
   private static isBacksoundPlaying: boolean = false;
+  private static wasPlayingBeforeSuspend: boolean = false;
 
   public static init() {
     this.isMutedState = ApplicationSettings.getBoolean('is_muted', false);
     
+    // Register lifecycle event listeners
+    Application.on(Application.suspendEvent, () => {
+      if (this.isBacksoundPlaying) {
+        this.wasPlayingBeforeSuspend = true;
+        this.stopBacksound();
+      }
+    });
+
+    Application.on(Application.resumeEvent, () => {
+      if (this.wasPlayingBeforeSuspend && !this.isMuted()) {
+        this.startBacksound();
+      }
+      this.wasPlayingBeforeSuspend = false;
+    });
+
+    Application.on(Application.exitEvent, () => {
+      this.stopBacksound();
+    });
+
     if (isAndroid) {
       try {
         if (android.os.Build.VERSION.SDK_INT >= 21) {

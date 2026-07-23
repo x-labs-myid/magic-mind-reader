@@ -65,9 +65,25 @@ export async function onNavigatedTo(args: EventData) {
 
   const resultCircle = currentPage.getViewById<View>('resultCircle');
   const resultNameLabel = currentPage.getViewById<View>('resultNameLabel');
+  const restartBtnContainer = currentPage.getViewById<View>('restartBtnContainer');
 
   if (resultCircle && resultNameLabel) {
     await doCoinFlipReveal(resultCircle, resultNameLabel);
+
+    // Animate Play Again button to visible after animations complete
+    if (restartBtnContainer) {
+      restartBtnContainer.visibility = 'visible';
+      try {
+        await restartBtnContainer.animate({
+          opacity: 1,
+          scale: { x: 1.0, y: 1.0 },
+          duration: 350,
+          curve: 'easeOut'
+        });
+      } catch (e) {
+        console.error('Error animating play again button:', e);
+      }
+    }
   }
 }
 

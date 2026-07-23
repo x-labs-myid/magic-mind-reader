@@ -10,36 +10,160 @@
     "id": "Pikirkan salah satu makanan atau minuman di bawah!"
   },
   "items": [
-    { "value": 1, "icon": "\uf818", "name": { "en": "Pepperoni Pizza", "id": "Pizza Pepperoni" } },
-    { "value": 2, "icon": "\uf80f", "name": { "en": "Beef Burger", "id": "Burger Sapi" } },
-    { "value": 3, "icon": "\uf810", "name": { "en": "Ice Cream Cone", "id": "Es Krim Cone" } },
-    { "value": 4, "icon": "\uf0f4", "name": { "en": "Hot Coffee", "id": "Kopi Panas" } },
-    { "value": 5, "icon": "\uf1fd", "name": { "en": "Birthday Cake", "id": "Kue Ulang Tahun" } },
-    { "value": 6, "icon": "\uf815", "name": { "en": "Choco Cookie", "id": "Kukis Cokelat" } },
-    { "value": 7, "icon": "\uf7ef", "name": { "en": "Cheddar Cheese", "id": "Keju Cheddar" } },
-    { "value": 8, "icon": "\uf7e5", "name": { "en": "Bacon Meat", "id": "Daging Bacon" } },
-    { "value": 9, "icon": "\uf7ec", "name": { "en": "Fried Chicken", "id": "Ayam Goreng" } },
-    { "value": 10, "icon": "\uf819", "name": { "en": "Breakfast Omelette", "id": "Telur Omelet" } },
-    { "value": 11, "icon": "\uf869", "name": { "en": "Hot Tea Cup", "id": "Teh Panas" } },
-    { "value": 12, "icon": "\uf0fc", "name": { "en": "Cold Drink", "id": "Minuman Dingin" } },
-    { "value": 13, "icon": "\uf4e3", "name": { "en": "Wine Glass", "id": "Gelas Anggur" } },
-    { "value": 14, "icon": "\uf561", "name": { "en": "Tropical Cocktail", "id": "Es Sirup Segar" } },
-    { "value": 15, "icon": "\uf517", "name": { "en": "Blender Juice", "id": "Jus Blender" } },
-    { "value": 16, "icon": "\uf2e7", "name": { "en": "Fork & Spoon", "id": "Sendok Garpu" } },
-    { "value": 17, "icon": "\uf823", "name": { "en": "Bowl of Rice", "id": "Mangkuk Nasi" } },
-    { "value": 18, "icon": "\uf786", "name": { "en": "Sweet Candy", "id": "Permen Manis" } },
-    { "value": 19, "icon": "\uf81c", "name": { "en": "Pepper Shaker", "id": "Botol Merica" } },
-    { "value": 20, "icon": "\uf812", "name": { "en": "Lobster Seafood", "id": "Seafood Lobster" } },
-    { "value": 21, "icon": "\uf811", "name": { "en": "Fresh Baguette", "id": "Roti Baguette" } },
-    { "value": 22, "icon": "\uf873", "name": { "en": "Soda Can", "id": "Minuman Soda" } },
-    { "value": 23, "icon": "\uf81a", "name": { "en": "Fresh Salad", "id": "Mangkuk Salad" } },
-    { "value": 24, "icon": "\uf813", "name": { "en": "Movie Popcorn", "id": "Popcorn Bioskop" } },
-    { "value": 25, "icon": "\uf57b", "name": { "en": "Mineral Water", "id": "Air Mineral" } },
-    { "value": 26, "icon": "\uf86b", "name": { "en": "Chef Kitchen", "id": "Dapur Koki" } },
-    { "value": 27, "icon": "\uf54e", "name": { "en": "Bakery Store", "id": "Toko Roti" } },
-    { "value": 28, "icon": "\uf870", "name": { "en": "Hot Soup", "id": "Sup Mangkok" } },
-    { "value": 29, "icon": "\uf817", "name": { "en": "Cookie Jar", "id": "Toples Kue" } },
-    { "value": 30, "icon": "\uf7a0", "name": { "en": "Ice Cubes", "id": "Es Batu" } },
-    { "value": 31, "icon": "\uf814", "name": { "en": "Takeout Box", "id": "Nasi Kotak" } }
+    {
+      "value": 1,
+      "icon": "\uf818",
+      "name": { "en": "Pepperoni Pizza", "id": "Pizza Pepperoni" }
+    },
+    {
+      "value": 2,
+      "icon": "\uf80f",
+      "name": { "en": "Beef Burger", "id": "Burger Sapi" }
+    },
+    {
+      "value": 3,
+      "icon": "\uf810",
+      "name": { "en": "Ice Cream Cone", "id": "Es Krim Cone" }
+    },
+    {
+      "value": 4,
+      "icon": "\uf0f4",
+      "name": { "en": "Hot Coffee", "id": "Kopi Panas" }
+    },
+    {
+      "value": 5,
+      "icon": "\uf1fd",
+      "name": { "en": "Birthday Cake", "id": "Kue Ulang Tahun" }
+    },
+    {
+      "value": 6,
+      "icon": "\uf815",
+      "name": { "en": "Choco Cookie", "id": "Kukis Cokelat" }
+    },
+    {
+      "value": 7,
+      "icon": "\uf7ef",
+      "name": { "en": "Cheddar Cheese", "id": "Keju Cheddar" }
+    },
+    {
+      "value": 8,
+      "icon": "\uf7e5",
+      "name": { "en": "Bacon Meat", "id": "Daging Bacon" }
+    },
+    {
+      "value": 9,
+      "icon": "\uf7ec",
+      "name": { "en": "Fried Chicken", "id": "Ayam Goreng" }
+    },
+    {
+      "value": 10,
+      "icon": "\uf7fb",
+      "name": { "en": "Breakfast Omelette", "id": "Telur Omelet" }
+    },
+    {
+      "value": 11,
+      "icon": "\uf0f4",
+      "name": { "en": "Hot Tea Cup", "id": "Teh Panas" }
+    },
+    {
+      "value": 12,
+      "icon": "\uf0fc",
+      "name": { "en": "Cold Drink", "id": "Minuman Dingin" }
+    },
+    {
+      "value": 13,
+      "icon": "\uf4e3",
+      "name": { "en": "Wine Glass", "id": "Gelas Anggur" }
+    },
+    {
+      "value": 14,
+      "icon": "\uf561",
+      "name": { "en": "Tropical Cocktail", "id": "Es Sirup Segar" }
+    },
+    {
+      "value": 15,
+      "icon": "\uf517",
+      "name": { "en": "Blender Juice", "id": "Jus Blender" }
+    },
+    {
+      "value": 16,
+      "icon": "\uf2e7",
+      "name": { "en": "Fork & Spoon", "id": "Sendok Garpu" }
+    },
+    {
+      "value": 17,
+      "icon": "\ue2eb",
+      "name": { "en": "Bowl of Rice", "id": "Mangkuk Nasi" }
+    },
+    {
+      "value": 18,
+      "icon": "\uf786",
+      "name": { "en": "Sweet Candy", "id": "Permen Manis" }
+    },
+    {
+      "value": 19,
+      "icon": "\ue516",
+      "name": { "en": "Pepper Shaker", "id": "Botol Merica" }
+    },
+    {
+      "value": 20,
+      "icon": "\uf812",
+      "name": { "en": "Lobster Seafood", "id": "Seafood Lobster" }
+    },
+    {
+      "value": 21,
+      "icon": "\uf828",
+      "name": { "en": "Fresh Baguette", "id": "Roti Baguette" }
+    },
+    {
+      "value": 22,
+      "icon": "\ue4c5",
+      "name": { "en": "Soda Can", "id": "Minuman Soda" }
+    },
+    {
+      "value": 23,
+      "icon": "\uf06c",
+      "name": { "en": "Fresh Salad", "id": "Mangkuk Salad" }
+    },
+    {
+      "value": 24,
+      "icon": "\uf008",
+      "name": { "en": "Movie Popcorn", "id": "Popcorn Bioskop" }
+    },
+    {
+      "value": 25,
+      "icon": "\uf57b",
+      "name": { "en": "Mineral Water", "id": "Air Mineral" }
+    },
+    {
+      "value": 26,
+      "icon": "\ue51a",
+      "name": { "en": "Chef Kitchen", "id": "Dapur Koki" }
+    },
+    {
+      "value": 27,
+      "icon": "\uf54e",
+      "name": { "en": "Bakery Store", "id": "Toko Roti" }
+    },
+    {
+      "value": 28,
+      "icon": "\uf386",
+      "name": { "en": "Hot Soup", "id": "Sup Mangkok" }
+    },
+    {
+      "value": 29,
+      "icon": "\ue517",
+      "name": { "en": "Cookie Jar", "id": "Toples Kue" }
+    },
+    {
+      "value": 30,
+      "icon": "\uf7a0",
+      "name": { "en": "Ice Cubes", "id": "Es Batu" }
+    },
+    {
+      "value": 31,
+      "icon": "\uf49e",
+      "name": { "en": "Takeout Box", "id": "Nasi Kotak" }
+    }
   ]
 }

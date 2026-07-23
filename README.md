@@ -23,14 +23,14 @@ A modern, interactive, and colorful math-magic guessing game rebuilt from the gr
 - 🌐 **Multi-Language Support**: Fully localized in **English** and **Indonesian** with dynamic language selectors using `@nativescript/localize`.
 - 🎵 **Audio Feedback**: High-quality sound effects for button taps (`tap-effect.mp3`) and game resolution (`complete-effect.mp3`) using `@nativescript-community/audio`.
 - ⚡ **Modern Build Tooling**: Upgraded to **NativeScript v9** with **Webpack** bundler for HMR (Hot Module Replacement) and optimized production bundles.
-- ⚙️ **High Performance**: Built with **TypeScript 5.4** using optimized compilation configurations.
+- ⚙️ **High Performance**: Built with **TypeScript 7.0.2** using optimized compilation configurations.
 
 ---
 
 ## 🛠️ Technology Stack
 
 - **Framework**: [NativeScript v9](https://docs.nativescript.org)
-- **Language**: [TypeScript 5.4](https://typescriptlang.org)
+- **Language**: [TypeScript 7.0.2](https://typescriptlang.org)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com) via `@nativescript/tailwind`
 - **Audio Engine**: `@nativescript-community/audio`
 - **Localization**: `@nativescript/localize`
@@ -98,9 +98,10 @@ npm run clean
 │   ├── app.css              # Global styles (Tailwind imports)
 │   ├── app.ts               # App entrypoint
 │   └── fonts.css            # FontAwesome integration
+├── patches/                 # Compatibility patches (TS 7 & Webpack)
 ├── nativescript.config.ts   # NativeScript App configuration
 ├── tailwind.config.js       # Tailwind theme colors & configurations
-├── tsconfig.json            # TypeScript configuration
+├── tsconfig.json            # TypeScript 7 configuration
 └── webpack.config.js        # Webpack configuration
 ```
 

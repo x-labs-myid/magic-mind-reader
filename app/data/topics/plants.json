@@ -17,7 +17,7 @@
     },
     {
       "value": 2,
-      "icon": "\uf79d",
+      "icon": "\uf863",
       "name": { "en": "Rose", "id": "Bunga Mawar" }
     },
     {
@@ -94,7 +94,7 @@
     },
     {
       "value": 19,
-      "icon": "\uf730",
+      "icon": "\uf7d8",
       "name": { "en": "Mushroom", "id": "Jamur Hutan" }
     },
     {

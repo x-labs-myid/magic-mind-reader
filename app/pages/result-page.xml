@@ -79,7 +79,7 @@
             </ScrollView>
 
             <!-- Bottom Play Again Button with Explicit Height -->
-            <StackLayout row="2" margin="4 0 0 0">
+            <StackLayout id="restartBtnContainer" row="2" margin="4 0 0 0" opacity="0" scaleX="0.5" scaleY="0.5" visibility="collapsed">
                 <Button tap="restartGame" height="58" backgroundColor="#ffee00" color="#000000" borderRadius="29" borderWidth="3" borderColor="#000000" verticalAlignment="center">
                     <FormattedString>
                         <Span text="&#xf01e;" class="fas" fontSize="16" />

@@ -1,0 +1,31 @@
+diff --git a/node_modules/@nativescript/webpack/dist/configuration/base.js b/node_modules/@nativescript/webpack/dist/configuration/base.js
+index 7e09c07..12eb84b 100644
+--- a/node_modules/@nativescript/webpack/dist/configuration/base.js
++++ b/node_modules/@nativescript/webpack/dist/configuration/base.js
+@@ -24,6 +24,17 @@ const index_1 = require("../index");
+ const config_1 = require("../helpers/config");
+ const host_1 = require("../helpers/host");
+ const platform_1 = require("../helpers/platform");
++function hasLegacyTypescriptCompilerApi() {
++    try {
++        const typescript = require('typescript');
++        return (typeof typescript.readConfigFile === 'function' &&
++            typeof typescript.parseJsonConfigFileContent === 'function' &&
++            typescript.sys !== undefined);
++    }
++    catch (_e) {
++        return false;
++    }
++}
+ function default_1(config, env = index_1.env) {
+     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+     const entryPath = (0, platform_1.getEntryPath)();
+@@ -406,7 +417,7 @@ function default_1(config, env = index_1.env) {
+         .use('native-class-strip-loader')
+         .loader('native-class-strip-loader');
+     // Use Fork TS Checker to do type checking in a separate non-blocking process
+-    config.when((0, dependencies_2.hasDependency)('typescript'), (config) => {
++    config.when((0, dependencies_2.hasDependency)('typescript') && hasLegacyTypescriptCompilerApi(), (config) => {
+         config
+             .plugin('ForkTsCheckerWebpackPlugin')
+             .use(fork_ts_checker_webpack_plugin_1.default, [
