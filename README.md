@@ -22,8 +22,8 @@ A modern, interactive, and colorful math-magic guessing game rebuilt from the gr
 - 🔮 **Interactive Canvas Animations**: Powered by `@nativescript/canvas` featuring floating numbers on the home screen, laser scanning lines on the game screen, and high-impact cascading confetti upon game completion.
 - 🌐 **Multi-Language Support**: Fully localized in **English** and **Indonesian** with dynamic language selectors using `@nativescript/localize`.
 - 🎵 **Audio Feedback**: High-quality sound effects for button taps (`tap-effect.mp3`) and game resolution (`complete-effect.mp3`) using `@nativescript-community/audio`.
-- ⚡ **Modern Build Tooling**: Upgraded to **NativeScript v9** with **Vite** bundler for HMR (Hot Module Replacement) and optimized production bundles.
-- ⚙️ **High Performance**: Built with **TypeScript 7.0.2** using optimized compilation configurations.
+- ⚡ **Modern Build Tooling**: Upgraded to **NativeScript v9** with **Webpack** bundler for HMR (Hot Module Replacement) and optimized production bundles.
+- ⚙️ **High Performance**: Built with **TypeScript 5.4** using optimized compilation configurations.
 
 ---
 
@@ -100,8 +100,8 @@ npm run clean
 │   └── fonts.css            # FontAwesome integration
 ├── nativescript.config.ts   # NativeScript App configuration
 ├── tailwind.config.js       # Tailwind theme colors & configurations
-├── tsconfig.json            # TypeScript 7 compiler rules
-└── vite.config.ts           # Vite HMR settings
+├── tsconfig.json            # TypeScript configuration
+└── webpack.config.js        # Webpack configuration
 ```
 
 ---
