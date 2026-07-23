@@ -1,5 +1,5 @@
 <p align="left">
-  <img src="app/assets/images/logo.png" width="160" alt="Magic Mind Reader Logo" />
+  <img src=".assets-app/magic-mind-reader-nobg.png" width="160" alt="Magic Mind Reader Logo" />
 </p>
 
 # Magic Mind Reader
