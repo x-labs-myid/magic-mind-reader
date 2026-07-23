@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="btn_back">"Kembali"</string>
+  <string name="about_framework">"Framework"</string>
   <string name="created_by">"Dikembangkan oleh Cahya"</string>
   <string name="about_credits">"Kredit &amp; Informasi"</string>
   <string name="about_desc">"Magic Mind Reader adalah aplikasi tebak pikiran matematis yang menggunakan algoritma kartu biner untuk menebak item apa saja yang kamu pikirkan secara akurat dari berbagai kategori pilihan!"</string>

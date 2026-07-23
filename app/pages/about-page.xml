@@ -45,7 +45,16 @@
                         <Label col="0" text="&#xf007;" class="fas" fontSize="18" color="#ff9800" width="30" verticalAlignment="center" />
                         <StackLayout col="1">
                             <Label text="Developer" fontSize="12" color="#64748b" fontWeight="bold" />
-                            <Label text="Kang Cahya 🛠️" fontSize="14" fontWeight="bold" color="#000000" />
+                            <Label text="Kang Cahya" fontSize="14" fontWeight="bold" color="#000000" />
+                        </StackLayout>
+                    </GridLayout>
+
+                    <!-- Framework -->
+                    <GridLayout columns="auto, *" margin="0 0 10 0">
+                        <Label col="0" text="&#xf3cd;" class="fas" fontSize="18" color="#3c5afd" width="30" verticalAlignment="center" />
+                        <StackLayout col="1">
+                            <Label text="{{ L('about_framework') }}" fontSize="12" color="#64748b" fontWeight="bold" />
+                            <Label text="NativeScript" fontSize="14" fontWeight="bold" color="#000000" />
                         </StackLayout>
                     </GridLayout>
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="btn_back">"Back"</string>
+  <string name="about_framework">"Framework"</string>
   <string name="created_by">"Developed by Cahya"</string>
   <string name="about_credits">"Credits &amp; Information"</string>
   <string name="about_desc">"Magic Mind Reader is a math-magic mind-reading game utilizing a binary card trick algorithm to accurately guess any item you have in mind from various categories!"</string>
