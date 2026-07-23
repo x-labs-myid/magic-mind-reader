@@ -3,6 +3,7 @@
     xmlns:canvas="@nativescript/canvas"
     navigatingTo="onNavigatingTo"
     navigatedTo="onNavigatedTo"
+    unloaded="onUnloaded"
     actionBarHidden="true"
     backgroundColor="#ffffff"
     color="#000000">

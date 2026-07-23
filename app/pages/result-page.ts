@@ -84,13 +84,19 @@ async function doCoinFlipReveal(resultCircle: View, resultNameLabel: View) {
   // 6 Rapid Coin Flips (Y-Axis Squeeze & Expand)
   const totalFlips = 6;
   for (let i = 0; i < totalFlips; i++) {
+    if (!currentPage) return;
     // Squeeze coin to edge (Y-axis flip)
-    await resultCircle.animate({
-      scale: { x: 0.08, y: 1.05 },
-      duration: 100,
-      curve: 'easeIn'
-    });
+    try {
+      await resultCircle.animate({
+        scale: { x: 0.08, y: 1.05 },
+        duration: 100,
+        curve: 'easeIn'
+      });
+    } catch (e) {
+      return;
+    }
 
+    if (!currentPage) return;
     // Random icon swap at coin edge
     const randomIdx = Math.floor(Math.random() * topic.items.length);
     const randItem = topic.items[randomIdx];
@@ -98,21 +104,32 @@ async function doCoinFlipReveal(resultCircle: View, resultNameLabel: View) {
     viewModel.set('displayFontClass', randItem.fontClass || (currentTopicId === 'brands' ? 'fab' : 'fas'));
     AudioHelper.playTap();
 
-    // Expand coin flat
-    await resultCircle.animate({
-      scale: { x: 1.0, y: 1.0 },
-      duration: 100,
-      curve: 'easeOut'
-    });
+    if (!currentPage) return;
+    try {
+      // Expand coin flat
+      await resultCircle.animate({
+        scale: { x: 1.0, y: 1.0 },
+        duration: 100,
+        curve: 'easeOut'
+      });
+    } catch (e) {
+      return;
+    }
   }
 
+  if (!currentPage) return;
   // Final Squeeze
-  await resultCircle.animate({
-    scale: { x: 0.08, y: 1.05 },
-    duration: 110,
-    curve: 'easeIn'
-  });
+  try {
+    await resultCircle.animate({
+      scale: { x: 0.08, y: 1.05 },
+      duration: 110,
+      curve: 'easeIn'
+    });
+  } catch (e) {
+    return;
+  }
 
+  if (!currentPage) return;
   // Reveal Final Guessed Item
   viewModel.set('displayIcon', finalItem.icon);
   viewModel.set('displayFontClass', finalItem.fontClass || (currentTopicId === 'brands' ? 'fab' : 'fas'));
@@ -120,34 +137,44 @@ async function doCoinFlipReveal(resultCircle: View, resultNameLabel: View) {
 
   AudioHelper.playComplete();
 
-  // Expand coin and fade/scale in the label simultaneously
-  await Promise.all([
-    resultCircle.animate({
-      scale: { x: 1.25, y: 1.25 },
-      duration: 220,
-      curve: 'easeOut'
-    }),
-    resultNameLabel.animate({
-      opacity: 1,
-      scale: { x: 1.25, y: 1.25 },
-      duration: 220,
-      curve: 'easeOut'
-    })
-  ]);
+  if (!currentPage) return;
+  try {
+    // Expand coin and fade/scale in the label simultaneously
+    await Promise.all([
+      resultCircle.animate({
+        scale: { x: 1.25, y: 1.25 },
+        duration: 220,
+        curve: 'easeOut'
+      }),
+      resultNameLabel.animate({
+        opacity: 1,
+        scale: { x: 1.25, y: 1.25 },
+        duration: 220,
+        curve: 'easeOut'
+      })
+    ]);
+  } catch (e) {
+    return;
+  }
 
-  // Bounce back to normal scale together
-  await Promise.all([
-    resultCircle.animate({
-      scale: { x: 1.0, y: 1.0 },
-      duration: 250,
-      curve: 'bounceOut'
-    }),
-    resultNameLabel.animate({
-      scale: { x: 1.0, y: 1.0 },
-      duration: 250,
-      curve: 'bounceOut'
-    })
-  ]);
+  if (!currentPage) return;
+  try {
+    // Bounce back to normal scale together
+    await Promise.all([
+      resultCircle.animate({
+        scale: { x: 1.0, y: 1.0 },
+        duration: 250,
+        curve: 'bounceOut'
+      }),
+      resultNameLabel.animate({
+        scale: { x: 1.0, y: 1.0 },
+        duration: 250,
+        curve: 'bounceOut'
+      })
+    ]);
+  } catch (e) {
+    return;
+  }
 }
 
 export function restartGame() {
@@ -164,6 +191,16 @@ export function restartGame() {
       duration: 300
     }
   });
+}
+
+export function onUnloaded() {
+  if (confettiFrameId !== null) {
+    cancelAnimationFrame(confettiFrameId);
+    confettiFrameId = null;
+  }
+  confettiCtx = null;
+  confettis.length = 0;
+  currentPage = null;
 }
 
 export function onConfettiCanvasReady(args: any) {
@@ -229,9 +266,11 @@ export function onConfettiCanvasReady(args: any) {
 
         confettiCtx.restore();
       }
+      
+      confettiFrameId = requestAnimationFrame(renderConfetti);
+    } else {
+      confettiFrameId = null;
     }
-
-    confettiFrameId = requestAnimationFrame(renderConfetti);
   }
 
   renderConfetti();

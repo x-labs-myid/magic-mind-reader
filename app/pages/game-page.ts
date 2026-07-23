@@ -130,6 +130,7 @@ class GameViewModel extends Observable {
     this.scanColor = yes ? 'rgba(46, 204, 113, 0.9)' : 'rgba(255, 64, 129, 0.9)';
     this.scanY = 0;
     this.isScanning = true;
+    startCanvasAnimation();
 
     setTimeout(() => {
       this.isScanning = false;
@@ -157,25 +158,48 @@ class GameViewModel extends Observable {
 
 function animateGridTiles() {
   if (!currentPage) return;
-  for (let i = 0; i < 16; i++) {
-    const tileView = currentPage.getViewById<View>(`tile${i}`);
-    if (tileView) {
-      tileView.opacity = 0;
-      tileView.scaleX = 0.45;
-      tileView.scaleY = 0.45;
-      tileView.translateY = 24;
+  
+  const rows = [
+    [0, 1, 2, 3],
+    [4, 5, 6, 7],
+    [8, 9, 10, 11],
+    [12, 13, 14, 15]
+  ];
 
-      setTimeout(() => {
-        tileView.animate({
-          opacity: 1,
-          scale: { x: 1, y: 1 },
-          translate: { x: 0, y: 0 },
-          duration: 220,
-          curve: 'easeOut'
-        });
-      }, i * 22);
-    }
-  }
+  const { Animation } = require('@nativescript/core');
+
+  rows.forEach((rowIndices, rowIndex) => {
+    setTimeout(() => {
+      if (!currentPage) return;
+      
+      const animations = rowIndices.map((idx) => {
+        const tileView = currentPage!.getViewById<View>(`tile${idx}`);
+        if (tileView) {
+          tileView.opacity = 0;
+          tileView.scaleX = 0.45;
+          tileView.scaleY = 0.45;
+          tileView.translateY = 24;
+          
+          return {
+            target: tileView,
+            opacity: 1,
+            scale: { x: 1, y: 1 },
+            translate: { x: 0, y: 0 },
+            duration: 250,
+            curve: 'easeOut'
+          };
+        }
+        return null;
+      }).filter(Boolean);
+
+      if (animations.length > 0) {
+        try {
+          const anim = new Animation(animations);
+          anim.play().catch((e) => {});
+        } catch (e) {}
+      }
+    }, rowIndex * 45);
+  });
 }
 
 let viewModel: GameViewModel;
@@ -220,11 +244,17 @@ export function onNo() {
   viewModel.answer(false);
 }
 
-export function onCanvasReady(args: any) {
-  const canvas = args.object;
-  canvasCtx = canvas.getContext('2d');
-  canvasWidth = canvas.width;
-  canvasHeight = canvas.height;
+export function onUnloaded() {
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+  canvasCtx = null;
+  currentPage = null;
+}
+
+export function startCanvasAnimation() {
+  if (animationFrameId !== null) return;
 
   function drawEffects() {
     if (viewModel && viewModel.isScanning && canvasCtx) {
@@ -243,11 +273,21 @@ export function onCanvasReady(args: any) {
       if (viewModel.scanY > 100) {
         viewModel.scanY = 0;
       }
-    } else if (canvasCtx) {
-      canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+      animationFrameId = requestAnimationFrame(drawEffects);
+    } else {
+      if (canvasCtx) {
+        canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+      }
+      animationFrameId = null;
     }
-    animationFrameId = requestAnimationFrame(drawEffects);
   }
 
   drawEffects();
+}
+
+export function onCanvasReady(args: any) {
+  const canvas = args.object;
+  canvasCtx = canvas.getContext('2d');
+  canvasWidth = canvas.width;
+  canvasHeight = canvas.height;
 }

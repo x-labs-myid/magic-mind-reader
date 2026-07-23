@@ -1,5 +1,7 @@
-import { Application, isAndroid, ApplicationSettings } from '@nativescript/core';
+import { Application, isAndroid, ApplicationSettings, knownFolders, path } from '@nativescript/core';
 import { TNSPlayer } from '@nativescript-community/audio';
+
+declare var android: any;
 
 export class AudioHelper {
   private static soundPool: any = null;
@@ -15,7 +17,32 @@ export class AudioHelper {
 
   public static init() {
     this.isMutedState = ApplicationSettings.getBoolean('is_muted', false);
-    // Standard initialization using TNSPlayer for all platforms for maximum reliability of local asset path resolution
+    
+    if (isAndroid) {
+      try {
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+          const attrs = new android.media.AudioAttributes.Builder()
+            .setUsage(android.media.AudioAttributes.USAGE_GAME)
+            .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build();
+          this.soundPool = new android.media.SoundPool.Builder()
+            .setMaxStreams(5)
+            .setAudioAttributes(attrs)
+            .build();
+        } else {
+          this.soundPool = new android.media.SoundPool(5, android.media.AudioManager.STREAM_MUSIC, 0);
+        }
+
+        const appPath = knownFolders.currentApp().path;
+        const tapPath = path.join(appPath, 'assets', 'audio', 'tap-effect.mp3');
+        const completePath = path.join(appPath, 'assets', 'audio', 'complete-effect.mp3');
+
+        this.tapSoundId = this.soundPool.load(tapPath, 1);
+        this.completeSoundId = this.soundPool.load(completePath, 1);
+      } catch (e) {
+        console.error('Error initializing SoundPool for Android:', e);
+      }
+    }
   }
 
   public static isMuted(): boolean {
@@ -38,7 +65,7 @@ export class AudioHelper {
   }
 
   public static startBacksound() {
-    if (this.isMuted()) {
+    if (this.isMuted() || this.isBacksoundPlaying) {
       return;
     }
 
@@ -81,6 +108,15 @@ export class AudioHelper {
   static playTap() {
     if (this.isMuted()) return;
 
+    if (isAndroid && this.soundPool && this.tapSoundId) {
+      try {
+        this.soundPool.play(this.tapSoundId, 1.0, 1.0, 1, 0, 1.0);
+        return;
+      } catch (e) {
+        console.error('SoundPool playTap error:', e);
+      }
+    }
+
     try {
       if (!this.playerTap) {
         this.playerTap = new TNSPlayer();
@@ -99,6 +135,15 @@ export class AudioHelper {
 
   static playComplete() {
     if (this.isMuted()) return;
+
+    if (isAndroid && this.soundPool && this.completeSoundId) {
+      try {
+        this.soundPool.play(this.completeSoundId, 1.0, 1.0, 1, 0, 1.0);
+        return;
+      } catch (e) {
+        console.error('SoundPool playComplete error:', e);
+      }
+    }
 
     try {
       if (!this.playerComplete) {

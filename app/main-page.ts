@@ -39,8 +39,11 @@ export function onNavigatingTo(args: EventData) {
 }
 
 export function onNavigatingFrom(args: EventData) {
-  // Stop backsound when leaving Home page
-  AudioHelper.stopBacksound();
+  isAnimating = false;
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
 }
 
 export function toggleSettings() {
