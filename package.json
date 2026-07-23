@@ -1,7 +1,7 @@
 {
-  "name": "guest-number",
+  "name": "magic-mind-reader",
   "main": "app/app.ts",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev:android": "ns run android",
@@ -15,7 +15,6 @@
     "@nativescript/core": "~9.0.0",
     "@nativescript/localize": "^5.2.0",
     "@nativescript/tailwind": "^4.0.9",
-    "@nativescript/theme": "^3.1.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-@import "@nativescript/theme/css/core.css";
+@import "tailwindcss";
 @import "./fonts.css";
 
 /* Base Page Styling */
