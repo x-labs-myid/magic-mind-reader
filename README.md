@@ -30,12 +30,12 @@ A modern, interactive, and colorful math-magic guessing game rebuilt from the gr
 ## 🛠️ Technology Stack
 
 - **Framework**: [NativeScript v9](https://docs.nativescript.org)
-- **Language**: [TypeScript 7.0.2](https://typescriptlang.org)
+- **Language**: [TypeScript 5.4](https://typescriptlang.org)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com) via `@nativescript/tailwind`
 - **Audio Engine**: `@nativescript-community/audio`
 - **Localization**: `@nativescript/localize`
 - **Interactive Graphics**: `@nativescript/canvas`
-- **Bundler**: `@nativescript/vite` (Vite)
+- **Bundler**: `@nativescript/webpack` (Webpack)
 
 ---
 
