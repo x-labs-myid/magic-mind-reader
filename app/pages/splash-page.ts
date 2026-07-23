@@ -104,8 +104,20 @@ export function onCanvasReady(args: any) {
       ctx.restore();
     }
 
-    animationFrameId = requestAnimationFrame(render);
+    if (isAnimating) {
+      animationFrameId = requestAnimationFrame(render);
+    } else {
+      animationFrameId = null;
+    }
   }
 
   render();
+}
+
+export function onUnloaded() {
+  isAnimating = false;
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
 }

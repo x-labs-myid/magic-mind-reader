@@ -74,17 +74,23 @@ export function onNavigatedTo(args: EventData) {
       tileView.translateY = 30;
 
       setTimeout(() => {
-        AudioHelper.playTap();
-        tileView.animate({
-          opacity: 1,
-          scale: { x: 1, y: 1 },
-          translate: { x: 0, y: 0 },
-          duration: 260,
-          curve: 'easeOut'
-        });
+        if (!currentPage) return;
+        try {
+          tileView.animate({
+            opacity: 1,
+            scale: { x: 1, y: 1 },
+            translate: { x: 0, y: 0 },
+            duration: 260,
+            curve: 'easeOut'
+          }).catch(() => {});
+        } catch (e) {}
       }, i * 45);
     }
   }
+}
+
+export function onUnloaded() {
+  currentPage = null;
 }
 
 export function goBack() {

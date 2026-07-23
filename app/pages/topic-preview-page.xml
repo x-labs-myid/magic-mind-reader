@@ -2,6 +2,7 @@
     xmlns="http://schemas.nativescript.org/tns.xsd" 
     navigatingTo="onNavigatingTo"
     navigatedTo="onNavigatedTo"
+    unloaded="onUnloaded"
     actionBarHidden="true"
     backgroundColor="#ffffff"
     color="#000000">
